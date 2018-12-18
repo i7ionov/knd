@@ -1,0 +1,1758 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="ad.instance" pk="1">
+        <field name="name" type="CharField">ИГЖН ПК</field>
+        <field name="group" type="CharField"></field>
+        <field name="address" type="CharField"></field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField"></field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="3">
+        <field name="name" type="CharField">Судебный участок № 1 Дзержинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Танкистов, 50 , г. Пермь, 614022</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">1dzerzhinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="4">
+        <field name="name" type="CharField">Судебный участок № 2 Дзержинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Танкистов, 50 , г. Пермь, 614022</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">2dzerzhinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="5">
+        <field name="name" type="CharField">Судебный участок № 3 Дзержинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. В.Каменского, 26, г. Пермь, 614046</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">3dzerzhinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="6">
+        <field name="name" type="CharField">Судебный участок № 4 Дзержинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Танкистов, 50 , г. Пермь, 614022</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">4dzerzhinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="7">
+        <field name="name" type="CharField">Судебный участок № 5 Дзержинского судебного района г. Перми </field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Танкистов, 50 , г. Пермь, 614022</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5dzerzhinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="8">
+        <field name="name" type="CharField">Судебный участок № 6 Дзержинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Хабаровская, 64, г. Пермь, 614067</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">6dzerzhinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="9">
+        <field name="name" type="CharField">Судебный участок № 7 Дзержинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Танкистов, 50 , г. Пермь, 614022</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">7dzerzhinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="10">
+        <field name="name" type="CharField">Судебный участок № 1 Индустриального судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 76, г. Пермь, 614036</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">1industrialny@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="11">
+        <field name="name" type="CharField">Судебный участок № 2 Индустриального судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 78, г. Пермь, 614036</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">2industrialny@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="12">
+        <field name="name" type="CharField">Судебный участок № 3 Индустриального судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Танкистов, 50 , г. Пермь, 614022</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">3industrialny@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="13">
+        <field name="name" type="CharField">Судебный участок № 4 Индустриального судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 78, г. Пермь, 614036</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">4industrialny@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="14">
+        <field name="name" type="CharField">Судебный участок № 5 Индустриального судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 78, г. Пермь, 614036</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5industrialny@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="15">
+        <field name="name" type="CharField">Судебный участок № 6 Индустриального судебного района г. Перми </field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 78, г. Пермь, 614036</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">6industrialny@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="16">
+        <field name="name" type="CharField">Судебный участок № 7 Индустриального судебного района г. Перми </field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 76, г. Пермь, 614036</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">7industrialny@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="17">
+        <field name="name" type="CharField">Судебный участок № 1 Кировского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Федосеева, 15, г. Пермь, 614101</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">1kirovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="18">
+        <field name="name" type="CharField">Судебный участок № 2 Кировского судебного района г. Перми </field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ветлужская, 62, г. Пермь, 614067</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">2kirovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="19">
+        <field name="name" type="CharField">Судебный участок № 3 Кировского судебного района г. Перми г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Федосеева, 15, г. Пермь, 614101</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">3kirovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="20">
+        <field name="name" type="CharField">Судебный участок № 4 Кировского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Панфилова, 16, г. Пермь, 614034</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">4kirovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="21">
+        <field name="name" type="CharField">Судебный участок № 5 Кировского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. 4-й Пятилетки, 2а, г. Пермь, 614042</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5kirovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="22">
+        <field name="name" type="CharField">Судебный участок № 1 Ленинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Советская, 104, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">1leninsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="23">
+        <field name="name" type="CharField">Судебный участок № 2 Ленинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Советская, 104, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">2leninsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="24">
+        <field name="name" type="CharField">Судебный участок № 3 Ленинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Советская, 104, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">3leninsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="25">
+        <field name="name" type="CharField">Судебный участок № 4 Ленинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Советская, 104, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">4leninsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="26">
+        <field name="name" type="CharField">Судебный участок № 5 Ленинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Советская, 104, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5leninsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="27">
+        <field name="name" type="CharField">Судебный участок № 1 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Дружбы, 12, г. Пермь, 614070</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">1motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="28">
+        <field name="name" type="CharField">Судебный участок № 2 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">б. Гагарина, 56а, г. Пермь, 614077</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">2motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="29">
+        <field name="name" type="CharField">Судебный участок № 3 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Лебедева, 25 (3 этаж), г. Пермь, 614017</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">3motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="30">
+        <field name="name" type="CharField">Судебный участок № 4 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Лебедева, 25 (2 этаж), г. Пермь, 614017</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">4motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="31">
+        <field name="name" type="CharField">Судебный участок № 5 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Дружбы, 12, г. Пермь, 614070</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="32">
+        <field name="name" type="CharField">Судебный участок № 6 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Лебедева, 25 (2 этаж), г. Пермь, 614017</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">6motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="33">
+        <field name="name" type="CharField">Судебный участок № 7 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Лебедева, 25 (2 этаж), г. Пермь, 614017</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">7motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="34">
+        <field name="name" type="CharField">Судебный участок № 8 Мотовилихинского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Лебедева, 25 (2 этаж), г. Пермь, 614017</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">8motovilihinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="35">
+        <field name="name" type="CharField">Судебный участок № 1 Орджоникидзевского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Песочная, 1а, г. Пермь, 614026</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">1ordzhonikidzevsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="36">
+        <field name="name" type="CharField">Судебный участок № 2 Орджоникидзевского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Песочная, 1а, г. Пермь, 614026</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">2ordzhonikidzevsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="37">
+        <field name="name" type="CharField">Судебный участок № 3 Орджоникидзевского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Песочная, 1а, г. Пермь, 614026</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">3ordzhonikidzevsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="38">
+        <field name="name" type="CharField">Судебный участок № 4 Орджоникидзевского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Лобвинская, 5, г. Пермь, 614030</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">4ordzhonikidzevsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="39">
+        <field name="name" type="CharField">Судебный участок № 5 Орджоникидзевского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Лобвинская, 5, г. Пермь, 614030</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5ordzhonikidzevsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="40">
+        <field name="name" type="CharField">Судебный участок № 1 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Чернышевского, 3, г. Пермь, 614002</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">1sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="41">
+        <field name="name" type="CharField">Судебный участок № 2 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Рабоче-Крестьянская, 2, г. Пермь, 614007</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">2sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="42">
+        <field name="name" type="CharField">Судебный участок № 3 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Екатерининская, 80, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">3sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="43">
+        <field name="name" type="CharField">Судебный участок № 4 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">Комсомольский пр., 81 ,г. Пермь, 614010</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">4sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="44">
+        <field name="name" type="CharField">Судебный участок № 5 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Екатерининская, 80, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="45">
+        <field name="name" type="CharField">Судебный участок № 6 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Екатерининская, 80, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">6sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="46">
+        <field name="name" type="CharField">Судебный участок № 7 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">Комсомольский пр., 81 ,г. Пермь, 614010</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">7sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="47">
+        <field name="name" type="CharField">Судебный участок № 8 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Рабоче-Крестьянская, 2, г. Пермь, 614007</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">8sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="48">
+        <field name="name" type="CharField">Судебный участок № 9 Свердловского судебного района г. Перми</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Транспортная, 2, п. Новые Ляды, г. Пермь, 614105</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">9sverdlovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="49">
+        <field name="name" type="CharField">Судебный участок № 1 Александровского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Калинина, 3, г. Александровск,  Пермский край, 618320</field>
+        <field name="oktmo" type="CharField">57605000</field>
+        <field name="email" type="CharField">1aleksandrovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="50">
+        <field name="name" type="CharField">Судебный участок № 2 Александровского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Энергетиков, 3,п. Яйва, Пермский край, 618340</field>
+        <field name="oktmo" type="CharField">57605000</field>
+        <field name="email" type="CharField">2aleksandrovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="51">
+        <field name="name" type="CharField">Судебный участок № 1 Бардымского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">с. Барда, ул. Ленина, 50а, Пермский край,  618150</field>
+        <field name="oktmo" type="CharField">57604000</field>
+        <field name="email" type="CharField">1bardymsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="52">
+        <field name="name" type="CharField">Судебный участок № 2 Бардымского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">с. Барда, ул. Ленина, 50а, Пермский край,  618150</field>
+        <field name="oktmo" type="CharField">57604000</field>
+        <field name="email" type="CharField">2bardymsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="53">
+        <field name="name" type="CharField">Судебный участок № 1 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (3 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">1bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="54">
+        <field name="name" type="CharField">Судебный участок № 2 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (3 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">2bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="55">
+        <field name="name" type="CharField">Судебный участок № 3 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (3 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">3bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="56">
+        <field name="name" type="CharField">Судебный участок № 4 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (4 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">4bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="57">
+        <field name="name" type="CharField">Судебный участок № 5 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (4 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">5bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="58">
+        <field name="name" type="CharField">Судебный участок № 6 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (4 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">6bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="59">
+        <field name="name" type="CharField">Судебный участок № 7 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (4 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">7bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="60">
+        <field name="name" type="CharField">Судебный участок № 8 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юбилейная, 11 (3 этаж), г. Березники,  Пермский край, 618400</field>
+        <field name="oktmo" type="CharField">57708000</field>
+        <field name="email" type="CharField">8bereznikovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="61">
+        <field name="name" type="CharField">Судебный участок № 9 Березниковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Свободы, 155, г. Усолье, Пермский край, 18460</field>
+        <field name="oktmo" type="CharField">57653000</field>
+        <field name="email" type="CharField">1usolsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="62">
+        <field name="name" type="CharField">Судебный участок № 1 Большесосновского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">пр. Торговый, 3, с. Большая Соснова,  Пермский край, 617080</field>
+        <field name="oktmo" type="CharField">57608000</field>
+        <field name="email" type="CharField">1bolshesosnovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="63">
+        <field name="name" type="CharField">Судебный участок № 2 Большесосновского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ленина, 54, с. Частые, Пермский край, 617170</field>
+        <field name="oktmo" type="CharField">57655000</field>
+        <field name="email" type="CharField">2bolshesosnovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="64">
+        <field name="name" type="CharField">Судебный участок № 1 Верещагинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Фабричная, 15, г. Верещагино,  Пермский край, 617120</field>
+        <field name="oktmo" type="CharField">57612000</field>
+        <field name="email" type="CharField">1vereshhaginsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="65">
+        <field name="name" type="CharField">Судебный участок № 2 Верещагинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Фабричная, 15, г. Верещагино,  Пермский край, 617120</field>
+        <field name="oktmo" type="CharField">57612000</field>
+        <field name="email" type="CharField">2vereshhaginsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="66">
+        <field name="name" type="CharField">Судебный участок № 3 Верещагинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Комсомольская, 11а, с. Сива,  Пермский край, 617240</field>
+        <field name="oktmo" type="CharField">57648000</field>
+        <field name="email" type="CharField">3vereshhaginsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="67">
+        <field name="name" type="CharField">Судебный участок № 1 Гайнского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Кашина, 40, п. Гайны, Пермский край,  619650</field>
+        <field name="oktmo" type="CharField">57814000</field>
+        <field name="email" type="CharField">1gajnsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="68">
+        <field name="name" type="CharField">Судебный участок № 1 Горнозаводского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 15, г. Горнозаводск, Пермский край, 618820</field>
+        <field name="oktmo" type="CharField">57614000</field>
+        <field name="email" type="CharField">1gornozavodsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="69">
+        <field name="name" type="CharField">Судебный участок № 2 Горнозаводского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Мира, 15, г. Горнозаводск, Пермский край, 618820</field>
+        <field name="oktmo" type="CharField">57614000</field>
+        <field name="email" type="CharField">2gornozavodsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="70">
+        <field name="name" type="CharField">Судебный участок № 1 Губахинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Дегтярева, 16а, г. Губаха,Пермский край,  618250</field>
+        <field name="oktmo" type="CharField">57717000</field>
+        <field name="email" type="CharField">1gubahinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="71">
+        <field name="name" type="CharField">Судебный участок № 2 Губахинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Дегтярева, 16а, г. Губаха,Пермский край,  618250</field>
+        <field name="oktmo" type="CharField">57717000</field>
+        <field name="email" type="CharField">2gubahinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="72">
+        <field name="name" type="CharField">Судебный участок № 3 Губахинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ленина, 164, г. Гремячинск, Пермский край,  618270</field>
+        <field name="oktmo" type="CharField">57615000</field>
+        <field name="email" type="CharField">1gremjachinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="73">
+        <field name="name" type="CharField">Судебный участок № 1 Добрянского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Советская, 36, г. Добрянка,Пермский край, 618740</field>
+        <field name="oktmo" type="CharField">57616000</field>
+        <field name="email" type="CharField">1dobrjansky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="74">
+        <field name="name" type="CharField">Судебный участок № 2 Добрянского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Советская, 36, г. Добрянка,Пермский край, 618740</field>
+        <field name="oktmo" type="CharField">57616000</field>
+        <field name="email" type="CharField">2dobrjansky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="75">
+        <field name="name" type="CharField">Судебный участок № 3 Добрянского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Советская, 36, г. Добрянка,Пермский край, 618740</field>
+        <field name="oktmo" type="CharField">57616000</field>
+        <field name="email" type="CharField">3dobrjansky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="76">
+        <field name="name" type="CharField">Судебный участок № 1 Ильинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Теплоуховых, 5, п. Ильинский, Пермский край, 617020</field>
+        <field name="oktmo" type="CharField">57620000</field>
+        <field name="email" type="CharField">1ilinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="77">
+        <field name="name" type="CharField">Судебный участок № 1 Карагайского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. К.Маркса, 23, с. Карагай, Пермский край, 617210</field>
+        <field name="oktmo" type="CharField">57622000</field>
+        <field name="email" type="CharField">1karagajsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="78">
+        <field name="name" type="CharField">Судебный участок № 2 Карагайского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. К.Маркса, 23, с. Карагай, Пермский край, 617210</field>
+        <field name="oktmo" type="CharField">57622000</field>
+        <field name="email" type="CharField">2karagajsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="79">
+        <field name="name" type="CharField">Судебный участок № 1 Кизеловского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Пролетарская, 19, г. Кизел, Пермский край, 618350</field>
+        <field name="oktmo" type="CharField">57623000</field>
+        <field name="email" type="CharField">1kizelovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="80">
+        <field name="name" type="CharField">Судебный участок № 2 Кизеловского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Пролетарская, 19, г. Кизел, Пермский край, 618350</field>
+        <field name="oktmo" type="CharField">57623000</field>
+        <field name="email" type="CharField">2kizelovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="81">
+        <field name="name" type="CharField">Судебный участок № 1 Косинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Пермяцкая, 27, с. Коса, Пермский край, 619430</field>
+        <field name="oktmo" type="CharField">57817000</field>
+        <field name="email" type="CharField">1kosinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="82">
+        <field name="name" type="CharField">Судебный участок № 1 Кочевского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Крупской, 2, с. Кочево, Пермский край, 619320</field>
+        <field name="oktmo" type="CharField">57819000</field>
+        <field name="email" type="CharField">1kochevsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="83">
+        <field name="name" type="CharField">Судебный участок № 1 Красновишерского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Советская, 9, г. Красновишерск, Пермский край, 618590</field>
+        <field name="oktmo" type="CharField">57626000</field>
+        <field name="email" type="CharField">1krasnovishersky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="84">
+        <field name="name" type="CharField">Судебный участок № 1 Краснокамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> пр. Мира, 14, г. Краснокамск, Пермский край, 617060</field>
+        <field name="oktmo" type="CharField">57627000</field>
+        <field name="email" type="CharField">1krasnokamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="85">
+        <field name="name" type="CharField">Судебный участок № 2 Краснокамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> пр. Мира, 14, г. Краснокамск, Пермский край, 617060</field>
+        <field name="oktmo" type="CharField">57627000</field>
+        <field name="email" type="CharField">2krasnokamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="86">
+        <field name="name" type="CharField">Судебный участок № 3 Краснокамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> пр. Мира, 14, г. Краснокамск, Пермский край, 617060</field>
+        <field name="oktmo" type="CharField">57627000</field>
+        <field name="email" type="CharField">3krasnokamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="87">
+        <field name="name" type="CharField">Судебный участок № 4 Краснокамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> пр. Мира, 14, г. Краснокамск, Пермский край, 617060</field>
+        <field name="oktmo" type="CharField">57627000</field>
+        <field name="email" type="CharField">4krasnokamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="88">
+        <field name="name" type="CharField">Судебный участок № 1 Кудымкарского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Загородная, 4, г. Кудымкар, Пермский край,  619000</field>
+        <field name="oktmo" type="CharField">57821000</field>
+        <field name="email" type="CharField">1kudymkarsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="89">
+        <field name="name" type="CharField">Судебный участок № 2 Кудымкарского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Загородная, 4, г. Кудымкар, Пермский край,  619000</field>
+        <field name="oktmo" type="CharField">57821000</field>
+        <field name="email" type="CharField">2kudymkarsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="90">
+        <field name="name" type="CharField">Судебный участок № 3 Кудымкарского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Загородная, 4, г. Кудымкар, Пермский край,  619000</field>
+        <field name="oktmo" type="CharField">57821000</field>
+        <field name="email" type="CharField">3kudymkarsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="91">
+        <field name="name" type="CharField">Судебный участок № 4 Кудымкарского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Загородная, 4, г. Кудымкар, Пермский край,  619000</field>
+        <field name="oktmo" type="CharField">57821000</field>
+        <field name="email" type="CharField">4kudymkarsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="92">
+        <field name="name" type="CharField">Судебный участок N 5 Кудымкарского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Чечулина, 18, с. Юсьва, Пермский край. 619170</field>
+        <field name="oktmo" type="CharField">57827000</field>
+        <field name="email" type="CharField">1jusvinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="93">
+        <field name="name" type="CharField">Судебный участок № 1 Куединского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Трактовая, 4, с. Куеда, Пермский край,  617700</field>
+        <field name="oktmo" type="CharField">57628000</field>
+        <field name="email" type="CharField">1kuedinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="94">
+        <field name="name" type="CharField">Судебный участок № 2 Куединского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Трактовая, 4, с. Куеда, Пермский край,  617700</field>
+        <field name="oktmo" type="CharField">57628000</field>
+        <field name="email" type="CharField">2kuedinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="95">
+        <field name="name" type="CharField">Судебный участок № 1 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ст.Разина, 21, г. Кунгур, Пермский край, 617470</field>
+        <field name="oktmo" type="CharField">57722000</field>
+        <field name="email" type="CharField">1kungursky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="96">
+        <field name="name" type="CharField">Судебный участок № 2 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ст.Разина, 21, г. Кунгур, Пермский край, 617470</field>
+        <field name="oktmo" type="CharField">57722000</field>
+        <field name="email" type="CharField">2kungursky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="97">
+        <field name="name" type="CharField">Судебный участок № 3 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ст.Разина, 21, г. Кунгур, Пермский край, 617470</field>
+        <field name="oktmo" type="CharField">57722000</field>
+        <field name="email" type="CharField">3kungursky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="98">
+        <field name="name" type="CharField">Судебный участок № 4 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Полетаевская, 2, г. Кунгур, Пермский край, 617475</field>
+        <field name="oktmo" type="CharField">57722000</field>
+        <field name="email" type="CharField">4kungursky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="99">
+        <field name="name" type="CharField">Судебный участок № 5 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">с. Плеханово, ул. Центральная, 1, Пермский край, 617410</field>
+        <field name="oktmo" type="CharField">57630000</field>
+        <field name="email" type="CharField">5kungursky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="100">
+        <field name="name" type="CharField">Судебный участок № 6 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">г. Кунгур, ул. Полетаевская, 2, Пермский край, 617475</field>
+        <field name="oktmo" type="CharField">57722000</field>
+        <field name="email" type="CharField">6kungursky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="101">
+        <field name="name" type="CharField">Судебный участок № 7 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Набережная, 35, с. Усть-Кишерть, Пермский край, 617600</field>
+        <field name="oktmo" type="CharField">57624000</field>
+        <field name="email" type="CharField">7kungursky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="102">
+        <field name="name" type="CharField">Судебный участок № 8 Кунгурского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Центральная, с. Березовка,Пермский край,  4617570</field>
+        <field name="oktmo" type="CharField">57606000</field>
+        <field name="email" type="CharField">1berezovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="103">
+        <field name="name" type="CharField">Судебный участок № 1 Лысьвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Федосеева, 7, г. Лысьва, Пермский край,  618900</field>
+        <field name="oktmo" type="CharField">57726000</field>
+        <field name="email" type="CharField">1lysvensky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="104">
+        <field name="name" type="CharField">Судебный участок № 2 Лысьвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Шмидта, 8/2, г. Лысьва, Пермский край, 618905</field>
+        <field name="oktmo" type="CharField">57726000</field>
+        <field name="email" type="CharField">2lysvensky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="105">
+        <field name="name" type="CharField">Судебный участок № 3 Лысьвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Федосеева, 7, г. Лысьва, Пермский край,  618900</field>
+        <field name="oktmo" type="CharField">57726000</field>
+        <field name="email" type="CharField">3lysvensky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="106">
+        <field name="name" type="CharField">Судебный участок № 4 Лысьвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Федосеева, 7, г. Лысьва, Пермский край,  618900</field>
+        <field name="oktmo" type="CharField">57726000</field>
+        <field name="email" type="CharField">4lysvensky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="107">
+        <field name="name" type="CharField">Судебный участок № 5 Лысьвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Шмидта, 8/2, г. Лысьва, Пермский край, 618905</field>
+        <field name="oktmo" type="CharField">57726000</field>
+        <field name="email" type="CharField">5lysvensky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="108">
+        <field name="name" type="CharField">Судебный участок № 1 Нытвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ст.Разина, 4, г. Нытва, Пермский край, 617000</field>
+        <field name="oktmo" type="CharField">57634000</field>
+        <field name="email" type="CharField">1nytvensky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="109">
+        <field name="name" type="CharField">Судебный участок № 2 Нытвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ст.Разина, 4, г. Нытва, Пермский край, 617000</field>
+        <field name="oktmo" type="CharField">57634000</field>
+        <field name="email" type="CharField">2nytvensky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="110">
+        <field name="name" type="CharField">Судебный участок № 3 Нытвенского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Первомайская, 31, г. Оханск, Пермский край,  618100</field>
+        <field name="oktmo" type="CharField">57642000</field>
+        <field name="email" type="CharField">1ohansky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="111">
+        <field name="name" type="CharField">Судебный участок № 1 Октябрьского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Трактовая, 41, п. Октябрьский, Пермский край, 617860</field>
+        <field name="oktmo" type="CharField">57636000</field>
+        <field name="email" type="CharField">1oktjabrsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="112">
+        <field name="name" type="CharField">Судебный участок № 2 Октябрьского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Трактовая, 41, п. Октябрьский, Пермский край, 617860</field>
+        <field name="oktmo" type="CharField">57636000</field>
+        <field name="email" type="CharField">2oktjabrsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="113">
+        <field name="name" type="CharField">Судебный участок № 1 Ординского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Советская, 22, с. Орда, Пермский край, 617500</field>
+        <field name="oktmo" type="CharField">57638000</field>
+        <field name="email" type="CharField">1ordinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="114">
+        <field name="name" type="CharField">Судебный участок № 2 Ординского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">с. Уинское, ул. Советская, 17, Пермский край, 617520</field>
+        <field name="oktmo" type="CharField">57652000</field>
+        <field name="email" type="CharField">2ordinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="115">
+        <field name="name" type="CharField">Судебный участок № 1 Осинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ленина, 59, г. Оса, Пермский край, 618122</field>
+        <field name="oktmo" type="CharField">57640000</field>
+        <field name="email" type="CharField">1osinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="116">
+        <field name="name" type="CharField">Судебный участок № 2 Осинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ленина, 59, г. Оса, Пермский край, 618122</field>
+        <field name="oktmo" type="CharField">57640000</field>
+        <field name="email" type="CharField">2osinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="117">
+        <field name="name" type="CharField">Судебный участок № 3 Осинского судебного района Пермского края </field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">с. Елово,ул. Ленина, 13 Пермский край, 618170</field>
+        <field name="oktmo" type="CharField">57618000</field>
+        <field name="email" type="CharField">3osinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="118">
+        <field name="name" type="CharField">Судебный участок № 1 Очерского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Октябрьская, 26, г. Очер, Пермский край, 617140</field>
+        <field name="oktmo" type="CharField">57644000</field>
+        <field name="email" type="CharField">1ochersky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="119">
+        <field name="name" type="CharField">Судебный участок № 1 Пермского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул.Садовое кольцо, д. 8, с. Кондратово,  Пермский край, 614506</field>
+        <field name="oktmo" type="CharField">57646000</field>
+        <field name="email" type="CharField">1permsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="120">
+        <field name="name" type="CharField">Судебный участок № 2 Пермского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул.Садовое кольцо, д. 8, с. Кондратово,  Пермский край, 614506</field>
+        <field name="oktmo" type="CharField">57646000</field>
+        <field name="email" type="CharField">2permsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="121">
+        <field name="name" type="CharField">Судебный участок № 3 Пермского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул.Садовое кольцо, д. 8, с. Кондратово,  Пермский край, 614506</field>
+        <field name="oktmo" type="CharField">57646000</field>
+        <field name="email" type="CharField">3permsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="122">
+        <field name="name" type="CharField">Судебный участок № 4 Пермского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Школьная, 9, с. Бершеть, Пермский край, 614551</field>
+        <field name="oktmo" type="CharField">57646000</field>
+        <field name="email" type="CharField">4permsky@ms.permkray.ru.</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="123">
+        <field name="name" type="CharField">Судебный участок № 5 Пермского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Танкистов, 50 , г. Пермь, 614067</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">5permsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="124">
+        <field name="name" type="CharField">Судебный участок № 1 Соликамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Молодежная, 15, г. Соликамск, Пермский край, 618553</field>
+        <field name="oktmo" type="CharField">57730000</field>
+        <field name="email" type="CharField">1solikamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="125">
+        <field name="name" type="CharField">Судебный участок № 2 Соликамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Молодежная, 15, г. Соликамск, Пермский край, 618553</field>
+        <field name="oktmo" type="CharField">57730000</field>
+        <field name="email" type="CharField">2solikamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="126">
+        <field name="name" type="CharField">Судебный участок № 3 Соликамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Молодежная, 15, г. Соликамск, Пермский край, 618553</field>
+        <field name="oktmo" type="CharField">57730000</field>
+        <field name="email" type="CharField">3solikamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="127">
+        <field name="name" type="CharField">Судебный участок № 4 Соликамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Молодежная, 15, г. Соликамск, Пермский край, 618553</field>
+        <field name="oktmo" type="CharField">57730000</field>
+        <field name="email" type="CharField">4solikamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="128">
+        <field name="name" type="CharField">Судебный участок № 5 Соликамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Молодежная, 15, г. Соликамск, Пермский край, 618553</field>
+        <field name="oktmo" type="CharField">57730000</field>
+        <field name="email" type="CharField">5solikamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="129">
+        <field name="name" type="CharField">Судебный участок № 6 Соликамского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Молодежная, 15, г. Соликамск, Пермский край, 618553</field>
+        <field name="oktmo" type="CharField">57730000</field>
+        <field name="email" type="CharField">6solikamsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="130">
+        <field name="name" type="CharField">Судебный участок № 1 Суксунского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. К.Маркса, 17, п. Суксун ,Пермский край, 617560</field>
+        <field name="oktmo" type="CharField">57651000</field>
+        <field name="email" type="CharField">1suksunsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="131">
+        <field name="name" type="CharField">Судебный участок № 1 Чайковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Промышленная, 4, г. Чайковский, Пермский край, 617762</field>
+        <field name="oktmo" type="CharField">57654000</field>
+        <field name="email" type="CharField">1chajkovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="132">
+        <field name="name" type="CharField">Судебный участок № 2 Чайковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Промышленная, 4, г. Чайковский, Пермский край, 617762</field>
+        <field name="oktmo" type="CharField">57654000</field>
+        <field name="email" type="CharField">2chajkovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="133">
+        <field name="name" type="CharField">Судебный участок № 3 Чайковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Промышленная, 4, г. Чайковский, Пермский край, 617762</field>
+        <field name="oktmo" type="CharField">57654000</field>
+        <field name="email" type="CharField">3chajkovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="134">
+        <field name="name" type="CharField">Судебный участок № 4 Чайковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Промышленная, 4, г. Чайковский, Пермский край, 617762</field>
+        <field name="oktmo" type="CharField">57654000</field>
+        <field name="email" type="CharField">4chajkovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="135">
+        <field name="name" type="CharField">Судебный участок № 5 Чайковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Промышленная, 4, г. Чайковский, Пермский край, 617762</field>
+        <field name="oktmo" type="CharField">57654000</field>
+        <field name="email" type="CharField">5chajkovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="136">
+        <field name="name" type="CharField">Судебный участок № 6 Чайковского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Промышленная, 4, г. Чайковский, Пермский край, 617762</field>
+        <field name="oktmo" type="CharField">57654000</field>
+        <field name="email" type="CharField">6chajkovsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="137">
+        <field name="name" type="CharField">Судебный участок № 1 Чердынского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Юргановская, 58, г. Чердынь, Пермский край, 618601</field>
+        <field name="oktmo" type="CharField">57656000</field>
+        <field name="email" type="CharField">1cherdynsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="138">
+        <field name="name" type="CharField">Судебный участок № 1 Чернушинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Ленина, 141, пос. Пермдорстрой, г. Чернушка, Пермский край, 617832</field>
+        <field name="oktmo" type="CharField">57657000</field>
+        <field name="email" type="CharField">1chernushinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="139">
+        <field name="name" type="CharField">Судебный участок № 2 Чернушинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Ленина, 141, пос. Пермдорстрой, г. Чернушка, Пермский край, 617832</field>
+        <field name="oktmo" type="CharField">57657000</field>
+        <field name="email" type="CharField">2chernushinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="140">
+        <field name="name" type="CharField">Судебный участок № 3 Чернушинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField"> ул. Ленина, 141, пос. Пермдорстрой, г. Чернушка, Пермский край, 617832</field>
+        <field name="oktmo" type="CharField">57657000</field>
+        <field name="email" type="CharField">3chernushinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="141">
+        <field name="name" type="CharField">Судебный участок № 1 Чусовского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ленина, 27, г. Чусовой, Пермский край, 618260</field>
+        <field name="oktmo" type="CharField">57658000</field>
+        <field name="email" type="CharField">1chusovskoy@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="142">
+        <field name="name" type="CharField">Судебный участок № 2 Чусовского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. 50 лет ВЛКСМ, 13б/1, г. Чусовой, Пермский край, 618260</field>
+        <field name="oktmo" type="CharField">57658000</field>
+        <field name="email" type="CharField">2chusovskoy@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="143">
+        <field name="name" type="CharField">Судебный участок № 3 Чусовского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Ленина, 27, г. Чусовой, Пермский край, 618260</field>
+        <field name="oktmo" type="CharField">57658000</field>
+        <field name="email" type="CharField">3chusovskoy@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="144">
+        <field name="name" type="CharField">Судебный участок № 4 Чусовского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. 50 лет ВЛКСМ, 13б/1, г. Чусовой, Пермский край, 618260</field>
+        <field name="oktmo" type="CharField">57658000</field>
+        <field name="email" type="CharField">4chusovskoy@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="145">
+        <field name="name" type="CharField">Судебный участок № 1 Юрлинского судебного района Пермского края</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Топоркова, 18, с. Юрла, Пермский край, 619200</field>
+        <field name="oktmo" type="CharField">57825000</field>
+        <field name="email" type="CharField">1jurlinsky@ms.permkray.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="146">
+        <field name="name" type="CharField">Судебный участок № 139 Ново-Переделкинского судебного района г. Москвы</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Бровское шоссе, 48, г. Москва, 107014</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">mirsud139@ums-mos.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="147">
+        <field name="name" type="CharField">Судебный  участок № 366 Хамовнического судебного района г. Москвы</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Космодамианская наб., д. 26/55, с. 7, г. Москва, 115035</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">mirsud366@ums-mos.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="148">
+        <field name="name" type="CharField">Судебный участок № 9 Железнодорожного судебного района г. Екатеринбурга</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">пер. Клубный, 5, г. Екатеринбург, 620050</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">9zhel@dms66.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="149">
+        <field name="name" type="CharField">Судебный участок № 7 Калининского судебного района г. Челябинска</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Косарева, 50а, г. Челябинск, 454008</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">kalinin7@mirovoy-sud74.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="150">
+        <field name="name" type="CharField">Судебный участок №1 Советского судебного района г. Челябинска</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Крупской, 30, г. Челябинск, 454092</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField">sov1@mirovoy-sud74.ru</field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="151">
+        <field name="name" type="CharField">Судебный участок № 245</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Автозаводская, д. 17, корп. 2</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField"></field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="152">
+        <field name="name" type="CharField">Судебный участок № 100 Красногорского судебного района д. Гольево</field>
+        <field name="group" type="CharField">court</field>
+        <field name="address" type="CharField">ул. Центральная, 1, г. Красногорск, Московская область, 143405</field>
+        <field name="oktmo" type="CharField">57701000</field>
+        <field name="email" type="CharField"></field>
+        <field name="telephone" type="CharField"></field>
+    </object>
+    <object model="ad.instance" pk="302">
+        <field name="name" type="CharField">Аппарат Управления</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Советской Армии, д. 28, г. Пермь, 614066 </field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">orog@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)220-11-19</field>
+    </object>
+    <object model="ad.instance" pk="303">
+        <field name="name" type="CharField">ОСП по г. Кудымкару, Юрлинскому и Юсьвинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Калинина, д. 38, г. Кудымкар, 619000,</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp01@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34260) 4-50-71</field>
+    </object>
+    <object model="ad.instance" pk="304">
+        <field name="name" type="CharField">ОСП по Ленинскому и Индустриальному районам г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Стахановская, 54, г. Пермь, 614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp04@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (342) 227-77-80</field>
+    </object>
+    <object model="ad.instance" pk="305">
+        <field name="name" type="CharField">ОСП по Мотовилихинскому району г.Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">Бульвар Гагарина, 74, г. Пермь,  614077</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp05@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (342) 262-18-05</field>
+    </object>
+    <object model="ad.instance" pk="306">
+        <field name="name" type="CharField">ОСП по Орджоникидзевскому району г.Перми и Ильинскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Ереванская, 35, г. Пермь, 614026 </field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp06@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)263-67-31</field>
+    </object>
+    <object model="ad.instance" pk="307">
+        <field name="name" type="CharField">ОСП по Свердловскому району г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Солдатова, 39, г. Пермь,  614111</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp07@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)242-06-00</field>
+    </object>
+    <object model="ad.instance" pk="308">
+        <field name="name" type="CharField">ОСП по г. Березники и Усольскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Ленина, 33, г. Березники, 618400</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp10@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (3424) 26-36-67</field>
+    </object>
+    <object model="ad.instance" pk="309">
+        <field name="name" type="CharField">ОСП по Большесосновскому и Частинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Магнитогорская, 4, с. Большая Соснова, 617080</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp12@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8( 34257) 2-76-53</field>
+    </object>
+    <object model="ad.instance" pk="310">
+        <field name="name" type="CharField">ОСП по г. Губахе и г. Гремячинску</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Орджоникидзе, 6, г. Губаха, 618250</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp16@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34248) 4-05-86</field>
+    </object>
+    <object model="ad.instance" pk="311">
+        <field name="name" type="CharField">ОСП по г. Добрянке</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Советская, 43, г. Добрянка, 618740</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp17@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34265) 2-80-12</field>
+    </object>
+    <object model="ad.instance" pk="312">
+        <field name="name" type="CharField">ОСП по Карагайскому и Сивинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. К.Маркса, 24, с. Карагай, 617210 </field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp20@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34297) 3-10-70</field>
+    </object>
+    <object model="ad.instance" pk="313">
+        <field name="name" type="CharField">ОСП г. Кизелу и г. Александровску </field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Углегеологов, 17, г. Кизел, 618590</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp22@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34255) 4-23-31</field>
+    </object>
+    <object model="ad.instance" pk="314">
+        <field name="name" type="CharField">ОСП по Красновишерскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Дзержинского, 4, г. Красновишерск, 618590</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp23@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34243) 3-01-25</field>
+    </object>
+    <object model="ad.instance" pk="315">
+        <field name="name" type="CharField">ОСП по г. Краснокамску и Кировскому району г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Чапаева, 41, г. Краснокамск, 617060</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp24@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34273) 4-61-71</field>
+    </object>
+    <object model="ad.instance" pk="316">
+        <field name="name" type="CharField">ОСП по Кунгурскому, Кишертскому и Березовскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Ленина 17 Б, г. Кунгур, 617470</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp25@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34271) 2-39-80</field>
+    </object>
+    <object model="ad.instance" pk="317">
+        <field name="name" type="CharField">ОСП по г. Лысьва</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Мира, 10, г. Лысьва, 618900</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp27@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34249) 2-56-86</field>
+    </object>
+    <object model="ad.instance" pk="318">
+        <field name="name" type="CharField">ОСП по Нытвенскому и Оханскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. К.Маркса, 82, г. Нытва, 617000</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp28@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34272) 3-14-50</field>
+    </object>
+    <object model="ad.instance" pk="319">
+        <field name="name" type="CharField">ОСП по Осинскому, Бардымскому, Еловскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Интернациональная, 1 А, г. Оса, 618100</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp29@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34291) 4-38-10</field>
+    </object>
+    <object model="ad.instance" pk="320">
+        <field name="name" type="CharField">ОСП по Очерскому и Верещагинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Советская, 36, г. Очер, 617140</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp31@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34278) 3-11-59</field>
+    </object>
+    <object model="ad.instance" pk="321">
+        <field name="name" type="CharField">ОСП по Октябрьскому и Уинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Ленина, 53, п. Октябрьский, 617860</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp33@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34266) 3-15-03</field>
+    </object>
+    <object model="ad.instance" pk="322">
+        <field name="name" type="CharField">ОСП по Пермскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Саранская, 3, г. Пермь, 614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp34@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)281-63-33</field>
+    </object>
+    <object model="ad.instance" pk="323">
+        <field name="name" type="CharField">ОСП по г. Соликамску и Соликамскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. 20 лет Победы, 189, г. Соликамск, 618540</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp35@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34253) 7-62-34</field>
+    </object>
+    <object model="ad.instance" pk="324">
+        <field name="name" type="CharField">ОСП по Суксунскому и Ординскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Колхозная, 4, п. Суксун,  617560</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp37@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34275) 3-18-38</field>
+    </object>
+    <object model="ad.instance" pk="325">
+        <field name="name" type="CharField">ОСП по г. Чайковскому</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Промышленная, 13, г. Чайковский, 617760</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp40@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34241) 4-62-38</field>
+    </object>
+    <object model="ad.instance" pk="326">
+        <field name="name" type="CharField">ОСП по Чернушинскому и Куединскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Нефтяников, 1, г. Чернушка,  617830</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp42@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34261) 4-39-24</field>
+    </object>
+    <object model="ad.instance" pk="327">
+        <field name="name" type="CharField">ОСП по Чердынскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Юргановская, 58, г. Чердынь, 618601</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp43@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34240) 2-82-03</field>
+    </object>
+    <object model="ad.instance" pk="328">
+        <field name="name" type="CharField">ОСП по г.Чусовому и Горнозаводскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Сивкова 9 А, г. Чусовой, 618200</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp44@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34256) 4-24-86</field>
+    </object>
+    <object model="ad.instance" pk="329">
+        <field name="name" type="CharField">Межрайонный отдел судебных приставов по исполнению особых исполнительных производств, розыску должников и их имущества</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Комбайнеров, 34, г. Пермь,  614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp46@r59.fssrus.ru</field>
+        <field name="telephone" type="CharField">8(342)226-53-80</field>
+    </object>
+    <object model="ad.instance" pk="330">
+        <field name="name" type="CharField">ОСП по Косинскому, Кочевскому и Гайнскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Ленина 74, с. Коса, 619430</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp47@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34298) 2-19-85</field>
+    </object>
+    <object model="ad.instance" pk="331">
+        <field name="name" type="CharField">ОСП по Дзержинскому району г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Петропавловская, 111, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp50@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)235-27-58</field>
+    </object>
+    <object model="ad.instance" pk="332">
+        <field name="name" type="CharField">Отдел судебных приставов по взысканию штрафов по г. Перми №1 Управления Федеральной службы судебных приставов по Пермскому краю</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Стахановская, 54, г. Пермь, 614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp60@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)227-77-33</field>
+    </object>
+    <object model="ad.instance" pk="333">
+        <field name="name" type="CharField">Отдел судебных приставов по взысканию штрафов по г. Перми №2 Управления Федеральной службы судебных приставов по Пермскому краю</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. А.Невского, 26, г. Пермь, 614113</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp61@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (342) 252-43-99</field>
+    </object>
+    <object model="ad.instance" pk="334">
+        <field name="name" type="CharField">ОСП по г. Кудымкару, Юрлинскому и Юсьвинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Калинина, д. 38, г. Кудымкар, 619000,</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp01@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34260) 4-50-71</field>
+    </object>
+    <object model="ad.instance" pk="335">
+        <field name="name" type="CharField">ОСП по Ленинскому и Индустриальному районам г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Стахановская, 54, г. Пермь, 614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp04@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (342) 227-77-80</field>
+    </object>
+    <object model="ad.instance" pk="336">
+        <field name="name" type="CharField">ОСП по Мотовилихинскому району г.Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">Бульвар Гагарина, 74, г. Пермь,  614077</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp05@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (342) 262-18-05</field>
+    </object>
+    <object model="ad.instance" pk="337">
+        <field name="name" type="CharField">ОСП по Орджоникидзевскому району г.Перми и Ильинскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Ереванская, 35, г. Пермь, 614026 </field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp06@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)263-67-31</field>
+    </object>
+    <object model="ad.instance" pk="338">
+        <field name="name" type="CharField">ОСП по Свердловскому району г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Солдатова, 39, г. Пермь,  614111</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp07@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)242-06-00</field>
+    </object>
+    <object model="ad.instance" pk="339">
+        <field name="name" type="CharField">ОСП по г. Березники и Усольскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Ленина, 33, г. Березники, 618400</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp10@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (3424) 26-36-67</field>
+    </object>
+    <object model="ad.instance" pk="340">
+        <field name="name" type="CharField">ОСП по Большесосновскому и Частинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Магнитогорская, 4, с. Большая Соснова, 617080</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp12@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8( 34257) 2-76-53</field>
+    </object>
+    <object model="ad.instance" pk="341">
+        <field name="name" type="CharField">ОСП по г. Губахе и г. Гремячинску</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Орджоникидзе, 6, г. Губаха, 618250</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp16@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34248) 4-05-86</field>
+    </object>
+    <object model="ad.instance" pk="342">
+        <field name="name" type="CharField">ОСП по г. Добрянке</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Советская, 43, г. Добрянка, 618740</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp17@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34265) 2-80-12</field>
+    </object>
+    <object model="ad.instance" pk="343">
+        <field name="name" type="CharField">ОСП по Карагайскому и Сивинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. К.Маркса, 24, с. Карагай, 617210 </field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp20@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34297) 3-10-70</field>
+    </object>
+    <object model="ad.instance" pk="344">
+        <field name="name" type="CharField">ОСП г. Кизелу и г. Александровску </field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Углегеологов, 17, г. Кизел, 618590</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp22@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34255) 4-23-31</field>
+    </object>
+    <object model="ad.instance" pk="345">
+        <field name="name" type="CharField">ОСП по Красновишерскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Дзержинского, 4, г. Красновишерск, 618590</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp23@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34243) 3-01-25</field>
+    </object>
+    <object model="ad.instance" pk="346">
+        <field name="name" type="CharField">ОСП по г. Краснокамску и Кировскому району г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Чапаева, 41, г. Краснокамск, 617060</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp24@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34273) 4-61-71</field>
+    </object>
+    <object model="ad.instance" pk="347">
+        <field name="name" type="CharField">ОСП по Кунгурскому, Кишертскому и Березовскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Ленина 17 Б, г. Кунгур, 617470</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp25@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34271) 2-39-80</field>
+    </object>
+    <object model="ad.instance" pk="348">
+        <field name="name" type="CharField">ОСП по г. Лысьва</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Мира, 10, г. Лысьва, 618900</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp27@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34249) 2-56-86</field>
+    </object>
+    <object model="ad.instance" pk="349">
+        <field name="name" type="CharField">ОСП по Нытвенскому и Оханскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. К.Маркса, 82, г. Нытва, 617000</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp28@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34272) 3-14-50</field>
+    </object>
+    <object model="ad.instance" pk="350">
+        <field name="name" type="CharField">ОСП по Осинскому, Бардымскому, Еловскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Интернациональная, 1 А, г. Оса, 618100</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp29@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34291) 4-38-10</field>
+    </object>
+    <object model="ad.instance" pk="351">
+        <field name="name" type="CharField">ОСП по Очерскому и Верещагинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Советская, 36, г. Очер, 617140</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp31@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34278) 3-11-59</field>
+    </object>
+    <object model="ad.instance" pk="352">
+        <field name="name" type="CharField">ОСП по Октябрьскому и Уинскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Ленина, 53, п. Октябрьский, 617860</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp33@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34266) 3-15-03</field>
+    </object>
+    <object model="ad.instance" pk="353">
+        <field name="name" type="CharField">ОСП по Пермскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Саранская, 3, г. Пермь, 614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp34@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)281-63-33</field>
+    </object>
+    <object model="ad.instance" pk="354">
+        <field name="name" type="CharField">ОСП по г. Соликамску и Соликамскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. 20 лет Победы, 189, г. Соликамск, 618540</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp35@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34253) 7-62-34</field>
+    </object>
+    <object model="ad.instance" pk="355">
+        <field name="name" type="CharField">ОСП по Суксунскому и Ординскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Колхозная, 4, п. Суксун,  617560</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp37@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34275) 3-18-38</field>
+    </object>
+    <object model="ad.instance" pk="356">
+        <field name="name" type="CharField">ОСП по г. Чайковскому</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Промышленная, 13, г. Чайковский, 617760</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp40@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34241) 4-62-38</field>
+    </object>
+    <object model="ad.instance" pk="357">
+        <field name="name" type="CharField">ОСП по Чернушинскому и Куединскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Нефтяников, 1, г. Чернушка,  617830</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp42@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34261) 4-39-24</field>
+    </object>
+    <object model="ad.instance" pk="358">
+        <field name="name" type="CharField">ОСП по Чердынскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Юргановская, 58, г. Чердынь, 618601</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp43@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34240) 2-82-03</field>
+    </object>
+    <object model="ad.instance" pk="359">
+        <field name="name" type="CharField">ОСП по г.Чусовому и Горнозаводскому району</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Сивкова 9 А, г. Чусовой, 618200</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp44@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34256) 4-24-86</field>
+    </object>
+    <object model="ad.instance" pk="360">
+        <field name="name" type="CharField">Межрайонный отдел судебных приставов по исполнению особых исполнительных производств, розыску должников и их имущества</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Комбайнеров, 34, г. Пермь,  614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp46@r59.fssrus.ru</field>
+        <field name="telephone" type="CharField">8(342)226-53-80</field>
+    </object>
+    <object model="ad.instance" pk="361">
+        <field name="name" type="CharField">ОСП по Косинскому, Кочевскому и Гайнскому районам</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. Ленина 74, с. Коса, 619430</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp47@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (34298) 2-19-85</field>
+    </object>
+    <object model="ad.instance" pk="362">
+        <field name="name" type="CharField">ОСП по Дзержинскому району г. Перми</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Петропавловская, 111, г. Пермь, 614000</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp50@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)235-27-58</field>
+    </object>
+    <object model="ad.instance" pk="363">
+        <field name="name" type="CharField">Отдел судебных приставов по взысканию штрафов по г. Перми №1 Управления Федеральной службы судебных приставов по Пермскому краю</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField">ул. Стахановская, 54, г. Пермь, 614066</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp60@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8(342)227-77-33</field>
+    </object>
+    <object model="ad.instance" pk="364">
+        <field name="name" type="CharField">Отдел судебных приставов по взысканию штрафов по г. Перми №2 Управления Федеральной службы судебных приставов по Пермскому краю</field>
+        <field name="group" type="CharField">osp</field>
+        <field name="address" type="CharField"> ул. А.Невского, 26, г. Пермь, 614113</field>
+        <field name="oktmo" type="CharField"></field>
+        <field name="email" type="CharField">osp61@r59.fssprus.ru</field>
+        <field name="telephone" type="CharField">8 (342) 252-43-99</field>
+    </object>
+    <object model="ad.adjudication" pk="1">
+        <field name="text" type="CharField">Штраф</field>
+    </object>
+    <object model="ad.adjudication" pk="2">
+        <field name="text" type="CharField">Предупреждение</field>
+    </object>
+    <object model="ad.adjudication" pk="3">
+        <field name="text" type="CharField">Устное замечание</field>
+    </object>
+    <object model="ad.adjudication" pk="4">
+        <field name="text" type="CharField">Прекращение производства в связи с отсутствием состава</field>
+    </object>
+    <object model="ad.adjudication" pk="5">
+        <field name="text" type="CharField">Прекращение производства в связи с истечением срока привлечения</field>
+    </object>
+    <object model="ad.adjudication" pk="6">
+        <field name="text" type="CharField">Дисквалификация</field>
+    </object>
+    <object model="ad.adjudication" pk="7">
+        <field name="text" type="CharField">Возврат</field>
+    </object>
+    <object model="ad.executionresult" pk="1">
+        <field name="text" type="CharField">Окончено актом</field>
+    </object>
+    <object model="ad.executionresult" pk="2">
+        <field name="text" type="CharField">Окончено фактом</field>
+    </object>
+    <object model="ad.adstage" pk="1">
+        <field name="text" type="CharField">Основное рассмотрение АД</field>
+        <field name="short_text" type="CharField">Основное рассмотрение АД</field>
+    </object>
+    <object model="ad.adstage" pk="2">
+        <field name="text" type="CharField">Перенос рассм. АД(отложение)</field>
+        <field name="short_text" type="CharField">Перенос рассм. АД</field>
+    </object>
+    <object model="ad.adstage" pk="3">
+        <field name="text" type="CharField">Возврат материалов (определение о возврате, не сдано)</field>
+        <field name="short_text" type="CharField">Возврат материалов</field>
+    </object>
+    <object model="ad.adstage" pk="4">
+        <field name="text" type="CharField">Обжалование</field>
+        <field name="short_text" type="CharField">Обжалование</field>
+    </object>
+</django-objects>

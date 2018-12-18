@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="inspections.inspectionsubject" pk="1">
+        <field name="text" type="CharField">Предмет 1</field>
+    </object>
+    <object model="inspections.inspectionsubject" pk="2">
+        <field name="text" type="CharField">Предмет 2</field>
+    </object>
+    <object model="inspections.inspectionsubject" pk="3">
+        <field name="text" type="CharField">Предмет 3</field>
+    </object>
+    <object model="inspections.inspectiontask" pk="1">
+        <field name="text" type="CharField">Задача 1</field>
+    </object>
+    <object model="inspections.inspectiontask" pk="2">
+        <field name="text" type="CharField">Задача 2</field>
+    </object>
+    <object model="inspections.inspectiontask" pk="3">
+        <field name="text" type="CharField">Задача 3</field>
+    </object>
+    <object model="inspections.legalbasis" pk="1">
+        <field name="text" type="CharField">Поступление в лицензирующий орган обращений, заявлений граждан, в том числе индивидуальных предпринимателей, юридических лиц, информации от органов государственной власти, органов местного самоуправления, средств массовой информации о фактах нарушений лицензиатом лицензионных требований (в том числе грубых)</field>
+    </object>
+    <object model="inspections.legalbasis" pk="2">
+        <field name="text" type="CharField">Истечение срока исполнения лицензиатом ранее выданного лицензирующим органом предписания об устранении выявленного нарушения лицензионных требований</field>
+    </object>
+    <object model="inspections.legalbasis" pk="3">
+        <field name="text" type="CharField">Мотивированное представление по результатам анализа результатов мероприятий по контролю без взаимодействия с ЮЛ, ИП, рассмотрения или предварительной проверки поступивших в органы гос.контроля (надзора), органы муниц.контроля обращений и заявлений граждан, в т.ч ИП, ЮЛ, информации от ОГВ, ОМС, из СМИ</field>
+    </object>
+    <object model="inspections.legalbasis" pk="4">
+        <field name="text" type="CharField">Истечение срока исполнения юридическим лицом, индивидуальным предпринимателем ранее выданного предписания об устранении выявленного нарушения обязательных требований и (или) требований, установленных муниципальными правовыми актами</field>
+    </object>
+    <object model="inspections.legalbasis" pk="5">
+        <field name="text" type="CharField">Истечение срока исполнения физическим лицом ранее выданного предписания об устранении выявленного нарушения обязательных требований и (или) требований, установленных правовыми актами</field>
+    </object>
+    <object model="inspections.legalbasis" pk="6">
+        <field name="text" type="CharField">Наличие приказа (распоряжения), изданного лицензирующим органом в соответствии с поручением Президента Российской Федерации или Правительства Российской Федерации</field>
+    </object>
+    <object model="inspections.legalbasis" pk="7">
+        <field name="text" type="CharField">Проведение в отношении ЮЛ, ИП внеплановой выездной проверки и без предварительного уведомления ЮЛ, ИП в течение трех месяцев со дня составления акта о невозможности проведения предыдущей внеплановой выездной проверки</field>
+    </object>
+    <object model="inspections.legalbasis" pk="8">
+        <field name="text" type="CharField">Поступление в орган гос.контроля (надзора), орган муниц.контроля заявления от ЮЛ или ИП о предоставлении правового статуса, специального разрешения (лицензии) на право осуществления отдельных видов деятельности или разрешения (согласования) на осуществление иных юридически значимых действий</field>
+    </object>
+    <object model="inspections.legalbasis" pk="9">
+        <field name="text" type="CharField">Поступление в адрес органа государственного жилищного надзора в течение трех месяцев подряд двух и более протоколов общего собрания собственников помещений в многоквартирном доме, содержащих решения по аналогичным вопросам повестки дня</field>
+    </object>
+    <object model="inspections.legalbasis" pk="10">
+        <field name="text" type="CharField">Приказ (распоряжение) руководителя органа государственного контроля (надзора), изданный в соответствии с поручениями Президента Российской Федерации, Правительства Российской Федерации и на основании требования прокурора о проведении внеплановой проверки в рамках надзора за исполнением законов по поступившим в органы прокуратуры материалам и обращениям</field>
+    </object>
+    <object model="inspections.legalbasis" pk="11">
+        <field name="text" type="CharField">Истечение срока, на который было приостановлено действие лицензии </field>
+    </object>
+    <object model="inspections.legalbasis" pk="12">
+        <field name="text" type="CharField">Наличие ходатайства лицензиата о проведении лицензирующим органом внеплановой выездной проверки в целях установления факта досрочного исполнения предписания лицензирующего органа</field>
+    </object>
+    <object model="inspections.legalbasis" pk="13">
+        <field name="text" type="CharField">Истечение трех лет со дня окончания последней плановой проверки лицензиата</field>
+    </object>
+    <object model="inspections.legalbasis" pk="14">
+        <field name="text" type="CharField">Проверка соблюдения органами государственного жилищного надзора обязательных требований (не чаще одного раза в 3 года)</field>
+    </object>
+    <object model="inspections.legalbasis" pk="15">
+        <field name="text" type="CharField">Истечение одного года со дня принятия решения о предоставлении лицензии или переоформлении лицензии</field>
+    </object>
+    <object model="inspections.legalbasis" pk="16">
+        <field name="text" type="CharField">Решение руководителя соответствующего органа государственного контроля (надзора) по согласованию с прокуратурой субъекта Российской Федерации, принимаемого на основании обращений граждан, юридических лиц и информации от государственных органов о фактах нарушений законодательства Российской Федерации, влекущих возникновение чрезвычайных ситуаций, угрозу жизни и здоровью граждан, а также массовые нарушения прав граждан.</field>
+    </object>
+    <object model="inspections.legalbasis" pk="17">
+        <field name="text" type="CharField">Истечение 3-х лет со дня окончания проведения последней плановой проверки юридического лица, индивидуального предпринимателя</field>
+    </object>
+    <object model="inspections.legalbasis" pk="18">
+        <field name="text" type="CharField">Истечение одного года со дня окончания проведения последней плановой проверки ЮЛ, ИП</field>
+    </object>
+    <object model="inspections.legalbasis" pk="19">
+        <field name="text" type="CharField">Ежегодный план проведения проверок деятельности органов местного самоуправления и должностных лиц местного самоуправления</field>
+    </object>
+    <object model="inspections.legalbasis" pk="20">
+        <field name="text" type="CharField">Приказ (распоряжение) органа государственной  власти, органа власти  субъекта РФ о проведении плановой проверки деятельности региональных операторов</field>
+    </object>
+    <object model="inspections.legalbasis" pk="21">
+        <field name="text" type="CharField">Представление в лицензирующий орган заявления о предоставлении лицензии или заявления о переоформлении лицензии</field>
+    </object>
+    <object model="inspections.legalbasis" pk="22">
+        <field name="text" type="CharField">Истечение одного года со дня постановки на учет в муниципальном реестре наемных домов социального использования первого наемного дома социального использования, наймодателем жилых помещений в котором является лицо, деятельность которого подлежит проверке</field>
+    </object>
+    <object model="inspections.legalbasis" pk="23">
+        <field name="text" type="CharField">Поступление в лицензирующий орган обращений, заявлений граждан, в том числе индивидуальных предпринимателей о фактах нарушений лицензиатом лицензионных требований (в том числе грубых)</field>
+    </object>
+    <object model="inspections.legalbasis" pk="24">
+        <field name="text" type="CharField">Поступление в лицензирующий орган обращений, заявлений юридических лиц, информации от органов государственной власти, органов местного самоуправления, средств массовой информации о фактах нарушений лицензиатом лицензионных требований (в том числе грубых)</field>
+    </object>
+    <object model="inspections.legalbasis" pk="25">
+        <field name="text" type="CharField">Поступление в лицензирующий орган обращений, заявлений граждан, в том числе индивидуальных предпринимателей, о фактах нарушений лицензиатом лицензионных требований (в том числе грубых)</field>
+    </object>
+    <object model="inspections.legalbasis" pk="26">
+        <field name="text" type="CharField">Поступления, в частности посредством системы, в орган государственного жилищного надзора, орган муниципального жилищного контроля обращений и заявлений граждан, в том числе индивидуальных предпринимателей, о фактах нарушения в области применения предельных (максимальных) индексов изменения размера вносимой гражданами платы за коммунальные услуги</field>
+    </object>
+    <object model="inspections.legalbasis" pk="27">
+        <field name="text" type="CharField">Поступления, в частности посредством системы, в орган государственного жилищного надзора, орган муниципального жилищного контроля обращений и заявлений граждан, в том числе индивидуальных предпринимателей, юридических лиц, информации от органов государственной власти, органов местного самоуправления</field>
+    </object>
+    <object model="inspections.legalbasis" pk="28">
+        <field name="text" type="CharField">Поступления, в частности посредством системы, в орган государственного жилищного надзора, орган муниципального жилищного контроля обращений и заявлений граждан, в том числе индивидуальных предпринимателей, о фактах нарушения органами местного самоуправления, ресурсоснабжающими организациями, лицами, осуществляющими деятельность по управлению многоквартирными домами, гражданами требований к порядку размещения информации в системе</field>
+    </object>
+    <object model="inspections.legalbasis" pk="29">
+        <field name="text" type="CharField">Поступления, в частности посредством системы, в орган государственного жилищного надзора, орган муниципального жилищного контроля обращений и заявлений граждан, в том числе индивидуальных предпринимателей, о фактах нарушения требований к порядку содержания общего имущества собственников помещений в многоквартирном доме и осуществления текущего и капитального ремонта общего имущества в данном доме</field>
+    </object>
+    <object model="inspections.legalbasis" pk="30">
+        <field name="text" type="CharField">Поступления, в частности посредством системы, в орган государственного жилищного надзора, орган муниципального жилищного контроля обращений и заявлений юридических лиц, информации от органов государственной власти, органов местного самоуправления, выявление органом государственного жилищного надзора, органом муниципального жилищного контроля в системе информации о фактах необоснованности размера установленного норматива потребления коммунальных ресурсов (коммунальных услуг)</field>
+    </object>
+    <object model="inspections.legalbasis" pk="31">
+        <field name="text" type="CharField">Поступления, в частности посредством системы, в орган государственного жилищного надзора, орган муниципального жилищного контроля обращений и заявлений граждан, в том числе индивидуальных предпринимателей, о фактах нарушения требований правил предоставления, приостановки и ограничения предоставления коммунальных услуг собственникам и пользователям помещений в многоквартирных домах и жилых домах</field>
+    </object>
+    <object model="inspections.legalbasis" pk="32">
+        <field name="text" type="CharField">Поступления, в частности посредством системы, в орган государственного жилищного надзора, орган муниципального жилищного контроля обращений и заявлений граждан, в том числе индивидуальных предпринимателей, о фактах нарушения правил содержания общего имущества в многоквартирном доме и правил изменения размера платы за содержание жилого помещения</field>
+    </object>
+    <object model="inspections.controlkind" pk="1">
+        <field name="text" type="CharField">государственный жилищный надзор</field>
+    </object>
+    <object model="inspections.controlkind" pk="2">
+        <field name="text" type="CharField">лицензионный контроль</field>
+    </object>
+    <object model="inspections.controlform" pk="1">
+        <field name="text" type="CharField">Выездная</field>
+    </object>
+    <object model="inspections.controlform" pk="2">
+        <field name="text" type="CharField">Документарная</field>
+    </object>
+    <object model="inspections.controlform" pk="3">
+        <field name="text" type="CharField">Выездная и документарная</field>
+    </object>
+    <object model="inspections.controlplan" pk="1">
+        <field name="text" type="CharField">Внеплановая</field>
+    </object>
+    <object model="inspections.controlplan" pk="2">
+        <field name="text" type="CharField">Плановая</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="1">
+        <field name="text" type="CharField">Проверка проведена, составлен акт проверки</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="2">
+        <field name="text" type="CharField">Составлен акт о невозможности проведения проверки (документы не представлены частично)</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="4">
+        <field name="text" type="CharField">Распоряжением не воспользовались (отказ заявителя, смена УК, отсутствуют основания для проверки)</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="6">
+        <field name="text" type="CharField">Номер взят для протокола (на основании акта осмотра, материалов прокуратуры, правоохранительных органов, для составления протокола по ст.19.7 КоАП)</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="7">
+        <field name="text" type="CharField">Проверка не проведена, составлен акт об отсутствии доступа в жилое помещение</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="8">
+        <field name="text" type="CharField">Составлен акт о невозможности проведения проверки (документы не представлены полностью)</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="9">
+        <field name="text" type="CharField">Ликвидация проверяемой организации</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="10">
+        <field name="text" type="CharField">Организация не осуществляет деятельность по управлению конкретным МКД</field>
+    </object>
+    <object model="inspections.inspectionresult" pk="11">
+        <field name="text" type="CharField">Неполучение заказной коресподенции (распоряжение, требование), направленной по юр. адресу</field>
+    </object>
+    <object model="inspections.orderstatus" pk="1">
+        <field name="text" type="CharField">Выдано</field>
+    </object>
+    <object model="inspections.orderstatus" pk="2">
+        <field name="text" type="CharField">Не выдано</field>
+    </object>
+    <object model="inspections.cancellation" pk="1">
+        <field name="text" type="CharField">Нет</field>
+    </object>
+    <object model="inspections.cancellation" pk="2">
+        <field name="text" type="CharField">Отмена по предписанию органов прокуратуры</field>
+    </object>
+    <object model="inspections.cancellation" pk="3">
+        <field name="text" type="CharField">Отмена на основании решения суда</field>
+    </object>
+    <object model="inspections.cancellation" pk="4">
+        <field name="text" type="CharField">Отмена по решению руководителя органа государственного жилищного надзора</field>
+    </object>
+    <object model="inspections.orderresult" pk="1">
+        <field name="text" type="CharField">Не исполнено</field>
+    </object>
+    <object model="inspections.orderresult" pk="2">
+        <field name="text" type="CharField">Исполнено</field>
+    </object>
+    <object model="inspections.orderresult" pk="3">
+        <field name="text" type="CharField">Продлено</field>
+    </object>
+    <object model="inspections.orderresult" pk="4">
+        <field name="text" type="CharField">Исполнено частично</field>
+    </object>
+    <object model="inspections.orderresult" pk="5">
+        <field name="text" type="CharField">Снято с контроля</field>
+    </object>
+    <object model="inspections.orderresult" pk="6">
+        <field name="text" type="CharField">Обжалуется в суде</field>
+    </object>
+    <object model="inspections.violationtype" pk="1">
+        <field name="text" type="CharField">Нарушение правил технической эксплуатации и ремонта жилищного фонда</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">11</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="4">
+        <field name="text" type="CharField">Нарушение правил технической эксплуатации ВДГО, ВКГО</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">10</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="7">
+        <field name="text" type="CharField">Нарушение правил пользования жилыми помещениями</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">9</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="8">
+        <field name="text" type="CharField">Нарушение норм уровня и режима обеспечения населения коммунальными услугами, из них:</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">14</field>
+        <field name="tree_id" type="PositiveIntegerField">3</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="9">
+        <field name="text" type="CharField">Нарушение законодательства об энергосбережении и о повышении энергетической эффективности</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">1</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="10">
+        <field name="text" type="CharField">Неправомерное создание ТСЖ</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">19</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="11">
+        <field name="text" type="CharField">Несоответствие устава ТСЖ, внесенных в устав изменений требованиям законодательства РФ</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">25</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="12">
+        <field name="text" type="CharField">Неправомерное избрание председателя правления ТСЖ, членов правления ТСЖ</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">16</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="13">
+        <field name="text" type="CharField">Неправомерное избрание совета дома, председателя совета дома</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">17</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="14">
+        <field name="text" type="CharField">Не принято решение о заключении договора на обслуживание МКД</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">24</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="15">
+        <field name="text" type="CharField">Не выбрана УК (не принято решение о выборе УК)</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">14</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="16">
+        <field name="text" type="CharField">Не утверждены условия и не заключен договор управления с УК</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">27</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="17">
+        <field name="text" type="CharField">Не принято решение об использовании общего имущества</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">23</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="18">
+        <field name="text" type="CharField">Неправомерно определен размер платы за КУ, в том числе за:</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">14</field>
+        <field name="tree_id" type="PositiveIntegerField">20</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="19">
+        <field name="text" type="CharField">Неправомерно установлен размер платы за содержание и ремонт жилого помещения</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">22</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="20">
+        <field name="text" type="CharField">Нарушение требований к содержанию (форме) платежного документа</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">12</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="21">
+        <field name="text" type="CharField">Нарушение требований о передаче технической документации на МКД и иных документов, связанных с управлением МКД</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">13</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="22">
+        <field name="text" type="CharField">Нарушение порядка размещения информации в ГИС ЖКХ</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">6</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="23">
+        <field name="text" type="CharField">Не утверждены существенные условия договора или договор менее 50 %</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">26</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="24">
+        <field name="text" type="CharField">Нарушение обязательных требований к внесению платы за жилое помещение и коммунальные услуги</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">4</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="25">
+        <field name="text" type="CharField">Нарушение порядка формирования фонда капитального ремонта</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">7</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="26">
+        <field name="text" type="CharField">Осуществление предпринимательской деятельности по управлению МКД без лицензии</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">29</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="27">
+        <field name="text" type="CharField">Односторонний отказ от исполнения договора управления МКД</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">28</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="28">
+        <field name="text" type="CharField">Нарушение правил осуществления предпринимательской деятельности по управлению МКД</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">8</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="29">
+        <field name="text" type="CharField">Нарушение лицензионных требований</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">2</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="30">
+        <field name="text" type="CharField">Нарушение порядка заключения договоров с РСО</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">5</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="32">
+        <field name="text" type="CharField">Неисполнение предписаний</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">15</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+    <object model="inspections.violationtype" pk="33">
+        <field name="text" type="CharField">ГВС</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">8</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">6</field>
+        <field name="rght" type="PositiveIntegerField">7</field>
+        <field name="tree_id" type="PositiveIntegerField">3</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="34">
+        <field name="text" type="CharField">ХВС</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">8</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">10</field>
+        <field name="rght" type="PositiveIntegerField">11</field>
+        <field name="tree_id" type="PositiveIntegerField">3</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="35">
+        <field name="text" type="CharField">Водоотведение</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">8</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">2</field>
+        <field name="rght" type="PositiveIntegerField">3</field>
+        <field name="tree_id" type="PositiveIntegerField">3</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="36">
+        <field name="text" type="CharField">Отопление</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">8</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">8</field>
+        <field name="rght" type="PositiveIntegerField">9</field>
+        <field name="tree_id" type="PositiveIntegerField">3</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="37">
+        <field name="text" type="CharField">Газоснобжение</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">8</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">4</field>
+        <field name="rght" type="PositiveIntegerField">5</field>
+        <field name="tree_id" type="PositiveIntegerField">3</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="38">
+        <field name="text" type="CharField">Электроснабжение</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">8</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">12</field>
+        <field name="rght" type="PositiveIntegerField">13</field>
+        <field name="tree_id" type="PositiveIntegerField">3</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="39">
+        <field name="text" type="CharField">ГВС, в том числе на ОДН</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">18</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">6</field>
+        <field name="rght" type="PositiveIntegerField">7</field>
+        <field name="tree_id" type="PositiveIntegerField">20</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="40">
+        <field name="text" type="CharField">ХВС, в том числе на ОДН</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">18</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">10</field>
+        <field name="rght" type="PositiveIntegerField">11</field>
+        <field name="tree_id" type="PositiveIntegerField">20</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="41">
+        <field name="text" type="CharField">Электроэнергию, в том числе на ОДН</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">18</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">12</field>
+        <field name="rght" type="PositiveIntegerField">13</field>
+        <field name="tree_id" type="PositiveIntegerField">20</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="42">
+        <field name="text" type="CharField">Отопление</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">18</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">8</field>
+        <field name="rght" type="PositiveIntegerField">9</field>
+        <field name="tree_id" type="PositiveIntegerField">20</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="43">
+        <field name="text" type="CharField">Водоотведение</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">18</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">2</field>
+        <field name="rght" type="PositiveIntegerField">3</field>
+        <field name="tree_id" type="PositiveIntegerField">20</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="44">
+        <field name="text" type="CharField">Газ</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype">18</field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">4</field>
+        <field name="rght" type="PositiveIntegerField">5</field>
+        <field name="tree_id" type="PositiveIntegerField">20</field>
+        <field name="level" type="PositiveIntegerField">1</field>
+    </object>
+    <object model="inspections.violationtype" pk="45">
+        <field name="text" type="CharField">Неправомерно принято решение об использовании общего имущества</field>
+        <field name="parent" rel="ManyToOneRel" to="inspections.violationtype"><None></None></field>
+        <field name="is_vagrant" type="BooleanField">False</field>
+        <field name="lft" type="PositiveIntegerField">1</field>
+        <field name="rght" type="PositiveIntegerField">2</field>
+        <field name="tree_id" type="PositiveIntegerField">21</field>
+        <field name="level" type="PositiveIntegerField">0</field>
+    </object>
+</django-objects>

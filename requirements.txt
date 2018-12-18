@@ -1,0 +1,15 @@
+django
+selenium-requests
+docxtpl
+openpyxl
+django-bootstrap3
+django-sequences
+xlrd
+django-mptt
+django-mptt-admin
+psycopg2
+simplejson
+pyvirtualdisplay
+django-celery-results
+django-celery-beat
+django-simple-history

@@ -1,0 +1,21 @@
+<head>
+  <meta charset="utf-8">
+  <title>Учет КНД ИГЖН</title>
+</head>
+<body>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'themes/gray/easyui.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'themes/icon.css' %}"/>
+<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery.easyui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'my.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap.min.js'%}"></script>
+<script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-scrollview.js"></script>
+<script type="text/javascript" src="{% static 'datagrid-filter.js' %}"></script>
+<script type="text/javascript" src="{% static 'columns-ext.js' %}"></script>
+<script type="text/javascript" src="{% static 'daterangebox.js' %}"></script>
+<script type="text/javascript" src="{% static 'locale/easyui-lang-ru.js' %}"></script>
+<script type="text/javascript" src="{% static 'datagridview/datagrid-detailview.js' %}"></script>
+{% block content %}{% endblock %}
+</body>

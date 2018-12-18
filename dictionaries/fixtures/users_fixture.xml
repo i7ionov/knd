@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+
+    <object model="auth.group" pk="1">
+        <field name="name" type="CharField">Инспектор</field>
+        <field name="permissions" rel="ManyToManyRel" to="auth.permission"><object><natural>add_adrecord</natural><natural>ad</natural><natural>adrecord</natural></object><object><natural>change_adrecord</natural><natural>ad</natural><natural>adrecord</natural></object><object><natural>view_adrecord</natural><natural>ad</natural><natural>adrecord</natural></object><object><natural>add_execution</natural><natural>ad</natural><natural>execution</natural></object><object><natural>change_execution</natural><natural>ad</natural><natural>execution</natural></object><object><natural>view_execution</natural><natural>ad</natural><natural>execution</natural></object><object><natural>view_exportresult</natural><natural>analytic</natural><natural>exportresult</natural></object><object><natural>add_file</natural><natural>dictionaries</natural><natural>file</natural></object><object><natural>change_file</natural><natural>dictionaries</natural><natural>file</natural></object><object><natural>view_file</natural><natural>dictionaries</natural><natural>file</natural></object><object><natural>add_inspection</natural><natural>inspections</natural><natural>inspection</natural></object><object><natural>change_inspection</natural><natural>inspections</natural><natural>inspection</natural></object><object><natural>view_inspection</natural><natural>inspections</natural><natural>inspection</natural></object><object><natural>add_order</natural><natural>inspections</natural><natural>order</natural></object><object><natural>change_order</natural><natural>inspections</natural><natural>order</natural></object><object><natural>view_order</natural><natural>inspections</natural><natural>order</natural></object></field>
+    </object>
+
+
+</django-objects>
