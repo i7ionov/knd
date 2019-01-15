@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'inspections',
     'ad',
     'analytic',
+    'functional_tests',
 ]
 
 MIDDLEWARE = [

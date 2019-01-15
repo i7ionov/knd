@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="en">
+<html>
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
 <link rel="stylesheet" type="text/css" href="{% static 'themes/gray/easyui.css' %}"/>
@@ -31,7 +30,7 @@
                            data-options="prompt:'Password',iconCls:'icon-lock',iconWidth:38">
                 </div>
                 <div>
-                    <button type="submit" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
+                    <button type="submit" id='submit' class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
                             style="padding:5px 0px;width:100%;">
                         <span style="font-size:14px;">Войти</span>
                     </button>
