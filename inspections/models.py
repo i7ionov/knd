@@ -98,20 +98,21 @@ class ViolationType(MPTTModel):
 class Inspection(Document):
     legal_basis = models.ForeignKey(LegalBasis, on_delete=models.SET_NULL, null=True,
                                     verbose_name='основание для проверки')
-    control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True, verbose_name='вид контроля')
+    control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True,
+                                     verbose_name='вид контроля')
     control_form = models.ForeignKey(ControlForm, on_delete=models.SET_NULL, null=True,
                                      verbose_name='форма проверки')  # выездная, документарная
     control_plan = models.ForeignKey(ControlPlan, on_delete=models.SET_NULL, null=True,
                                      verbose_name='вид проверки')  # плановая, внеплановая
     inspection_subjects = models.ManyToManyField(InspectionSubject, verbose_name='предмет проверки')
     inspection_tasks = models.ManyToManyField(InspectionTask, verbose_name='задачи проверки')
-    inspector = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='инспектор')
-    date_begin = models.DateField(null=True, verbose_name='начало проведения проверки')
-    date_end = models.DateField(null=True, verbose_name='окончание проведения проверки')
-    comment = models.TextField(default="", verbose_name='комментарий')
-    gis_gkh_number = models.TextField(default="", verbose_name='номер в ГИС ЖКХ')
-    erp_number = models.TextField(default="", verbose_name='номер в EРП')
-    act_date = models.DateField(null=True, verbose_name='дата акта')
+    inspector = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='инспектор')
+    date_begin = models.DateField(null=True, blank=True, verbose_name='начало проведения проверки')
+    date_end = models.DateField(null=True, blank=True, verbose_name='окончание проведения проверки')
+    comment = models.TextField(default="", blank=True, verbose_name='комментарий')
+    gis_gkh_number = models.TextField(default="", blank=True, verbose_name='номер в ГИС ЖКХ')
+    erp_number = models.TextField(default="", blank=True, verbose_name='номер в EРП')
+    act_date = models.DateField(null=True, blank=True, verbose_name='дата акта')
     inspection_result = models.ForeignKey(InspectionResult, on_delete=models.SET_NULL, null=True,
                                           verbose_name='причина непроведения проверки')
     cancellation = models.ForeignKey(Cancellation, on_delete=models.SET_NULL, null=True,

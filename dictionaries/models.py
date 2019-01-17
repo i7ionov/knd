@@ -72,7 +72,7 @@ class Organization(models.Model):
         self.changed_by = value
 
     def __str__(self):
-        return self.name
+        return self.name + ', ИНН:' + self.inn
 
     class Meta:
         verbose_name = "Организация"
@@ -124,7 +124,7 @@ class File(models.Model):
 # класс документа по проверке
 class Document(MPTTModel):
     doc_number = models.CharField(max_length=500, verbose_name='номер документа')
-    doc_date = models.DateField(verbose_name='дата документа')
+    doc_date = models.DateField(verbose_name='дата документа', blank=True)
     doc_type = models.CharField(max_length=500, default="", null=True, verbose_name='тип документа')
     root_id = models.IntegerField(editable=False, default=0, verbose_name='root_id')
     files = models.ManyToManyField(File, verbose_name='файлы')

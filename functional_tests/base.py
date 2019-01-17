@@ -1,7 +1,8 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from seleniumrequests import Firefox
 from seleniumrequests.request import WebDriverException
-from django.contrib.auth.models import User as DjangoUser
+from django.contrib.auth.models import User as DjangoUser, Permission
+from dictionaries.models import Organization, User
 import os
 import time
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,10 +18,17 @@ class FunctionalTest(StaticLiveServerTestCase):
         user.set_password('123')
         user.is_staff = True
         user.save()
+        User(django_user=user, name='test_user_name').save()
+        user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
+        user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        user.user_permissions.add(Permission.objects.get(codename='change_inspection'))
+
+        org = Organization(name='org1', inn='123')
+        org.save()
 
     def tearDown(self):
         pass
-        self.browser.quit()
+        # self.browser.quit()
 
     def wait_for(self, fn):
         start_time = time.time()
@@ -31,3 +39,6 @@ class FunctionalTest(StaticLiveServerTestCase):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.5)
+
+
+

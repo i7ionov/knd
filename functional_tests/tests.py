@@ -1,7 +1,9 @@
 from .base import FunctionalTest
 from seleniumrequests.request import WebDriverException
 import os
-import time
+import datetime
+from selenium.webdriver.common.keys import Keys
+
 MAX_WAIT = 10
 
 
@@ -17,6 +19,25 @@ class InspectionTests(FunctionalTest):
         self.wait_for(lambda: self.browser.find_element_by_id('inspections_menu').click())
         self.wait_for(lambda: self.browser.find_element_by_id('inspection_table_menu_item').click())
         self.wait_for(lambda: self.browser.find_element_by_id('create_new_insp_button').click())
-        self.wait_for(lambda: self.browser.find_element_by_id('doc_number').click())
+        # проверка правильности автоматически заполненных полей
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_xpath(
+            "//select[contains(@id, 'inspector')]/following::span/input").get_attribute('value'), 'test_user_name'))
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_xpath(
+            "//input[contains(@id, 'doc_number')]/following::span/input").get_attribute('value'), '1'))
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_xpath(
+            "//input[contains(@id, 'doc_date')]/following::span/input").get_attribute('value'),
+                                               datetime.datetime.now().strftime('%d.%m.%Y')))
+        # заводим остальные поля
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//input[contains(@id, 'date_begin')]/following::span/input")).send_keys('12.12.2012')
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//input[contains(@id, 'date_begin')]/following::span/input")).send_keys(Keys.RETURN)
 
-
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//select[contains(@id, 'organization')]/following::span/span/a")).click()
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//select[contains(@id, 'organization')]/following::span/input")).send_keys(Keys.DOWN)
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//select[contains(@id, 'organization')]/following::span/input")).send_keys(Keys.ENTER)
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_xpath(
+            "//select[contains(@id, 'organization')]/following::span/input").get_attribute('value'), 'org1, ИНН:123'))

@@ -1,0 +1,12 @@
+<div id="insp_toolbar">
+    {% if user_has_perm_to_add %}
+        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newINSP()">Новая проверка</a>
+    {% endif %}
+  </div>
+
+<script type="text/javascript">
+    function newINSP() {
+        addTab('#tt', 'Новая проверка', ' {% url 'new_inspection_form' %} ');
+    }
+
+</script>

@@ -118,7 +118,7 @@ function save(form, url, id_input) {
                         bottom: ''
                     }
                 });
-                //'/insp/inspection_form/{{ inspection.id }}/'
+                //'/insp/new_inspection_form/{{ inspection.id }}/'
                 var tab = $('#tt').tabs('getSelected');  // get selected panel
                 $(id_input).attr('value', result.pk)
                 tab.panel('refresh', '');
@@ -174,7 +174,7 @@ function addRepeated(control, createurl) {
                         }
                     });
                 } else {
-                    addTab('#tt', 'Повторная проверка ' + result.id, '/insp/inspection_form/' + result.id + '/')
+                    addTab('#tt', 'Повторная проверка ' + result.id, '/insp/new_inspection_form/' + result.id + '/')
                 }
             });
         }
