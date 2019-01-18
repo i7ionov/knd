@@ -1,2 +1,49 @@
-{% if load_static %}{{form.media}}{% endif %}
-{{ form.as_p }}
+{% if load_static %}{{ form.media }}{% endif %}
+
+<form id="fm{{ uid }}" method="post" enctype="multipart/form-data" style="height:95%">
+    <div class="easyui-layout" style="width:100%;height:100%;">
+        <div data-options="region:'west',split:true" title="Разделы" style="width:20%;">
+        <div class="easyui-accordion" id="panel{{ uid }}">
+            <div title="Комментарий" style="overflow:auto;padding:10px;">
+                {{ form.comment }}
+            </div>
+        </div>
+            {% if user_has_perm_to_save %}
+                <div style="text-align:center;padding:5px 0">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok"
+                       onclick="save('#fm{{ uid }}','{% url 'inspection_form_save' %}');"
+                       style="width:150px;">Сохранить</a>
+                </div>
+            {% endif %}
+        </div>
+
+
+        <div data-options="region:'east',split:true" title="Дополнительно" style="width:20%;"></div>
+        <div data-options="region:'center'">
+            {% csrf_token %}
+            <input id="pk{{ uid }}" type="hidden" name="pk" value="{{ pk }}">
+            <p>
+                {{ form.doc_number.label_tag }}
+                {{ form.doc_number }}
+            </p>
+            <p>
+                {{ form.doc_date.label_tag }}
+                {{ form.doc_date }}
+            </p>
+            <p>
+                {{ form.date_begin.label_tag }}
+                {{ form.date_begin }}
+            </p>
+            <p>
+                {{ form.inspector.label_tag }}
+                {{ form.inspector }}
+            </p>
+            <p>
+                {{ form.organization.label_tag }}
+                {{ form.organization }}
+            </p>
+
+
+        </div>
+    </div>
+</form>

@@ -3,7 +3,7 @@ from django.urls import resolve
 from iggndb.views import index
 from django.http import HttpRequest
 from django.contrib.auth.models import User as DjangoUser
-from dictionaries.models import User
+from dictionaries.models import User, Organization
 from django.test import Client
 
 
@@ -23,3 +23,8 @@ class BaseTest(TestCase):
         self.request.user = self.user
         self.client = Client()
         self.client.login(username='ivsemionov', password='123')
+        self.org1 = Organization(name='org1', inn='123')
+        self.org1.save()
+
+
+

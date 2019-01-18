@@ -41,3 +41,10 @@ class InspectionTests(FunctionalTest):
             "//select[contains(@id, 'organization')]/following::span/input")).send_keys(Keys.ENTER)
         self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_xpath(
             "//select[contains(@id, 'organization')]/following::span/input").get_attribute('value'), 'org1, ИНН:123'))
+
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//input[contains(@id, 'comment')]")).send_keys('Comm')
+
+        # сохраняем проверку
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//a[contains(@id, 'submit')]")).click()
