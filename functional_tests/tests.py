@@ -43,7 +43,7 @@ class InspectionTests(FunctionalTest):
             "//select[contains(@id, 'organization')]/following::span/input").get_attribute('value'), 'org1, ИНН:123'))
 
         self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//input[contains(@id, 'comment')]")).send_keys('Comm')
+            "//textarea[contains(@id, 'comment')]/following::span/textarea")).send_keys('Comm')
 
         # сохраняем проверку
         self.wait_for(lambda: self.browser.find_element_by_xpath(
