@@ -72,4 +72,44 @@ class AddrTableJSONTest(BaseTest):
         data = {}
         response = self.client.post('/dict/addr_table_json/', data=data)
         result = json.loads(response.content.decode('utf8'))
-        self.fail(result)
+        valid_json = {'total': 2, 'rows': [
+            {'id': 1, 'area': 'area1', 'place': 'place1', 'city': 'city1', 'city_weight': '100', 'street': 'street1'},
+            {'id': 2, 'area': 'area2', 'place': 'place2', 'city': 'city2', 'city_weight': '100', 'street': 'street2'}]}
+        self.assertEqual(result['total'], 2)
+        self.assertEqual(valid_json, result)
+
+
+class AddrTableTest(BaseTest):
+    def test_addr_select_returns_html(self):
+        response = self.client.get('/dict/addr_table/?uid=random_uid')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dictionaries/address_table.html')
+
+
+class GetHouseIdTest(BaseTest):
+    def setUp(self):
+        super(GetHouseIdTest, self).setUp()
+        self.addr1 = Address(area='area1', city='city1', place='place1', street='street1')
+        self.addr1.save()
+
+    def test_get_house_id_returns_html(self):
+        data = {'addr_id': self.addr1.id, 'house_number': '1a'}
+        response = self.client.post('/dict/get_house_id/', data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['content-type'], 'application/json')
+
+    def test_get_house_id_create_correct_record(self):
+        data = {'addr_id': self.addr1.id, 'house_number': '1a'}
+        response = self.client.post('/dict/get_house_id/', data=data)
+        result = json.loads(response.content.decode('utf8'))
+        created_house_record = House.objects.get(pk=result['result'])
+        self.assertEqual(created_house_record.number, '1a')
+        self.assertEqual(created_house_record.address.id, self.addr1.id)
+
+    def test_get_house_id_returns_existing_record(self):
+        data = {'addr_id': self.addr1.id, 'house_number': '1б'}
+        house = House(address=self.addr1, number='1б')
+        house.save()
+        response = self.client.post('/dict/get_house_id/', data=data)
+        result = json.loads(response.content.decode('utf8'))
+        self.assertEqual(house.id, result['result'])

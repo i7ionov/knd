@@ -1,0 +1,30 @@
+<table id="addr_dg{{ uid }}"></table>
+
+<script type="text/javascript">
+    $('#addr_dg{{ uid }}').datagrid({
+        url: '{% url 'addr_table_json' %}',
+        method: 'post',
+        remoteFilter: true,
+        pagination: true,
+        pageSize: 10,
+        singleSelect: "true",
+        columns: [[
+            {field: 'id', title: 'id', width: 100, sortable: true},
+            {field: 'city', title: 'Город', width: 100, sortable: true},
+            {field: 'street', title: 'Улица', width: 100, align: 'right', sortable: true},
+            {field: 'place', title: 'Поселение', width: 100, sortable: true},
+            {field: 'area', title: 'Муниципальное образование', width: 100, sortable: true}
+         ]]
+    });
+
+    $(function () {
+        let addr_dg = $('#addr_dg{{ uid }}').datagrid();
+        addr_dg.datagrid('enableFilter', [{
+            field: 'id',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }]);    // enable filter
+    });
+
+</script>
