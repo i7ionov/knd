@@ -1,9 +1,9 @@
 <div style="margin-bottom:20px" id="addresses{{ uid }}">
     <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-add"
-       onclick="openAddressDialog('{{ uid }}')"
+       onclick="openAddressDialog('{{ uid }}')" id="add_address('{{ uid }}')"
        style="width:90px">Добавить</a>
     <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-remove"
-       onclick="removeAddress('{{ uid }}')"
+       onclick="removeAddress('{{ uid }}')" id="remove_address('{{ uid }}')"
        style="width:90px">Удалить</a>
     <div id="address_list{{ uid }}" name="address_list" class="easyui-datalist" title="Адреса"
          style="width:100%;height:150px">

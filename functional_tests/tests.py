@@ -46,6 +46,26 @@ class InspectionTests(FunctionalTest):
         # вводим адрес
         self.wait_for(lambda: self.browser.find_element_by_xpath(
             "//a[contains(@id, 'add_address')]")).click()
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//div[contains(@id, 'address_dialog')]/div/div/div/div/div/table/tbody/tr/td/div")).click()
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//input[contains(@id, 'house_number')]/following::span/input")).send_keys('12а')
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//a[contains(@id, 'addr_sel_close_btn')]")).click()
+        # удаляем введенный адрес
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//div[contains(@id, 'addresses')]/div/div/div/div/div/table/tbody/tr/td/div")).click()
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//a[contains(@id, 'remove_address')]")).click()
+        # вводим адрес еще раз, но другой
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//a[contains(@id, 'add_address')]")).click()
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//div[contains(@id, 'address_dialog')]/div/div/div/div/div/table/tbody/tr/td/div")).click()
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//input[contains(@id, 'house_number')]/following::span/input")).send_keys('1б')
+        self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//a[contains(@id, 'addr_sel_close_btn')]")).click()
 
         # сохраняем проверку
         self.wait_for(lambda: self.browser.find_element_by_xpath(

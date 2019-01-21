@@ -44,10 +44,8 @@ def new_inspection_form(request):
 @permission_required('inspections.change_inspection', raise_exception=True)
 @require_POST
 def inspection_form_save(request):
-
     inspection = models.Inspection.objects.get(pk=request.POST['pk'][0])
     form = InspectionForm(request.POST, instance=inspection)
-
     if form.is_valid():
         form.save()
         return HttpResponse(json.dumps([{'result': 'Форма успешно сохранена'}]), content_type='application/json')

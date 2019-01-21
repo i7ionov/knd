@@ -2,7 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from seleniumrequests import Firefox
 from seleniumrequests.request import WebDriverException
 from django.contrib.auth.models import User as DjangoUser, Permission
-from dictionaries.models import Organization, User
+from dictionaries.models import Organization, User, Address, House
 import os
 import time
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,6 +25,11 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         org = Organization(name='org1', inn='123')
         org.save()
+        addr1 = Address(area='area1', city='city1', place='place1', street='street1')
+        addr1.save()
+        addr2 = Address(area='area2', city='city2', place='place2', street='street2')
+        addr2.save()
+
 
     def tearDown(self):
         pass
