@@ -1,4 +1,4 @@
-"""Модуль содержит методы для формирования QuerySet'ов"""
+"""РњРѕРґСѓР»СЊ СЃРѕРґРµСЂР¶РёС‚ РјРµС‚РѕРґС‹ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ QuerySet'РѕРІ"""
 import simplejson as json
 import django
 from datetime import date, datetime
@@ -8,10 +8,10 @@ from django.db import models
 
 
 def filtered_table_json_response(request, model):
-    """Метод создает типовой JSON ответ на request, генерируемый EasyUI DataGrid.
-    Response содержит отфильтрованую по критериям таблицу указанной модели."""
+    """РњРµС‚РѕРґ СЃРѕР·РґР°РµС‚ С‚РёРїРѕРІРѕР№ JSON РѕС‚РІРµС‚ РЅР° request, РіРµРЅРµСЂРёСЂСѓРµРјС‹Р№ EasyUI DataGrid.
+    Response СЃРѕРґРµСЂР¶РёС‚ РѕС‚С„РёР»СЊС‚СЂРѕРІР°РЅСѓСЋ РїРѕ РєСЂРёС‚РµСЂРёСЏРј С‚Р°Р±Р»РёС†Сѓ СѓРєР°Р·Р°РЅРЅРѕР№ РјРѕРґРµР»Рё."""
     objects = []
-    # пагинация
+    # РїР°РіРёРЅР°С†РёСЏ
     page = 1
     rows = 10
     if "page" in request.POST:
@@ -20,9 +20,9 @@ def filtered_table_json_response(request, model):
         rows = int(request.POST['rows'])
     start = rows * (page - 1)
     end = start + rows
-    # получаем отфильтрованый QuerySet
+    # РїРѕР»СѓС‡Р°РµРј РѕС‚С„РёР»СЊС‚СЂРѕРІР°РЅС‹Р№ QuerySet
     query = get_filtered_query_set(model, request)
-    # получаем список полей модели для отображения
+    # РїРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє РїРѕР»РµР№ РјРѕРґРµР»Рё РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
     fields = get_model_columns([], model)
 
     for item in query[start:end]:
@@ -37,18 +37,18 @@ def filtered_table_json_response(request, model):
 
 def get_filtered_query_set(model, request):
     """
-    Метод создает QuerySet по указанной модели, применяет к ней фильтрации, сортировки по переданным правилам
-    :param model: Модель, по которой создается QuerySet
-    :param request: POST request, полученный от EasyUI DataGrid
+    РњРµС‚РѕРґ СЃРѕР·РґР°РµС‚ QuerySet РїРѕ СѓРєР°Р·Р°РЅРЅРѕР№ РјРѕРґРµР»Рё, РїСЂРёРјРµРЅСЏРµС‚ Рє РЅРµР№ С„РёР»СЊС‚СЂР°С†РёРё, СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕ РїРµСЂРµРґР°РЅРЅС‹Рј РїСЂР°РІРёР»Р°Рј
+    :param model: РњРѕРґРµР»СЊ, РїРѕ РєРѕС‚РѕСЂРѕР№ СЃРѕР·РґР°РµС‚СЃСЏ QuerySet
+    :param request: POST request, РїРѕР»СѓС‡РµРЅРЅС‹Р№ РѕС‚ EasyUI DataGrid
     :return: QuerySet
     """
-    # фильтрация
+    # С„РёР»СЊС‚СЂР°С†РёСЏ
     if 'filterRules' in request.POST:
         # [{"field":"name","op":"contains","value":"org"}]
         rules = json.loads(request.POST['filterRules'])
     else:
         rules = None
-    # сортировка
+    # СЃРѕСЂС‚РёСЂРѕРІРєР°
     if "sort" in request.POST:
         print(request.POST['sort'])
         sort = request.POST['sort']
@@ -63,13 +63,13 @@ def get_filtered_query_set(model, request):
 
 def filter_query(model, rules):
     """
-    Метод создает QuerySet по указанной модели, применяет к ней фильтрации по всем переданным правилам
-    :param model: Модель, по которой создается QuerySet
-    :param rules: Список правил для фильтрации в виде объекта, экспортированного из JSON.
-    Пример: [{"nested_object__field":"name","op":"contains","value":"org"}],
+    РњРµС‚РѕРґ СЃРѕР·РґР°РµС‚ QuerySet РїРѕ СѓРєР°Р·Р°РЅРЅРѕР№ РјРѕРґРµР»Рё, РїСЂРёРјРµРЅСЏРµС‚ Рє РЅРµР№ С„РёР»СЊС‚СЂР°С†РёРё РїРѕ РІСЃРµРј РїРµСЂРµРґР°РЅРЅС‹Рј РїСЂР°РІРёР»Р°Рј
+    :param model: РњРѕРґРµР»СЊ, РїРѕ РєРѕС‚РѕСЂРѕР№ СЃРѕР·РґР°РµС‚СЃСЏ QuerySet
+    :param rules: РЎРїРёСЃРѕРє РїСЂР°РІРёР» РґР»СЏ С„РёР»СЊС‚СЂР°С†РёРё РІ РІРёРґРµ РѕР±СЉРµРєС‚Р°, СЌРєСЃРїРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ РёР· JSON.
+    РџСЂРёРјРµСЂ: [{"nested_object__field":"name","op":"contains","value":"org"}],
 
-    Поле op может содержать следующие значения: contains, less, greater
-    :return: QuerySet с добавленной фильтрацией
+    РџРѕР»Рµ op РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ СЃР»РµРґСѓСЋС‰РёРµ Р·РЅР°С‡РµРЅРёСЏ: contains, less, greater
+    :return: QuerySet СЃ РґРѕР±Р°РІР»РµРЅРЅРѕР№ С„РёР»СЊС‚СЂР°С†РёРµР№
     """
     query = model.objects.all()
     if rules:
@@ -80,12 +80,12 @@ def filter_query(model, rules):
 
 def add_filter_from_easyui(query, rule):
     """
-    Метод добавляет фильтрацию к переданному QuerySet по заданному правилу
+    РњРµС‚РѕРґ РґРѕР±Р°РІР»СЏРµС‚ С„РёР»СЊС‚СЂР°С†РёСЋ Рє РїРµСЂРµРґР°РЅРЅРѕРјСѓ QuerySet РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ РїСЂР°РІРёР»Сѓ
     :param query: QuerySet
-    :param rule: Правило для фильтрации в виде объекта, экспортированного из JSON.
-    Пример: [{"field":"name","op":"contains","value":"org"}].
-    Поле op может содержать следующие значения: contains, less, greater
-    :return: QuerySet с добавленной фильтрацией
+    :param rule: РџСЂР°РІРёР»Рѕ РґР»СЏ С„РёР»СЊС‚СЂР°С†РёРё РІ РІРёРґРµ РѕР±СЉРµРєС‚Р°, СЌРєСЃРїРѕСЂС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ РёР· JSON.
+    РџСЂРёРјРµСЂ: [{"field":"name","op":"contains","value":"org"}].
+    РџРѕР»Рµ op РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ СЃР»РµРґСѓСЋС‰РёРµ Р·РЅР°С‡РµРЅРёСЏ: contains, less, greater
+    :return: QuerySet СЃ РґРѕР±Р°РІР»РµРЅРЅРѕР№ С„РёР»СЊС‚СЂР°С†РёРµР№
     """
 
     field = str(rule['field']).replace('.', '__')
@@ -114,7 +114,7 @@ def add_filter_from_easyui(query, rule):
 
 
 def datetime_handler(obj):
-    """Приводит дату в формат %d.%m.%Y"""
+    """РџСЂРёРІРѕРґРёС‚ РґР°С‚Сѓ РІ С„РѕСЂРјР°С‚ %d.%m.%Y"""
     if isinstance(obj, (datetime, date)):
         return obj.strftime('%d.%m.%Y')
         # return obj.isoformat()
@@ -122,16 +122,16 @@ def datetime_handler(obj):
 
 def get_value(item, field):
     """
-    Метод позволяет получить строковое значение у объекта item, хранящееся в поле field.
-    :param item: Объект
-    :param field: Название поля, может быть в виде "nested_object.field" с любым уровнем вложения
-    :return: Строковое значение поля
+    РњРµС‚РѕРґ РїРѕР·РІРѕР»СЏРµС‚ РїРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ Сѓ РѕР±СЉРµРєС‚Р° item, С…СЂР°РЅСЏС‰РµРµСЃСЏ РІ РїРѕР»Рµ field.
+    :param item: РћР±СЉРµРєС‚
+    :param field: РќР°Р·РІР°РЅРёРµ РїРѕР»СЏ, РјРѕР¶РµС‚ Р±С‹С‚СЊ РІ РІРёРґРµ "nested_object.field" СЃ Р»СЋР±С‹Рј СѓСЂРѕРІРЅРµРј РІР»РѕР¶РµРЅРёСЏ
+    :return: РЎС‚СЂРѕРєРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ
     """
     val = item
     for p in str(field).split('.'):
         if val is None:
             continue
-        # print("От %s берем %s" % (val, p))
+        # print("РћС‚ %s Р±РµСЂРµРј %s" % (val, p))
         val = val.__getattribute__(p)
     if val is None:
         return None
@@ -140,19 +140,19 @@ def get_value(item, field):
 
 def get_model_columns(field_list, model, prefix='', parent_verbose_name=''):
     """
-    Метод создает список полей у которых было заполненно verbose_name, работает рекурсивно.
-    :param field_list: Объект с полями: verbose_name, name, prefix, field
-    :param model: Модель, поля которой нужно получить
-    :param prefix: Префикс для поля. Используется в итерациях рекурсии. Хранит имя родительского поля
-    :param parent_verbose_name: Используется в итерациях рекурсии. Хранит человекочитаемое название
-    родительского поля
-    :return: Возвращает список объектов с полями:
-    verbose_name - человекочитаемое название поля,
-    name - имя поля,
-    prefix - имя родительского поля с точкой на конце,
-    field - ссылка на сам объект поля
+    РњРµС‚РѕРґ СЃРѕР·РґР°РµС‚ СЃРїРёСЃРѕРє РїРѕР»РµР№ Сѓ РєРѕС‚РѕСЂС‹С… Р±С‹Р»Рѕ Р·Р°РїРѕР»РЅРµРЅРЅРѕ verbose_name, СЂР°Р±РѕС‚Р°РµС‚ СЂРµРєСѓСЂСЃРёРІРЅРѕ.
+    :param field_list: РћР±СЉРµРєС‚ СЃ РїРѕР»СЏРјРё: verbose_name, name, prefix, field
+    :param model: РњРѕРґРµР»СЊ, РїРѕР»СЏ РєРѕС‚РѕСЂРѕР№ РЅСѓР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ
+    :param prefix: РџСЂРµС„РёРєСЃ РґР»СЏ РїРѕР»СЏ. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ РёС‚РµСЂР°С†РёСЏС… СЂРµРєСѓСЂСЃРёРё. РҐСЂР°РЅРёС‚ РёРјСЏ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РїРѕР»СЏ
+    :param parent_verbose_name: РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ РёС‚РµСЂР°С†РёСЏС… СЂРµРєСѓСЂСЃРёРё. РҐСЂР°РЅРёС‚ С‡РµР»РѕРІРµРєРѕС‡РёС‚Р°РµРјРѕРµ РЅР°Р·РІР°РЅРёРµ
+    СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РїРѕР»СЏ
+    :return: Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ СЃ РїРѕР»СЏРјРё:
+    verbose_name - С‡РµР»РѕРІРµРєРѕС‡РёС‚Р°РµРјРѕРµ РЅР°Р·РІР°РЅРёРµ РїРѕР»СЏ,
+    name - РёРјСЏ РїРѕР»СЏ,
+    prefix - РёРјСЏ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РїРѕР»СЏ СЃ С‚РѕС‡РєРѕР№ РЅР° РєРѕРЅС†Рµ,
+    field - СЃСЃС‹Р»РєР° РЅР° СЃР°Рј РѕР±СЉРµРєС‚ РїРѕР»СЏ
     """
-    # выберем поля с verbose_name
+    # РІС‹Р±РµСЂРµРј РїРѕР»СЏ СЃ verbose_name
     for col, field in enumerate(model._meta.get_fields()):
         try:
             if field.__class__ == fields.AutoField or \
