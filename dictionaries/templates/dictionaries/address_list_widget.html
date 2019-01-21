@@ -1,0 +1,68 @@
+<div style="margin-bottom:20px" id="addresses{{ uid }}">
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-add"
+       onclick="openAddressDialog('{{ uid }}')"
+       style="width:90px">Добавить</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-remove"
+       onclick="removeAddress('{{ uid }}')"
+       style="width:90px">Удалить</a>
+    <div id="address_list{{ uid }}" name="address_list" class="easyui-datalist" title="Адреса"
+         style="width:100%;height:100px">
+    </div>
+</div>
+<script>
+
+    $('#address_list{{ uid }}').datalist({
+        lines: true,
+    });
+
+    function updateAddressList(uid, id_list) {
+        $.post('{% url 'addr_from_id_list' %}', {'data': id_list},
+            function (data) {
+                let addresses = $('#addresses' + uid);
+                let addr_list = $('#address_list' + uid);
+                data['result'].forEach(function (item, i, arr) {
+                    let vbItem = $('<input type="hidden" value="' + item[0] + '" name="{{ widget.name }}" id="addr{{ uid }}' + item[0] + '"/>');
+                    addresses.append(vbItem);
+                    addr_list.datalist('appendRow', $.extend(true, {text: item[1], id: item[0]}, ""));
+                });
+            });
+
+    }
+
+    function removeAddress(uid) {
+        let addr_list = $('#address_list' + uid);
+        let row = addr_list.datalist('getSelected');
+        let addr_id = row.id;
+        try {
+            let index = addr_list.datalist('getRowIndex', row);
+            $('#address_list' + uid).datalist('deleteRow', index);
+        }
+        catch (e) {
+        }
+        $('#addr' + uid + addr_id).remove();
+        address_list{{ uid }} = removeValue(address_list{{ uid }}, addr_id);
+    }
+
+    function openAddressDialog(uid, name = 'address_list') {
+        $.post('/dict/addr_select/?name=' + name, {'uid': uid},
+            function (data) {
+                $('#addreses' + uid).append(data);
+                $('#address_dialog' + uid).dialog('open');
+                $('#address_dialog' + uid).dialog('refresh', '/dict/addr_table/?uid=' + uid);
+
+            });
+    }
+
+    function removeValue(arr, value) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].toString() === value.toString()) {
+                arr.splice(i, 1);
+                break;
+            }
+        }
+        return arr;
+    }
+
+    let address_list{{ uid }} = [{% for house in widget.value %}{{ house }}, {% endfor %}];
+    updateAddressList('{{ uid }}', address_list{{ uid }});
+</script>

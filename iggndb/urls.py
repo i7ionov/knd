@@ -21,7 +21,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('django.contrib.auth.urls')),
-    # path('dict/', include('dictionaries.urls')),
+    path('dict/', include('dictionaries.urls')),
     path('insp/', include('inspections.urls')),
     # path('ad/', include('ad.urls')),
     # path('analytic/', include('analytic.urls')),

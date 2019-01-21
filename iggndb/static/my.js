@@ -29,15 +29,7 @@ function addTab(control, title, url, add_existing = true) {
     }
 }
 
-function openAddressDialog(uid, name = 'address_list') {
-    $.post('/dict/addr_select/?name=' + name, {'uid': uid},
-        function (data) {
-            $('#addreses' + uid).append(data);
-            $('#address_dialog' + uid).dialog('open');
-            $('#address_dialog' + uid).dialog('refresh', '/dict/addr_table/?uid=' + uid);
 
-        });
-}
 
 
 function openFileDialog(uid, parent_id) {
@@ -48,30 +40,7 @@ function openFileDialog(uid, parent_id) {
         });
 }
 
-function addAddress(uid, name = 'address_list') {
-    var row = $('#addr_dg' + uid).datalist('getSelected');
-    var addr_id = row['id'];
-    var house = $('#house_number' + uid).textbox('getValue');
-    var addr = row['city'] + ' ' + row['street'] + ' ' + house;
 
-    var vbItem = $('<input type="hidden" value="' + addr_id + ';' + house + '" name="' + name + '" id="addr' + uid + addr_id + '"/>');
-    $('#addreses' + uid).append(vbItem);
-    $('#address_list' + uid).datalist('appendRow', $.extend(true, {text: addr, id: addr_id}, ""));
-}
-
-function removeAddress(uid) {
-
-    var row = $('#address_list' + uid).datalist('getSelected');
-    var addr_id = row.id;
-    try {
-        var index = $('#address_list' + uid).datalist('getRowIndex', row);
-        $('#address_list' + uid).datalist('deleteRow', index);
-    }
-    catch (e) {
-    }
-
-    $('#addr' + uid + addr_id).remove();
-};
 
 function save(form, url, id_input) {
     $(form).form('submit', {

@@ -1,0 +1,37 @@
+<div id="address_dialog{{ uid }}"></div>
+<div id="address_dialog_toolbar{{ uid }}" style="padding:2px 0">
+    <div style="margin: 10px">
+        <label for="house_number{{ uid }}">Номер дома:</label>>
+        <br>
+        <input id="house_number{{ uid }}" class="easyui-textbox" style="width:150px;">
+
+    </div>
+
+</div>
+<div id="address_dialog_buttons{{ uid }}">
+    <a href="javascript:void(0)" id="addr_sel_btn{{ uid }}" class="easyui-linkbutton"
+       onclick="addAddress('{{ uid }}, {{ name }}')">Добавить</a>
+    <a href="javascript:void(0)" id="addr_sel_close_btn{{ uid }}" class="easyui-linkbutton"
+       onclick="addAddress('{{ uid }}', '{{ name }}');$('#address_dialog{{ uid }}').dialog('close')">Добавить и
+        закрыть</a>
+    <a href="javascript:void(0)" id="addr_close_btn{{ uid }}" class="easyui-linkbutton"
+       onclick="$('#address_dialog{{ uid }}').dialog('close')">Закрыть</a>
+</div>
+<script>
+    $('#house_number{{ uid }}').textbox({});
+    $('#addr_close_btn{{ uid }}').linkbutton({});
+    $('#addr_sel_btn{{ uid }}').linkbutton({});
+    $('#addr_sel_close_btn{{ uid }}').linkbutton({});
+    $('#address_dialog{{ uid }}').dialog({
+        title: 'Адреса',
+        width: 800,
+        height: 400,
+        resizable: true,
+        modal: true,
+        toolbar: '#address_dialog_toolbar{{ uid }}',
+        buttons: '#address_dialog_buttons{{ uid }}',
+        onClose: function () {
+            $(this).dialog('destroy');
+        }
+    });
+</script>

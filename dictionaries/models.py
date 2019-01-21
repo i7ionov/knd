@@ -96,7 +96,7 @@ class House(models.Model):
         self.changed_by = value
 
     def __str__(self):
-        return self.address.city + self.address.street + self.number
+        return f'{self.address.place}, {self.address.city}, {self.address.street}, {self.number}'
 
     class Meta:
         verbose_name = "Дом"
