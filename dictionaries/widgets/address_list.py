@@ -19,3 +19,12 @@ class AddressListWidget(Widget):
         context = self.get_context(name, value, attrs)
         template = loader.get_template(self.template_name).render(context)
         return mark_safe(template)
+
+    def value_from_datadict(self, data, files, name):
+        """Это из базового виджета MultipleSelect. Нужна для корректного сохранения значения виджета."""
+        try:
+            getter = data.getlist
+        except AttributeError:
+            getter = data.get
+        return getter(name)
+

@@ -49,7 +49,8 @@ class SavingInspectionFormTest(BaseTest):
             'doc_date': ['11.12.2012'],
             'date_begin': ['12.12.2012'],
             'inspector': [str(User.objects.first().pk)],
-            'organization': [str(Organization.objects.first().pk)],
+            'organization': [str(self.org2.pk)],
+            'houses': [self.house1.id.__str__(), self.house2.id.__str__()],
             'comment': ['Comm']
         }
 
@@ -70,5 +71,6 @@ class SavingInspectionFormTest(BaseTest):
         self.assertEqual(self.data['doc_date'][0], insp.doc_date.strftime('%d.%m.%Y'))
         self.assertEqual(self.data['date_begin'][0], insp.date_begin.strftime('%d.%m.%Y'))
         self.assertEqual(self.data['inspector'][0], str(insp.inspector.id))
-        self.assertEqual(self.data['organization'][0], str(insp.inspector.id))
+        self.assertEqual(self.data['organization'][0], str(self.org2.pk))
+        self.assertEqual(2, insp.houses.count())
         self.assertEqual(self.data['comment'][0], insp.comment)

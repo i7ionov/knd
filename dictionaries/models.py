@@ -3,6 +3,8 @@ from django.contrib.auth.models import User as DjangoUser
 from mptt.models import MPTTModel, TreeForeignKey
 from simple_history.models import HistoricalRecords
 from simple_history import register
+
+
 # Create your models here.
 
 
@@ -127,9 +129,10 @@ class Document(MPTTModel):
     doc_date = models.DateField(verbose_name='дата документа', blank=True)
     doc_type = models.CharField(max_length=500, default="", null=True, verbose_name='тип документа')
     root_id = models.IntegerField(editable=False, default=0, verbose_name='root_id')
-    files = models.ManyToManyField(File, verbose_name='файлы')
-    houses = models.ManyToManyField(House, verbose_name='адреса домов')
-    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, verbose_name='Организация')
+    files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
+    houses = models.ManyToManyField(House, blank=True, verbose_name='адреса домов')
+    organization = models.ForeignKey(Organization, blank=True, on_delete=models.SET_NULL, null=True,
+                                     verbose_name='Организация')
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
                             on_delete=models.SET_NULL)
 
@@ -155,5 +158,3 @@ class WorkingDays(models.Model):
 class Recipient(models.Model):
     email = models.CharField(max_length=500, verbose_name='емейл')
     group = models.CharField(max_length=500, verbose_name='группа')
-
-

@@ -96,16 +96,16 @@ class ViolationType(MPTTModel):
 
 # 
 class Inspection(Document):
-    legal_basis = models.ForeignKey(LegalBasis, on_delete=models.SET_NULL, null=True,
+    legal_basis = models.ForeignKey(LegalBasis, on_delete=models.SET_NULL, null=True, blank=True,
                                     verbose_name='основание для проверки')
-    control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True,
+    control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name='вид контроля')
-    control_form = models.ForeignKey(ControlForm, on_delete=models.SET_NULL, null=True,
+    control_form = models.ForeignKey(ControlForm, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name='форма проверки')  # выездная, документарная
-    control_plan = models.ForeignKey(ControlPlan, on_delete=models.SET_NULL, null=True,
+    control_plan = models.ForeignKey(ControlPlan, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name='вид проверки')  # плановая, внеплановая
-    inspection_subjects = models.ManyToManyField(InspectionSubject, verbose_name='предмет проверки')
-    inspection_tasks = models.ManyToManyField(InspectionTask, verbose_name='задачи проверки')
+    inspection_subjects = models.ManyToManyField(InspectionSubject, verbose_name='предмет проверки', blank=True)
+    inspection_tasks = models.ManyToManyField(InspectionTask, verbose_name='задачи проверки', blank=True)
     inspector = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='инспектор')
     date_begin = models.DateField(null=True, blank=True, verbose_name='начало проведения проверки')
     date_end = models.DateField(null=True, blank=True, verbose_name='окончание проведения проверки')
@@ -113,11 +113,11 @@ class Inspection(Document):
     gis_gkh_number = models.TextField(default="", blank=True, verbose_name='номер в ГИС ЖКХ')
     erp_number = models.TextField(default="", blank=True, verbose_name='номер в EРП')
     act_date = models.DateField(null=True, blank=True, verbose_name='дата акта')
-    inspection_result = models.ForeignKey(InspectionResult, on_delete=models.SET_NULL, null=True,
+    inspection_result = models.ForeignKey(InspectionResult, on_delete=models.SET_NULL, null=True, blank=True,
                                           verbose_name='причина непроведения проверки')
-    cancellation = models.ForeignKey(Cancellation, on_delete=models.SET_NULL, null=True,
+    cancellation = models.ForeignKey(Cancellation, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name='Информация об отмене результатов проверки')
-    violations_quantity = models.IntegerField(default=0, verbose_name='количество нарушений')
+    violations_quantity = models.IntegerField(default=0, blank=True, verbose_name='количество нарушений')
     history = HistoricalRecords()
 
     @property

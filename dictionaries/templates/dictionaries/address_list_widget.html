@@ -38,7 +38,7 @@
                 let house_id = data['result'];
                 console.log(house_id);
                 let vbItem = $('<input type="hidden" value="' + house_id + '" name="{{ widget.name }}" id="addr{{ uid }}' + house_id + '"/>');
-                $('#addreses' + uid).append(vbItem);
+                $('#addresses' + uid).append(vbItem);
                 $('#address_list' + uid).datalist('appendRow', $.extend(true, {text: addr, id: house_id}, ""));
             });
     }
