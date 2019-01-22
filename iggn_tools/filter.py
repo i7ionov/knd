@@ -30,7 +30,8 @@ def filtered_table_json_response(request, model, func=None):
         for field in fields:
             object[field['prefix'].replace('.', '__') + field['name']] = get_value(item, field['prefix'] + field[
                 'name'])
-        object = func(object, item)
+        if func:
+            object = func(object, item)
         objects.append(object)
     data = {"total": query.count(), "rows": objects}
     return json.dumps(data, default=datetime_handler)
