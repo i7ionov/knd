@@ -1,21 +1,28 @@
 from django import forms
-
+from django.utils.translation import gettext_lazy as _
 from inspections.models import Inspection
 from dictionaries.widgets.address_list import AddressListWidget
+from iggn_tools.widgets.none_widget import NoneWidget
 
 
 # http://qaru.site/questions/2090842/how-do-i-pass-a-context-variable-from-a-view-to-a-custom-fieldwidget-in-a-django-template
 class InspectionForm(forms.ModelForm):
     class Meta:
         model = Inspection
-        fields = ['doc_number', 'doc_date', 'date_begin', 'inspector', 'organization', 'comment', 'houses']
+        fields = ['doc_number', 'doc_date', 'date_begin', 'date_end', 'legal_basis', 'control_kind', 'control_form',
+                  'control_plan', 'inspector', 'organization', 'comment', 'houses', 'inspection_result', 'cancellation',
+                  'act_date']
         widgets = {
-            'comment': forms.Textarea(attrs={'style': 'width:100%;height:300px'}),
+            'comment': NoneWidget(),
+            'violations_quantity': NoneWidget(),
             'houses': AddressListWidget(),
+        }
+        labels = {
+            'comment': _(''),
         }
 
     class Media:
-        js = ('jquery.min.js', 'jquery.easyui.min.js')
+        js = ('jquery.min.js', 'jquery.easyui.min.js', 'my.js')
         css = {
             'all': ('css/bootstrap.css', 'themes/gray/easyui.css', 'themes/icon.css')
         }

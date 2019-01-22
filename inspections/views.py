@@ -36,7 +36,7 @@ def new_inspection_form(request):
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
-               'pk': insp.pk}
+               'inspection': insp}
     return render(request, 'inspections/inspection_form.html', context)
 
 
@@ -48,9 +48,47 @@ def inspection_form_save(request):
     form = InspectionForm(request.POST, instance=inspection)
     print(request.POST)
     if form.is_valid():
-        a = form.save()
-        print(a.id)
+        form.save()
+        save_violations_in_inspection(request.POST.getlist('violations'), inspection)
         return HttpResponse(json.dumps([{'result': 'Форма успешно сохранена'}]), content_type='application/json')
     else:
         print(form.errors)
         return HttpResponse(json.dumps([{'result': form.errors}]), content_type='application/json')
+
+
+@login_required
+@csrf_exempt
+def violation_in_inspection_json_list(request, id=0):
+    try:
+        d = models.Inspection.objects.get(id=id)
+        violations = d.violationininspection_set.all()
+    except (models.Inspection.DoesNotExist, ValueError):
+        violations = ''
+    context = {'violations': violations}
+    return render(request, 'inspections/violation_in_inspection_json_list.html', context)
+
+
+def save_violations_in_inspection(violations, inspection):
+    """Сохраняет нарушения, выявленные в ходе проверки.
+    :param violations: Список строк, содержащий id типа нарушения и количества нарушений, разделенных точкой с запятой
+    """
+    for v in violations:
+        v_id = str(v).split(';')[0]
+        v_count = str(v).split(';')[1]
+        if str(v_count) == 'undefined' or str(v_count) == '':
+            continue
+        if int(v_count) > 0:
+            try:
+                violation, created = models.ViolationInInspection.objects.get_or_create(violation_type_id=v_id,
+                                                                                        inspection=inspection)
+            except models.ViolationInInspection.MultipleObjectsReturned:
+                inspection.violationininspection_set.filter(violation_type_id=v_id).delete()
+                violation, created = models.ViolationInInspection.objects.get_or_create(violation_type_id=v_id,
+                                                                                        inspection=inspection)
+            if violation.violation_type.parent is None:
+                inspection.violations_quantity = int(v_count)
+            violation.count = v_count
+            violation.save()
+
+        else:
+            inspection.violationininspection_set.filter(violation_type_id=v_id).delete()

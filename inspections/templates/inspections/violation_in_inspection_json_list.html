@@ -1,0 +1,16 @@
+{% load mptt_tags %}
+{% full_tree_for_model inspections.ViolationType as nodes %}
+
+{% for node,structure in nodes|tree_info %}{% if structure.new_level %} [{ {% else %} },{ {% endif %}
+"id": "{{ node.id }}",
+
+    {% for v in violations%}
+        {% if v.violation_type_id == node.id %}
+            "checked":true,
+        "count":"{{ v.count }}",
+        {% endif %}
+    {% endfor %}
+
+"text":"{{ node.text }}",
+"children": {% if node.is_leaf_node %}[]{% endif %}
+{% for level in structure.closed_levels %}}]{% endfor %}{% endfor %}

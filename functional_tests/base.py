@@ -3,6 +3,7 @@ from seleniumrequests import Firefox
 from seleniumrequests.request import WebDriverException
 from django.contrib.auth.models import User as DjangoUser, Permission
 from dictionaries.models import Organization, User, Address, House
+from inspections.models import Inspection, ViolationInInspection, ViolationType
 import os
 import time
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +30,12 @@ class FunctionalTest(StaticLiveServerTestCase):
         addr1.save()
         addr2 = Address(area='area2', city='city2', place='place2', street='street2')
         addr2.save()
-
+        v_type1 = ViolationType(text='Type of violation1')
+        v_type1.save()
+        v_type2 = ViolationType(text='Type of violation2')
+        v_type2.save()
+        v_type2 = ViolationType(text='Type of violation22', parent=v_type2)
+        v_type2.save()
 
     def tearDown(self):
         pass

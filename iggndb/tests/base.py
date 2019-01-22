@@ -5,6 +5,7 @@ from django.http import HttpRequest
 from django.contrib.auth.models import User as DjangoUser
 from dictionaries.models import User, Organization, Address, House
 from django.test import Client
+from inspections.models import Inspection, ViolationInInspection, ViolationType
 
 
 class BaseTest(TestCase):
@@ -35,6 +36,10 @@ class BaseTest(TestCase):
         self.addr2.save()
         self.house2 = House(number='2', address=self.addr2)
         self.house2.save()
+        self.v_type1 = ViolationType(text='Type of violation1')
+        self.v_type1.save()
+        self.v_type2 = ViolationType(text='Type of violation2')
+        self.v_type2.save()
 
 
 
