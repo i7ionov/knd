@@ -33,34 +33,24 @@ class AddrFromIDListTest(BaseTest):
 
 class AddrSelectTest(BaseTest):
     def test_addr_select_returns_html(self):
-        data = {'data[]': 'random_uid'}
+        data = {'uid': 'random_uid', 'name': 'random_name'}
         response = self.client.post('/dict/addr_select/', data=data)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'dictionaries/address_select.html')
 
     def test_addr_select_contains_random_uid(self):
-        data = {'data[]': 'random_uid'}
+        data = {'uid': 'random_uid', 'name': 'random_name'}
         response = self.client.post('/dict/addr_select/', data=data)
         self.assertIn('random_uid', response.content.decode('utf8'))
 
     def test_addr_select_shields_random_uid(self):
-        evil_uid = '<script>alert("Achtung!")</script>'
-        data = {'data[]': evil_uid}
+        evil_string = '<script>alert("Achtung!")</script>'
+        data = {'uid': evil_string, 'name': evil_string}
         response = self.client.post('/dict/addr_select/', data=data)
-        self.assertNotIn(evil_uid, response.content.decode('utf8'))
+        self.assertNotIn(evil_string, response.content.decode('utf8'))
 
 
 class AddrTableJSONTest(BaseTest):
-    def setUp(self):
-        super(AddrTableJSONTest, self).setUp()
-        self.addr1 = Address(area='area1', city='city1', place='place1', street='street1')
-        self.addr1.save()
-        self.house1 = House(number='1', address=self.addr1)
-        self.house1.save()
-        self.addr2 = Address(area='area2', city='city2', place='place2', street='street2')
-        self.addr2.save()
-        self.house2 = House(number='2', address=self.addr2)
-        self.house2.save()
 
     def test_addr_table_json_returns_json(self):
         data = {}
@@ -73,8 +63,10 @@ class AddrTableJSONTest(BaseTest):
         response = self.client.post('/dict/addr_table_json/', data=data)
         result = json.loads(response.content.decode('utf8'))
         valid_json = {'total': 2, 'rows': [
-            {'id': 1, 'area': 'area1', 'place': 'place1', 'city': 'city1', 'city_weight': '100', 'street': 'street1'},
-            {'id': 2, 'area': 'area2', 'place': 'place2', 'city': 'city2', 'city_weight': '100', 'street': 'street2'}]}
+            {'id': self.addr1.id, 'area': self.addr1.area.__str__(), 'place': self.addr1.place.__str__(), 'city': self.addr1.city.__str__(),
+             'city_weight': self.addr1.city_weight.__str__(), 'street': self.addr1.street.__str__()},
+            {'id': self.addr2.id, 'area': self.addr2.area.__str__(), 'place': self.addr2.place.__str__(), 'city': self.addr2.city.__str__(),
+             'city_weight': self.addr2.city_weight.__str__(), 'street': self.addr2.street.__str__()}]}
         self.assertEqual(result['total'], 2)
         self.assertEqual(valid_json, result)
 
