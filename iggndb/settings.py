@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'simple_history',
+    'mixer',
     'iggndb',
     'iggn_tools',
     'dictionaries',

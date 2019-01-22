@@ -1,3 +1,4 @@
+<table id="insp_dg" sortName="dictionaries_document.id" sortOrder="desc"></table>
 <div id="insp_toolbar">
     {% if user_has_perm_to_add %}
         <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newINSP()">Новая проверка</a>
@@ -8,5 +9,220 @@
     function newINSP() {
         addTab('#tt', 'Новая проверка', ' {% url 'new_inspection_form' %} ');
     }
+    $('#insp_dg').datagrid({
+        url: '/insp/inspection_json_table/',
+        method: 'post',
+        height: height - 60,
+        toolbar: "#insp_toolbar",
+        remoteFilter: true,
+        pagination: true,
+        pageSize: 20,
+        columnMoving: true,
+        onBeforeDropColumn: function () {
+            $(this).datagrid('disableFilter');
+        },
+        onDropColumn: function () {
+            $(this).datagrid('enableFilter');
+            $(this).datagrid('doFilter');
+        },
+        singleSelect: "true",
 
+        columns: [[
+            {field: 'id', title: 'id', width: 60, sortable: true},
+
+            {field: 'doc_number', title: 'Номер распоряжения', width: 80, sortable: true},
+            {field: 'doc_date', title: 'Дата распоряжения', width: 60, sortable: true},
+            {field: 'date_begin', title: 'Начало проверки', width: 60, sortable: true},
+            {field: 'date_end', title: 'Окончание проверки', width: 60, sortable: true},
+            {field: 'legal_basis__text', title: 'Основание для проверки', width: 150, sortable: true},
+            {field: 'control_kind__text', title: 'Вид контроля', width: 150, align: 'right', sortable: true},
+            {
+                field: 'control_form__text',
+                title: 'Форма проверки',
+                width: 130,
+                align: 'right',
+                sortable: true
+            },
+            {field: 'control_plan__text', title: 'План проверки', width: 130, sortable: true},
+            {field: 'organization__org_type__text', title: 'Тип субъекта проверки', width: 150, sortable: true},
+            {field: 'organization__inn', title: 'ИНН', width: 100, align: 'right', sortable: true},
+            {field: 'organization__name', title: 'Организация', width: 200, sortable: true},
+            {field: 'inspector__name', title: 'ФИО Инспектора', width: 200, align: 'right', sortable: true},
+            {field: 'inspector__department', title: 'Отдел', width: 200, sortable: true},
+            {field: 'inspection_failure_reason__text', title: 'Результат', width: 200, sortable: true},
+            {field: 'gis_gkh_number', title: 'Номер ГИС ЖКХ', width: 120, sortable: true},
+            {field: 'erp_number', title: 'Номер ЕРП', width: 120, sortable: true},
+            {field: 'act_date', title: 'Дата акта', width: 80, sortable: true},
+            {
+                field: 'violations_quantity',
+                title: 'Количество нарушений',
+                width: 80,
+                sortable: true
+            },
+            {field: 'houses__address__city', title: 'Город', width: 200, sortable: true},
+            {field: 'houses__address__street', title: 'Улица', width: 200, sortable: true},
+            {field: 'houses__number', title: 'Дом', width: 200, sortable: true},
+            {field: 'children__doc_number', title: 'Номер предписания', width: 200, sortable: true},
+            {field: 'children__doc_date', title: 'Дата предписания', width: 200, sortable: true},
+            {field: 'children__order__order_result__id', title: 'Результат предписания', width: 200, sortable: true},
+        ]],
+        onDblClickRow: function (index, row) {
+            addTab('#tt', 'Проверка № ' + row['doc_number'], '/insp/inspection_form/' + row['id'] + '/');
+        }
+
+    });
+
+    $(function () {
+        var insp_dg = $('#insp_dg').datagrid();
+        insp_dg.datagrid('enableFilter', [{
+            field: 'id',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }, {
+            field: 'violations_quantity',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }, {
+            field: 'date_begin',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        insp_dg.datagrid('removeFilterRule', 'date_begin');
+                    } else {
+                        insp_dg.datagrid('addFilterRule', {
+                            field: 'date_begin',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    insp_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'date_end',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        insp_dg.datagrid('removeFilterRule', 'date_end');
+                    } else {
+                        insp_dg.datagrid('addFilterRule', {
+                            field: 'date_end',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    insp_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'doc_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        insp_dg.datagrid('removeFilterRule', 'doc_date');
+                    } else {
+                        insp_dg.datagrid('addFilterRule', {
+                            field: 'doc_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    insp_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'act_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        insp_dg.datagrid('removeFilterRule', 'act_date');
+                    } else {
+                        insp_dg.datagrid('addFilterRule', {
+                            field: 'act_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    insp_dg.datagrid('doFilter');
+                }
+            }
+
+        }, {
+            field: 'children__order__order_result__id',
+            type: 'combobox',
+            options: {
+                panelHeight: 'auto',
+                data: [{value: '1', text: 'Не исполнено'},
+                    {value: '2', text: 'Исполнено'},
+                    {value: '3', text: 'Продлено'},
+                    {value: '4', text: 'Исполнено частично'},
+                    {value: '5', text: 'Снято с контроля'},
+                    {value: '6', text: 'Обжалуется в суде'}],
+                onChange: function (value) {
+                    if (value === '') {
+                        insp_dg.datagrid('removeFilterRule', 'children__order__order_result__id');
+                    } else {
+                        insp_dg.datagrid('addFilterRule', {
+                            field: 'children__order__order_result__id',
+                            op: 'equal',
+                            value: value
+                        });
+                    }
+                    insp_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'control_plan__text',
+            type: 'combobox',
+            options: {
+                panelHeight: 'auto',
+                data: [{value: '1', text: 'Внеплановая'},
+                    {value: '2', text: 'Плановая'}],
+                onChange: function (value) {
+                    if (value === '') {
+                        insp_dg.datagrid('removeFilterRule', 'control_plan__id');
+                    } else {
+                        insp_dg.datagrid('addFilterRule', {
+                            field: 'control_plan__id',
+                            op: 'equal',
+                            value: value
+                        });
+                    }
+                    insp_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'children__order__order_result__id',
+            type: 'combobox',
+            options: {
+                panelHeight: 'auto',
+                data: [{value: '1', text: 'Не исполнено'},
+                    {value: '2', text: 'Исполнено'},
+                    {value: '3', text: 'Продлено'},
+                    {value: '4', text: 'Исполнено частично'},
+                    {value: '5', text: 'Снято с контроля'},
+                    {value: '6', text: 'Обжалуется в суде'}],
+                onChange: function (value) {
+                    if (value === '') {
+                        insp_dg.datagrid('removeFilterRule', 'children__order__order_result__id');
+                    } else {
+                        insp_dg.datagrid('addFilterRule', {
+                            field: 'children__order__order_result__id',
+                            op: 'equal',
+                            value: value
+                        });
+                    }
+                    insp_dg.datagrid('doFilter');
+                }
+            }
+        }]);
+        // enable filter
+        insp_dg.datagrid('columnMoving');
+    });
 </script>

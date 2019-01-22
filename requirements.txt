@@ -13,3 +13,4 @@ pyvirtualdisplay
 django-celery-results
 django-celery-beat
 django-simple-history
+mixer

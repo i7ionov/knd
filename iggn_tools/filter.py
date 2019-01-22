@@ -7,9 +7,10 @@ from django.db.models import Q
 from django.db import models
 
 
-def filtered_table_json_response(request, model):
+def filtered_table_json_response(request, model, func=None):
     """Метод создает типовой JSON ответ на request, генерируемый EasyUI DataGrid.
-    Response содержит отфильтрованую по критериям таблицу указанной модели."""
+    Response содержит отфильтрованую по критериям таблицу указанной модели.
+    :param func: функция добавляющая дополнительные поля для выдачи"""
     objects = []
     # пагинация
     page = 1
@@ -24,14 +25,14 @@ def filtered_table_json_response(request, model):
     query = get_filtered_query_set(model, request)
     # получаем список полей модели для отображения
     fields = get_model_columns([], model)
-
     for item in query[start:end]:
         object = {'id': item.pk}
         for field in fields:
             object[field['prefix'].replace('.', '__') + field['name']] = get_value(item, field['prefix'] + field[
                 'name'])
+        object = func(object, item)
         objects.append(object)
-    data = {"total": model.objects.all().count(), "rows": objects}
+    data = {"total": query.count(), "rows": objects}
     return json.dumps(data, default=datetime_handler)
 
 
@@ -50,7 +51,6 @@ def get_filtered_query_set(model, request):
         rules = None
     # сортировка
     if "sort" in request.POST:
-        print(request.POST['sort'])
         sort = request.POST['sort']
         order = request.POST['order']
         if order == 'desc':
