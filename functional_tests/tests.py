@@ -4,6 +4,7 @@ import os
 import datetime
 from selenium.webdriver.common.keys import Keys
 
+
 MAX_WAIT = 10
 
 
@@ -28,45 +29,47 @@ class InspectionTests(FunctionalTest):
             "//input[contains(@id, 'doc_date')]/following::span/input").get_attribute('value'),
                                                datetime.datetime.now().strftime('%d.%m.%Y')))
         # заводим остальные поля
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//input[contains(@id, 'date_begin')]/following::span/input")).send_keys('12.12.2012')
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//input[contains(@id, 'date_begin')]/following::span/input")).send_keys(Keys.RETURN)
-
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//select[contains(@id, 'organization')]/following::span/span/a")).click()
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//select[contains(@id, 'organization')]/following::span/input")).send_keys(Keys.DOWN)
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//select[contains(@id, 'organization')]/following::span/input")).send_keys(Keys.ENTER)
-        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_xpath(
-            "//select[contains(@id, 'organization')]/following::span/input").get_attribute('value'), 'org1, ИНН:123'))
+        self.enter_date('date_begin', datetime.datetime.now().strftime('%d.%m.%Y'))
+        self.enter_date('date_end', datetime.datetime.now().strftime('%d.%m.%Y'))
+        self.enter_date('act_date', datetime.datetime.now().strftime('%d.%m.%Y'))
+        self.select_value('organization')
+        self.select_value('legal_basis')
+        self.select_value('control_kind')
+        self.select_value('control_form')
+        self.select_value('control_plan')
+        self.select_value('inspection_result')
+        self.select_value('cancellation')
         self.wait_for(lambda: self.browser.find_element_by_xpath(
             "//textarea[contains(@id, 'comment')]/following::span/textarea")).send_keys('Comm')
-        # вводим адрес
+
         self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//a[contains(@id, 'add_address')]")).click()
+            "//tr[contains(@class, 'datagrid-row')]/td/div/span[contains(text(),'Type of violation22')]")).click()
         self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//div[contains(@id, 'address_dialog')]/div/div/div/div/div/table/tbody/tr/td/div")).click()
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//input[contains(@id, 'house_number')]/following::span/input")).send_keys('12а')
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//a[contains(@id, 'addr_sel_close_btn')]")).click()
-        # удаляем введенный адрес
+            "//input[@class='datagrid-editable-input numberbox-f textbox-f']/following::span/input")).send_keys('123')
+
+        self.add_address('1б')
         self.wait_for(lambda: self.browser.find_element_by_xpath(
             "//div[contains(@id, 'addresses')]/div/div/div/div/div/table/tbody/tr/td/div")).click()
         self.wait_for(lambda: self.browser.find_element_by_xpath(
             "//a[contains(@id, 'remove_address')]")).click()
-        # вводим адрес еще раз, но другой
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//a[contains(@id, 'add_address')]")).click()
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//div[contains(@id, 'address_dialog')]/div/div/div/div/div/table/tbody/tr/td/div")).click()
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//input[contains(@id, 'house_number')]/following::span/input")).send_keys('1б')
-        self.wait_for(lambda: self.browser.find_element_by_xpath(
-            "//a[contains(@id, 'addr_sel_close_btn')]")).click()
+        self.add_address('1а')
 
-        # сохраняем проверку
         self.wait_for(lambda: self.browser.find_element_by_xpath(
             "//a[contains(@id, 'submit')]")).click()
+
+        self.wait_for(lambda: self.browser.find_element_by_class_name('tabs-close')).click()
+        self.wait_for(lambda: self.browser.find_element_by_class_name('tabs-close')).click()
+
+        self.wait_for(lambda: self.browser.find_element_by_id('inspections_menu').click())
+        self.wait_for(lambda: self.browser.find_element_by_id('inspection_table_menu_item').click())
+
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_xpath(
+            "//tr[contains(@class, 'datagrid-row')]/td[2]").text, '1'))
+
+        self.actionChains.double_click(self.wait_for(lambda: self.browser.find_element_by_xpath(
+            "//tr[contains(@class, 'datagrid-row')]/td[2]"))).perform()
+
+
+
+
+

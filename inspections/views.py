@@ -68,7 +68,7 @@ def violation_in_inspection_json_list(request, id=0):
 
 
 @login_required
-@permission_required('inspections.change_inspection', raise_exception=True)
+@permission_required('inspections.view_inspection', raise_exception=True)
 def edit_inspection_form(request, id):
     # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
     # а если она подгружается с помощью jQuery, то load_static будет равен False

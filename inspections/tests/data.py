@@ -13,6 +13,8 @@ def create_inspections():
     mixer.cycle(5).blend(Inspection,
                          doc_number=mixer.FAKE,
                          doc_date=mixer.FAKE,
+                         organization__name=mixer.FAKE,
+                         organization__inn=mixer.FAKE,
                          legal_basis__text=mixer.FAKE,
                          control_kind__text=mixer.FAKE,
                          control_form__text=mixer.FAKE,
