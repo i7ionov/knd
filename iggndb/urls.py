@@ -26,6 +26,6 @@ urlpatterns = [
     # path('ad/', include('ad.urls')),
     # path('analytic/', include('analytic.urls')),
     path('', views.index, name='index'),
-    # path('history_table/', views.history_table, name='history_table'),
-    # path('history_card/<int:id>/<int:history_id>/', views.history_card, name='history_card'),
+    path('history_table/', views.history_table, name='history_table'),
+    path('history_form/<int:id>/<int:history_id>/', views.history_form, name='history_form'),
 ]

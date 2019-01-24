@@ -7,7 +7,7 @@
                 <div title="Комментарий" style="overflow:auto;padding:10px;">
                     <textarea class="easyui-textbox" label="Комментарий" name="comment" labelPosition="top"
                               multiline="true" id="comment{{ uid }}"
-                              style="width:100%;height:300px">{{ inspection.comment }}</textarea>
+                              style="width:100%;height:300px">{{ document.comment }}</textarea>
                 </div>
                 <div title="Файлы" style="overflow:auto;padding:10px;"
                      data-options="
@@ -16,8 +16,17 @@
                     tools:[{
                     iconCls:'icon-reload',
                     handler: function(){refresh_accordion('#panel{{ uid }}', 'Файлы', '{% url 'files_list' %}')}}],
-                    queryParams:{id:'{{ inspection.id }}', uid:'{{ uid }}'}">
+                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
                 </div>
+                <div title="История документа" style="overflow:auto;padding:10px;"
+                         data-options="
+                    href:'{% url 'history_table' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'История документа', '{% url 'history_table' %}')}}],
+                    queryParams:{id:'{{ document.id }}'}">
+                    </div>
             </div>
             {% if user_has_perm_to_save %}
                 <div style="text-align:center;padding:5px 0">
@@ -35,7 +44,7 @@
 
 
                 {% csrf_token %}
-                <input id="pk{{ uid }}" type="hidden" name="pk" value="{{ inspection.pk }}">
+                <input id="pk{{ uid }}" type="hidden" name="pk" value="{{ document.pk }}">
                 {{ form.as_p }}
 
 
@@ -65,7 +74,7 @@
     $('#violations_tree{{ uid }}').treegrid({
         idField: 'id',
         treeField: 'text',
-        url: "{% url 'violation_in_inspection_json_list' inspection.id %}",
+        url: "{% url 'violation_in_inspection_json_list' document.id %}",
         onClickCell: function (field, row) {
             $('#violations_tree{{ uid }}').treegrid('beginEdit', row.id);
         }

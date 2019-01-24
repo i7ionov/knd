@@ -5,7 +5,7 @@ from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
 from . import models
-from dictionaries.models import Address, Organization, House, User
+from dictionaries.models import Address, Organization, House, User, Document
 import uuid
 from datetime import datetime
 from sequences import get_next_value
@@ -30,6 +30,7 @@ def new_inspection_form(request):
     load_static = False if 'HTTP_REFERER' in request.META else True
     uid = uuid.uuid1().hex
     insp = models.Inspection()
+    insp.doc_type = 'проверка'
     insp.doc_number = get_next_value('inspection')
     insp.doc_date = datetime.now()
     insp.inspector = User.objects.get(django_user=request.user)
@@ -37,7 +38,7 @@ def new_inspection_form(request):
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
-               'inspection': insp}
+               'document': insp}
     return render(request, 'inspections/inspection_form.html', context)
 
 
@@ -78,7 +79,7 @@ def edit_inspection_form(request, id):
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
-               'inspection': insp}
+               'document': insp}
     return render(request, 'inspections/inspection_form.html', context)
 
 
@@ -86,7 +87,6 @@ def edit_inspection_form(request, id):
 @permission_required('inspections.view_inspection', raise_exception=True)
 @csrf_exempt
 def inspection_json_table(request):
-    print(request.POST)
     return HttpResponse(
         filter.filtered_table_json_response(request, models.Inspection, additional_fields_for_inspection))
 
@@ -105,6 +105,7 @@ def additional_fields_for_inspection(object, item):
         object['children__doc_date'] = order.doc_date
         object['children__order__order_result__id'] = order.order_result.text
     return object
+
 
 def save_violations_in_inspection(violations, inspection):
     """Сохраняет нарушения, выявленные в ходе проверки.
