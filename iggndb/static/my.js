@@ -49,8 +49,8 @@ function save(form, url, id_input) {
         onSubmit: function () {
             return $(this).form('validate');
         },
-        success: function (result) {
-            var result = JSON.parse(result)[0];
+        success: function (data) {
+            let result = JSON.parse(data)[0];
             if (result.errorMsg) {
                 $.messager.show({
                     title: 'Ошибка',
@@ -78,7 +78,7 @@ function save(form, url, id_input) {
             } else {
                 $.messager.show({
                     title: 'Сохранение',
-                    msg: 'Форма успешно сохранена' + result.pk,
+                    msg: 'Форма успешно сохранена',
                     timeout: 1000,
                     showType: 'show',
                     style: {
@@ -87,10 +87,6 @@ function save(form, url, id_input) {
                         bottom: ''
                     }
                 });
-                //'/insp/new_inspection_form/{{ inspection.id }}/'
-                var tab = $('#tt').tabs('getSelected');  // get selected panel
-                $(id_input).attr('value', result.pk)
-                tab.panel('refresh', '');
             }
         }
     });

@@ -9,6 +9,15 @@
                               multiline="true" id="comment{{ uid }}"
                               style="width:100%;height:300px">{{ inspection.comment }}</textarea>
                 </div>
+                <div title="Файлы" style="overflow:auto;padding:10px;"
+                     data-options="
+                    href:'{% url 'files_list' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'Файлы', '{% url 'files_list' %}')}}],
+                    queryParams:{id:'{{ inspection.id }}', uid:'{{ uid }}'}">
+                </div>
             </div>
             {% if user_has_perm_to_save %}
                 <div style="text-align:center;padding:5px 0">
@@ -34,7 +43,8 @@
                        labelPosition="top" value="{{ violations_quantity }}" style="width:300px;"
                        data-options="editable:false">
 
-                <div class="easyui-panel" id='violations_panel{{ uid }}' style="padding:5px;width:95%;height:450px" title="Виды нарушений">
+                <div class="easyui-panel" id='violations_panel{{ uid }}' style="padding:5px;width:95%;height:450px"
+                     title="Виды нарушений">
                     <table id="violations_tree{{ uid }}" class="easyui-treegrid" style="width:100%;height:400px">
                         <thead>
                         <tr>

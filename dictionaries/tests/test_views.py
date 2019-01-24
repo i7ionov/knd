@@ -105,3 +105,14 @@ class GetHouseIdTest(BaseTest):
         response = self.client.post('/dict/get_house_id/', data=data)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(house.id, result['result'])
+
+
+class FilesListTest(BaseTest):
+    def test_returns_code_200(self):
+        response = self.client.get('/dict/files_list/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_uses_template(self):
+        response = self.client.get('/dict/files_list/')
+        self.assertTemplateUsed(response, '/dictionaries/files_list.html')
+
