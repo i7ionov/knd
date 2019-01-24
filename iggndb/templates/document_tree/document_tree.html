@@ -1,0 +1,25 @@
+<div class="easyui-panel" style="padding:5px">
+    <ul id="documents_tree{{ uid }}" class="easyui-tree"
+        data-options="animate:true,lines:true">
+
+    </ul>
+</div>
+<script type="text/javascript">
+    $('#documents_tree{{ uid }}').tree({
+        url: "{% url 'document_tree_json' document.id %}",
+        onDblClick: function (node) {
+            if (node.doc_type==='проверка'){
+                addTab('#tt', 'Распоряжение № '+ node.doc_number, '/insp/inspection_form/' + node.id + '/');
+            }
+            else if (node.doc_type==='предписание'){
+                addTab('#tt', 'Предписание № '+ node.doc_number, '/insp/order_form/' + node.id + '/');
+            }
+            else if (node.doc_type==='административное дело'){
+                addTab('#tt', 'Административное дело № '+ node.doc_number, '/ad/ad_record_form/' + node.id + '/');
+            }
+            else if (node.doc_type==='исполнительное дело'){
+                addTab('#tt', 'Исполнительное дело № '+ node.doc_number, '/ad/execution_form/' + node.id + '/');
+            }
+        }
+    });
+</script>

@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import uuid
 from dictionaries.models import Document
+from iggn_tools import messages
 from inspections.forms import InspectionForm
 
 @login_required
@@ -42,3 +43,31 @@ def history_form(request, id, history_id):
                'document': insp}
         return render(request, 'inspections/inspection_form.html', context)
     return ''
+
+
+@login_required
+@csrf_exempt
+def document_tree_json(request, id=0):
+        doc = Document.objects.get(id=id)
+        documents = Document.objects.filter(tree_id=doc.tree_id)
+        context = {'documents': documents}
+        return render(request, 'document_tree/document_tree_json.html', context)
+
+
+@login_required
+@csrf_exempt
+@require_POST
+def document_tree(request, id=0):
+    id = request.POST['id']
+    if id == "None":
+        return messages.return_error('Id=None')
+    uid = request.POST['uid']
+    try:
+        document = Document.objects.get(pk=id)
+    except (KeyError, Document.DoesNotExist):
+        return messages.return_error('Документ не найден')
+    context = {
+        'document': document,
+        'uid': uid,
+    }
+    return render(request, 'document_tree/document_tree.html', context)

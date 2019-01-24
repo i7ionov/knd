@@ -66,6 +66,20 @@
             {field: 'children__doc_date', title: 'Дата предписания', width: 200, sortable: true},
             {field: 'children__order__order_result__id', title: 'Результат предписания', width: 200, sortable: true},
         ]],
+        view: detailview,
+        detailFormatter: function (rowIndex, rowData) {
+            return "<div id='row" + rowData.id + "' title=\"Дерево документов\" style=\"overflow:auto;padding:10px;\"\n</div>";
+        },
+        onExpandRow: function (index, row) {
+            var d = $(this).datagrid('getRowDetail', index);
+            var row = $('#row' + row.id).panel({
+                href: '{% url 'document_tree' %}',
+                method: 'post',
+                queryParams: {id: row.id, uid: row.id}
+            });
+            eval(row);
+
+        },
         onDblClickRow: function (index, row) {
             addTab('#tt', 'Проверка № ' + row['doc_number'], '/insp/inspection_form/' + row['id'] + '/');
         }
@@ -73,7 +87,7 @@
     });
 
     $(function () {
-        var insp_dg = $('#insp_dg').datagrid();
+        let insp_dg = $('#insp_dg').datagrid();
         insp_dg.datagrid('enableFilter', [{
             field: 'id',
             type: 'numberbox',
