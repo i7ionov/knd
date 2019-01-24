@@ -19,14 +19,14 @@
                     queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
                 </div>
                 <div title="История документа" style="overflow:auto;padding:10px;"
-                         data-options="
+                     data-options="
                     href:'{% url 'history_table' %}',
                     method:'post',
                     tools:[{
                     iconCls:'icon-reload',
                     handler: function(){refresh_accordion('#panel{{ uid }}', 'История документа', '{% url 'history_table' %}')}}],
                     queryParams:{id:'{{ document.id }}'}">
-                    </div>
+                </div>
             </div>
             {% if user_has_perm_to_save %}
                 <div style="text-align:center;padding:5px 0">
@@ -70,7 +70,25 @@
         </div>
     </div>
 </form>
+<div class="hide" id="date_begin_buttons{{ uid }}">
+    <a href="javascript:void(0)" class="easyui-linkbutton c6"
+       onclick="calculate_date('#pk{{ uid }} ~ p #id_doc_date', '#pk{{ uid }} ~ p #id_date_begin', '0','{% url 'calculate_date' %}')">+0
+        дней</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton c6"
+       onclick="calculate_date('#pk{{ uid }} ~ p #id_doc_date', '#pk{{ uid }} ~ p #id_date_begin', '3','{% url 'calculate_date' %}')">+3
+        дня</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton c6"
+       onclick="calculate_date('#pk{{ uid }} ~ p #id_doc_date', '#pk{{ uid }} ~ p #id_date_begin', '10','{% url 'calculate_date' %}')">+10
+        дней</a>
+</div>
+<div class="hide" id="date_end_buttons{{ uid }}">
+    <a href="javascript:void(0)" class="easyui-linkbutton c6"
+                   onclick="calculate_date('#pk{{ uid }} ~ p #id_date_begin', '#pk{{ uid }} ~ p #id_date_end', '19','{% url 'calculate_date' %}')">+20
+                    дней</a>
+</div>
 <script>
+    $('#pk{{ uid }} ~ p #id_date_begin').parent().append($("#date_begin_buttons{{ uid }}").html());
+    $('#pk{{ uid }} ~ p #id_date_end').parent().append($("#date_end_buttons{{ uid }}").html());
     $('#violations_tree{{ uid }}').treegrid({
         idField: 'id',
         treeField: 'text',

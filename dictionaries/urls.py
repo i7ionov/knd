@@ -12,4 +12,10 @@ urlpatterns = [
     path('file_select/', views.file_select, name='file_select'),
     path('file_add/', views.file_add, name='file_add'),
 
+    path('working_day_year/<int:year>/', views.working_day_year, name='working_day_year'),
+    path('working_day_year/', views.working_day_year, name='working_day_year'),
+    path('working_day_calendar/', views.working_day_calendar, name='working_day_calendar'),
+    path('working_day_change/', views.working_day_change, name='working_day_change'),
+    path('calculate_date/', views.calculate_date, name='calculate_date'),
+
 ]

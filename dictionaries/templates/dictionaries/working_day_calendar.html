@@ -1,0 +1,8 @@
+<input class="easyui-numberspinner" style="width:100%;" value="{{ year }}"
+       data-options="
+                    onChange: function(value){
+                        $('#calendar{{ uid }}').panel('refresh', '{% url 'working_day_year' %}'+value+'/');
+                    }
+                ">
+<div id="calendar{{ uid }}" class="easyui-panel" data-options="href:'{% url 'working_day_year' year %}'">
+</div>

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -6,11 +8,13 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required, permission_required
 import simplejson as json
 from django.http import HttpResponse
-from dictionaries.models import House, Address, Document, File
+from dictionaries.models import House, Address, Document, File, WorkingDays
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from iggn_tools import filter, messages
 import uuid
+from django.utils import timezone
+import calendar
 
 
 @login_required
@@ -121,3 +125,71 @@ def file_add(request):
     document.files.add(file)
     document.save()
     return messages.return_success()
+
+
+@login_required
+def working_day_calendar(request):
+    year = timezone.now().year
+    context = {'year': year, 'uid': uuid.uuid1().hex}
+    return render(request, 'dictionaries/working_day_calendar.html', context)
+
+
+@login_required
+def working_day_year(request, year):
+    weeks = range(1, 6)  # количество недель
+    days_in_week = range(1, 8)  # количество дней в неделе
+    cal = []
+    working_days = WorkingDays.objects.all() # TODO: выгрузка только года
+    for i in range(1, 13):
+        cal.append(calendar.monthcalendar(year, i))
+    context = {'calendar': cal, 'weeks': weeks, 'days_in_week': days_in_week, 'year': year,
+               'working_days': working_days, 'uid': uuid.uuid1().hex}
+    return render(request, 'dictionaries/working_day_year.html', context)
+
+
+@csrf_exempt
+@login_required
+@require_POST
+def working_day_change(request):
+    try:
+        day = request.POST['day']
+        month = request.POST['month']
+        year = request.POST['year']
+        status = request.POST['status']
+        date = '-'.join([year, month, day])
+        if status == 'true':
+            wd = WorkingDays()
+            wd.day = date
+            wd.save()
+        else:
+            try:
+                wd = WorkingDays.objects.get(day=date)
+                wd.delete()
+            except WorkingDays.DoesNotExist:
+                pass
+        return messages.return_success()
+    except KeyError:
+        return messages.return_error('В запросе передан не полный состав ключей')
+
+
+@login_required
+@csrf_exempt
+@require_POST
+def calculate_date(request):
+    try:
+        src_date = datetime.strptime(request.POST['src_date'], '%d.%m.%Y')
+        days_count = request.POST['days_count']
+        # print('Дней ' + days_count)
+        td = timedelta(int(days_count))
+        result = src_date + td
+        # print('src_date ' + datetime.strftime(src_date, '%d.%m.%Y'))
+        # print('result ' + datetime.strftime(result, '%d.%m.%Y'))
+        while src_date.toordinal() <= result.toordinal():
+            if WorkingDays.objects.filter(day=src_date).count() > 0:
+                # print(datetime.strftime(src_date, '%d.%m.%Y') + ' weekend')
+                result = result + timedelta(1)
+            src_date = src_date + timedelta(1)
+            # print(datetime.strftime(src_date, '%d.%m.%Y') + ' normal')
+        return messages.return_success(datetime.strftime(result, '%d.%m.%Y'))
+    except KeyError:
+        return messages.return_error('В запросе передан не полный состав ключей')

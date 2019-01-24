@@ -7,5 +7,8 @@ def return_error(error_text):
                         content_type='application/json')
 
 
-def return_success():
-    return HttpResponse(json.dumps([]), content_type='application/json')
+def return_success(message=None):
+    data = []
+    if message:
+        data = [{'msg': message}]
+    return HttpResponse(json.dumps(data), content_type='application/json')

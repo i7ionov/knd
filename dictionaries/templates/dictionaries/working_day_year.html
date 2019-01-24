@@ -1,0 +1,58 @@
+<style type="text/css">
+    .active {
+        background-color: orangered;
+    }
+</style>
+<table>
+    <tr>
+
+        {% for month in calendar %}
+            {% if forloop.counter == 7 %}
+                </tr>
+                <tr>
+            {% endif %}
+            <td>
+                <table>
+                    <caption>{{ forloop.counter }}</caption>
+                    <tr>
+                        <th>Пн</th>
+                        <th>Вт</th>
+                        <th>Ср</th>
+                        <th>Чт</th>
+                        <th>Пт</th>
+                        <th>Сб</th>
+                        <th>Вс</th>
+                    </tr>
+
+                    {% for week in month %}
+                        <tr>
+                            {% for day in week %}
+                                {% if day != 0 %}
+                                    <td>
+                                        <button id="d{{ year }}_{{ forloop.parentloop.parentloop.counter }}_{{ day }}"
+                                                type="button" class="btn" data-toggle="button"
+                                                onclick="working_day_send_changes('{% url 'working_day_change' %}','{{ day }}', '{{ forloop.parentloop.parentloop.counter }}', '{{ year }}')"
+                                                style="width:40px">{{ day }} </button>
+
+                                    </td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </td>
+        {% endfor %}
+        </tr>
+</table>
+
+<script>
+    let working_days = [{% for working_day in working_days %}'{{ working_day.day|date:"Y_n_j" }}',{% endfor %}];
+    working_days.forEach(function (day) {
+        console.log('d' + day);
+         $('#d' + day).addClass("active");
+    });
+</script>
