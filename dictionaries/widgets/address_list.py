@@ -6,14 +6,13 @@ import uuid
 
 class AddressListWidget(Widget):
     template_name = 'dictionaries/address_list_widget.html'
-    uid = uuid.uuid1().hex
 
     def get_context(self, name, value, attrs=None):
         return {'widget': {
             'name': name,
             'value': value,
         },
-            'uid': self.uid}
+            'uid': uuid.uuid1().hex}
 
     def render(self, name, value, attrs=None, renderer=None):
         context = self.get_context(name, value, attrs)

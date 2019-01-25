@@ -1,6 +1,7 @@
 from iggndb.tests.base import BaseTest
 from dictionaries.models import House, Address
 import json
+from django.contrib.auth.models import Permission
 
 
 class AddrFromIDListTest(BaseTest):
@@ -119,13 +120,4 @@ class GetHouseIdTest(BaseTest):
         self.assertEqual(id1, id2)
         self.assertEqual(id2, id3)
 
-
-class FilesListTest(BaseTest):
-    def test_returns_code_200(self):
-        response = self.client.get('/dict/files_list/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_uses_template(self):
-        response = self.client.get('/dict/files_list/')
-        self.assertTemplateUsed(response, '/dictionaries/files_list.html')
 

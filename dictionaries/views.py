@@ -40,7 +40,7 @@ def addr_select(request):
 @login_required
 @csrf_exempt
 def addr_table_json(request):
-    return HttpResponse(filter.filtered_table_json_response(request, Address), content_type='application/json')
+    return filter.filtered_table_json_response(request, Address)
 
 
 @require_GET
