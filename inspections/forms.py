@@ -31,7 +31,7 @@ class PreceptForm(forms.ModelForm):
     class Meta:
         model = Precept
         fields = ['doc_number', 'doc_date', 'precept_begin_date', 'precept_end_date', 'precept_result',
-                  'prolongation_date',
+                  'prolongation_date', 'houses',
                   'comment']
         widgets = {
             'comment': NoneWidget(),

@@ -11,7 +11,7 @@ from datetime import datetime
 from sequences import get_next_value
 from inspections.forms import InspectionForm, PreceptForm
 from django.views.decorators.http import require_POST
-from iggn_tools import filter, messages
+from iggn_tools import filter, messages, tools
 
 
 @login_required
@@ -43,6 +43,37 @@ def new_inspection_form(request):
 
 
 @login_required
+@permission_required('inspections.add_inspection', raise_exception=True)
+def inspection_repeat(request, id):
+    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
+    # а если она подгружается с помощью jQuery, то load_static будет равен False
+    load_static = False if 'HTTP_REFERER' in request.META else True
+    uid = uuid.uuid1().hex
+    try:
+        precept = models.Precept.objects.get(pk=id)
+        insp = models.Inspection()
+        insp.parent = precept
+        insp.doc_type = 'проверка'
+        insp.doc_number = tools.increment_doc_number(precept.doc_number)
+        insp.doc_date = datetime.now()
+        insp.legal_basis = precept.parent.inspection.legal_basis
+        insp.control_kind = precept.parent.inspection.control_kind
+        insp.control_form = precept.parent.inspection.control_form
+        insp.control_plan = precept.parent.inspection.control_plan
+        insp.organization = precept.organization
+        insp.inspector = precept.parent.inspection.inspector
+        insp.save()
+        insp.houses.set(precept.houses.all())
+    except (KeyError, models.Precept.DoesNotExist):
+        return messages.return_error(f'Не найдено предписание с id={id}')
+    form = InspectionForm(instance=insp)
+    context = {'form': form, 'load_static': load_static, 'uid': uid,
+               'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
+               'document': insp}
+    return render(request, 'inspections/inspection_form.html', context)
+
+
+@login_required
 @permission_required('inspections.change_inspection', raise_exception=True)
 @require_POST
 def inspection_form_save(request):
@@ -57,7 +88,7 @@ def inspection_form_save(request):
 
 
 @login_required
-@permission_required('inspections.view_precept', raise_exception=True)
+@permission_required('inspections.view_inspection', raise_exception=True)
 def edit_inspection_form(request, id):
     # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
     # а если она подгружается с помощью jQuery, то load_static будет равен False
@@ -173,29 +204,7 @@ def violation_in_precept_json_list(request, id=0, parent_id=0):
 @permission_required('inspections.view_inspection', raise_exception=True)
 @csrf_exempt
 def inspection_json_table(request):
-    return HttpResponse(
-        filter.filtered_table_json_response(request, models.Inspection, additional_fields_for_inspection))
-
-
-@csrf_exempt
-@login_required
-@permission_required('inspections.view_precept', raise_exception=True)
-@require_POST
-def precept_list(request):
-    id = request.POST['id']
-    if id == "None":
-        return messages.return_error('Id = None')
-    uid = request.POST['uid']
-    try:
-        inspection = models.Inspection.objects.get(pk=id)
-    except (KeyError, models.Inspection.DoesNotExist):
-        return messages.return_error(f'Проверка с id={id} не найдена')
-    context = {
-        'inspection': inspection,
-        'uid': uid,
-        'precepts': models.Precept.objects.filter(parent=inspection.pk),
-    }
-    return render(request, 'inspections/precept_list.html', context)
+    return filter.filtered_table_json_response(request, models.Inspection, additional_fields_for_inspection)
 
 
 def additional_fields_for_inspection(object, item):

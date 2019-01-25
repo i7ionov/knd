@@ -5,6 +5,7 @@ from datetime import date, datetime
 from django.db.models import fields
 from django.db.models import Q
 from django.db import models
+from django.http import HttpResponse
 
 
 def filtered_table_json_response(request, model, func=None):
@@ -34,7 +35,7 @@ def filtered_table_json_response(request, model, func=None):
             object = func(object, item)
         objects.append(object)
     data = {"total": query.count(), "rows": objects}
-    return json.dumps(data, default=datetime_handler)
+    return HttpResponse(json.dumps(data, default=datetime_handler), content_type='application/json')
 
 
 def get_filtered_query_set(model, request):

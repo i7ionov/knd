@@ -131,12 +131,12 @@ class EditingInspectionFormTest(BaseTest):
         self.insp = Inspection.objects.all()[3]
 
     def test_uses_template(self):
-        self.user.user_permissions.add(Permission.objects.get(codename='change_inspection'))
+        self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
         response = self.client.get(f'/insp/inspection_form/{self.insp.pk}/')
         self.assertTemplateUsed(response, 'inspections/inspection_form.html')
 
     def test_uses_form(self):
-        self.user.user_permissions.add(Permission.objects.get(codename='change_inspection'))
+        self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
         response = self.client.get(f'/insp/inspection_form/{self.insp.pk}/')
         self.assertIsInstance(response.context['form'], InspectionForm)
 
@@ -145,9 +145,9 @@ class EditingInspectionFormTest(BaseTest):
         self.assertEqual(response.status_code, 403)
 
     def test_pass_valid_inspection_in_context(self):
-        self.user.user_permissions.add(Permission.objects.get(codename='change_inspection'))
+        self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
         response = self.client.get(f'/insp/inspection_form/{self.insp.pk}/')
-        self.assertEqual(response.context['inspection'], self.insp)
+        self.assertEqual(response.context['document'], self.insp)
 
 
 class ViolationInInspectionTest(BaseTest):

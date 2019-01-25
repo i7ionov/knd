@@ -9,15 +9,6 @@
                               multiline="true" id="comment{{ uid }}"
                               style="width:100%;height:300px">{{ document.comment }}</textarea>
                 </div>
-                <div title="Предписания" style="overflow:auto;padding:10px;"
-                         data-options="
-                    href:'{% url 'precept_list' %}',
-                    method:'post',
-                    tools:[{
-                    iconCls:'icon-reload',
-                    handler: function(){refresh_accordion('#panel{{ uid }}', 'Предписания', '{% url 'precept_list' %}')}}],
-                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
-                    </div>
                 <div title="Дерево документов" style="overflow:auto;padding:10px;"
                          data-options="
                     href:'{% url 'document_tree' %}',

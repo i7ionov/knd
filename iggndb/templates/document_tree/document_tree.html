@@ -1,4 +1,16 @@
 <div class="easyui-panel" style="padding:5px">
+    {% if document.doc_type == 'проверка' %}
+        <a href="javascript:void(0)" class="easyui-linkbutton"
+           id="add_precept{{ uid }}"
+           onclick="addTab('#tt', 'Предписание',
+                   '{% url 'new_precept_form' id=document.pk %}')">Добавить предписание</a>
+    {% endif %}
+    {% if document.doc_type == 'предписание' %}
+        <a href="javascript:void(0)" class="easyui-linkbutton"
+           id="add_repeated{{ uid }}"
+           onclick="addTab('#tt', 'Повторная проверка', '{% url 'inspection_repeat' id=document.id %}')">Добавить
+            проверку предписания</a>
+    {% endif %}
     <ul id="documents_tree{{ uid }}" class="easyui-tree"
         data-options="animate:true,lines:true">
 
@@ -8,17 +20,17 @@
     $('#documents_tree{{ uid }}').tree({
         url: "{% url 'document_tree_json' document.id %}",
         onDblClick: function (node) {
-            if (node.doc_type==='проверка'){
-                addTab('#tt', 'Распоряжение № '+ node.doc_number, '/insp/inspection_form/' + node.id + '/');
+            if (node.doc_type === 'проверка') {
+                addTab('#tt', 'Распоряжение № ' + node.doc_number, '/insp/inspection_form/' + node.id + '/');
             }
-            else if (node.doc_type==='предписание'){
-                addTab('#tt', 'Предписание № '+ node.doc_number, '/insp/precept_form/' + node.id + '/');
+            else if (node.doc_type === 'предписание') {
+                addTab('#tt', 'Предписание № ' + node.doc_number, '/insp/precept_form/' + node.id + '/');
             }
-            else if (node.doc_type==='административное дело'){
-                addTab('#tt', 'Административное дело № '+ node.doc_number, '/ad/ad_record_form/' + node.id + '/');
+            else if (node.doc_type === 'административное дело') {
+                addTab('#tt', 'Административное дело № ' + node.doc_number, '/ad/ad_record_form/' + node.id + '/');
             }
-            else if (node.doc_type==='исполнительное дело'){
-                addTab('#tt', 'Исполнительное дело № '+ node.doc_number, '/ad/execution_form/' + node.id + '/');
+            else if (node.doc_type === 'исполнительное дело') {
+                addTab('#tt', 'Исполнительное дело № ' + node.doc_number, '/ad/execution_form/' + node.id + '/');
             }
         }
     });
