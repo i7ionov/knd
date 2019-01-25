@@ -8,7 +8,6 @@ def return_error(error_text):
 
 
 def return_success(message=None):
-    data = []
-    if message:
-        data = [{'msg': message}]
+
+    data = [{'msg': message if message else ''}]
     return HttpResponse(json.dumps(data), content_type='application/json')

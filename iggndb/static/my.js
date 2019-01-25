@@ -181,16 +181,16 @@ function refresh_accordion(control, title, url) {
 
 }
 
-function update_violations_in_order(uid) {
-    var tg = $('#violations_tree' + uid);
-    var roots = tg.treegrid('getRoots');
+function update_violations_in_precept(uid) {
+    let tg = $('#violations_tree' + uid);
+    let roots = tg.treegrid('getRoots');
     printnode(roots);
 
     function printnode(node) {
         node.forEach(function (item, i, node) {
             tg.treegrid('endEdit', item.id);
-            var childrens = tg.treegrid('getChildren', item.id);
-            var parrent = tg.treegrid('getParent', item.id);
+            let childrens = tg.treegrid('getChildren', item.id);
+            let parrent = tg.treegrid('getParent', item.id);
             if (parrent !== null) {
                 if (parrent.count_to_remove !== "undefined") {
                     if (item.count_to_remove) {
@@ -231,15 +231,15 @@ function update_violations_in_order(uid) {
 }
 
 function update_violations_in_inspection(uid) {
-    var tg = $('#violations_tree' + uid);
-    var roots = tg.treegrid('getRoots');
+    let tg = $('#violations_tree' + uid);
+    let roots = tg.treegrid('getRoots');
     printnode(roots);
 
     function printnode(node) {
         node.forEach(function (item, i, node) {
             tg.treegrid('endEdit', item.id);
-            var childrens = tg.treegrid('getChildren', item.id);
-            var parrent = tg.treegrid('getParent', item.id);
+            let childrens = tg.treegrid('getChildren', item.id);
+            let parrent = tg.treegrid('getParent', item.id);
             if (parrent !== null) {
                 if (parrent.count !== "undefined") {
                     if (item.count) {

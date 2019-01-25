@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from inspections.models import Inspection
+from inspections.models import Inspection, Precept
 from dictionaries.widgets.address_list import AddressListWidget
 from iggn_tools.widgets.none_widget import NoneWidget
 
@@ -14,7 +14,6 @@ class InspectionForm(forms.ModelForm):
                   'act_date']
         widgets = {
             'comment': NoneWidget(),
-            'violations_quantity': NoneWidget(),
             'houses': AddressListWidget(),
         }
         labels = {
@@ -27,3 +26,23 @@ class InspectionForm(forms.ModelForm):
             'all': ('css/bootstrap.css', 'themes/gray/easyui.css', 'themes/icon.css')
         }
 
+
+class PreceptForm(forms.ModelForm):
+    class Meta:
+        model = Precept
+        fields = ['doc_number', 'doc_date', 'precept_begin_date', 'precept_end_date', 'precept_result',
+                  'prolongation_date',
+                  'comment']
+        widgets = {
+            'comment': NoneWidget(),
+            'houses': AddressListWidget(),
+        }
+        labels = {
+            'comment': _(''),
+        }
+
+    class Media:
+        js = ('jquery.min.js', 'jquery.easyui.min.js', 'my.js')
+        css = {
+            'all': ('css/bootstrap.css', 'themes/gray/easyui.css', 'themes/icon.css')
+        }

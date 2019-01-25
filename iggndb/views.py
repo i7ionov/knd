@@ -5,7 +5,8 @@ from django.views.decorators.http import require_POST
 import uuid
 from dictionaries.models import Document
 from iggn_tools import messages
-from inspections.forms import InspectionForm
+from inspections.forms import InspectionForm, PreceptForm
+
 
 @login_required
 def index(request):
@@ -22,6 +23,8 @@ def history_table(request):
         d = Document.objects.get(id=id)
         if d.doc_type == 'проверка':
             history = d.inspection.history.all()
+        if d.doc_type == 'предписание':
+            history = d.precept.history.all()
     except (Document.DoesNotExist, ValueError):
         history = ''
     context = {'history': history}
@@ -39,19 +42,26 @@ def history_form(request, id, history_id):
         insp = d.inspection.history.get(history_id=history_id)
         form = InspectionForm(instance=insp)
         context = {'form': form, 'load_static': load_static, 'uid': uid,
-               'user_has_perm_to_save': False,
-               'document': insp}
+                   'user_has_perm_to_save': False,
+                   'document': insp}
         return render(request, 'inspections/inspection_form.html', context)
+    elif d.doc_type == 'предписание':
+        precept = d.precept.history.get(history_id=history_id)
+        form = PreceptForm(instance=precept)
+        context = {'form': form, 'load_static': load_static, 'uid': uid,
+                   'user_has_perm_to_save': False,
+                   'document': precept}
+        return render(request, 'inspections/precept_form.html', context)
     return ''
 
 
 @login_required
 @csrf_exempt
 def document_tree_json(request, id=0):
-        doc = Document.objects.get(id=id)
-        documents = Document.objects.filter(tree_id=doc.tree_id)
-        context = {'documents': documents}
-        return render(request, 'document_tree/document_tree_json.html', context)
+    doc = Document.objects.get(id=id)
+    documents = Document.objects.filter(tree_id=doc.tree_id)
+    context = {'documents': documents}
+    return render(request, 'document_tree/document_tree_json.html', context)
 
 
 @login_required

@@ -64,18 +64,18 @@
             {field: 'houses__number', title: 'Дом', width: 200, sortable: true},
             {field: 'children__doc_number', title: 'Номер предписания', width: 200, sortable: true},
             {field: 'children__doc_date', title: 'Дата предписания', width: 200, sortable: true},
-            {field: 'children__order__order_result__id', title: 'Результат предписания', width: 200, sortable: true},
+            {field: 'children__precept__precept_result__id', title: 'Результат предписания', width: 200, sortable: true},
         ]],
         view: detailview,
         detailFormatter: function (rowIndex, rowData) {
             return "<div id='row" + rowData.id + "' title=\"Дерево документов\" style=\"overflow:auto;padding:10px;\"\n</div>";
         },
-        onExpandRow: function (index, row) {
-            var d = $(this).datagrid('getRowDetail', index);
-            var row = $('#row' + row.id).panel({
+        onExpandRow: function (index, r) {
+            let d = $(this).datagrid('getRowDetail', index);
+            let row = $('#row' + r.id).panel({
                 href: '{% url 'document_tree' %}',
                 method: 'post',
-                queryParams: {id: row.id, uid: row.id}
+                queryParams: {id: r.id, uid: r.id}
             });
             eval(row);
 

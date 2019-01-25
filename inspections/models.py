@@ -60,7 +60,7 @@ class InspectionResult(AbstractListItem):
 
 
 # статус предписания
-class OrderStatus(AbstractListItem):
+class PreceptStatus(AbstractListItem):
     pass
 
 
@@ -70,7 +70,7 @@ class Cancellation(AbstractListItem):
 
 
 # результат исполнения предписания
-class OrderResult(AbstractListItem):
+class PreceptResult(AbstractListItem):
     pass
 
 
@@ -132,13 +132,14 @@ class Inspection(Document):
         verbose_name = "Проверка"
 
 
-class Order(Document):
-    order_begin_date = models.DateField(null=True, verbose_name='дата начала исполнения предписания')
-    order_end_date = models.DateField(null=True, verbose_name='дата окончания исполнения предписания')
-    order_result = models.ForeignKey(OrderResult, on_delete=models.SET_NULL, null=True,
-                                     default="1", verbose_name='результат предписания')
-    prolongation_date = models.DateField(null=True, verbose_name='дата окончания исполнения предписания с продлением')
-    comment = models.TextField(default="")  # комментарий
+class Precept(Document):
+    precept_begin_date = models.DateField(null=True, blank=True, verbose_name='дата начала исполнения предписания')
+    precept_end_date = models.DateField(null=True, blank=True, verbose_name='дата окончания исполнения предписания')
+    precept_result = models.ForeignKey(PreceptResult, on_delete=models.SET_NULL, null=True, blank=True,
+                                       default="1", verbose_name='результат предписания')
+    prolongation_date = models.DateField(null=True, blank=True,
+                                         verbose_name='дата окончания исполнения предписания с продлением')
+    comment = models.TextField(default="", blank=True)  # комментарий
     history = HistoricalRecords()
 
     @property
@@ -159,25 +160,25 @@ class ViolationInInspection(models.Model):
     count = models.IntegerField(default=0, verbose_name='количество нарушений')
     inspection = models.ForeignKey(Inspection, on_delete=models.SET_NULL, null=True, verbose_name='проверка')
 
-    def _get_count_has_order(self):
+    def _get_count_has_precept(self):
         result = 0
-        for v in ViolationInOrder.objects.filter(order__parent_id=self.inspection.id) \
+        for v in ViolationInPrecept.objects.filter(precept__parent_id=self.inspection.id) \
                 .filter(violation_type=self.violation_type):
             result = result + v.count_to_remove
         return result
 
-    count_has_order = property(_get_count_has_order)
+    count_has_precept = property(_get_count_has_precept)
 
 
-class ViolationInOrder(models.Model):
+class ViolationInPrecept(models.Model):
     violation_type = models.ForeignKey(ViolationType, on_delete=models.SET_NULL, null=True,
                                        verbose_name='тип нарушения')
     count_to_remove = models.IntegerField(default=0, verbose_name='количество нарушений к устранению')
     count_of_removed = models.IntegerField(default=0, verbose_name='количество нарушений по факту устранено')
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, verbose_name='предписание')
+    precept = models.ForeignKey(Precept, on_delete=models.SET_NULL, null=True, verbose_name='предписание')
 
     def _get_count_in_inspection(self):
-        inspection = Inspection.objects.get(id=self.order.parent.id)
+        inspection = Inspection.objects.get(id=self.precept.parent.id)
         result = inspection.violationininspection_set.get(violation_type_id=self.violation_type_id).count
         return result
 

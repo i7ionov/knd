@@ -1,0 +1,13 @@
+<a href="javascript:void(0)" class="easyui-linkbutton"
+   id="add_precept{{ uid }}"
+   onclick="addTab('#tt', 'Предписание',
+               '{% url 'new_precept_form' id=inspection.pk %}')">Добавить предписание</a>
+
+<ul class="easyui-datalist" title="Предписания" lines="true" style="width:400px;height:250px">
+    {% for o in precepts %}
+        <li value="{{ o.pk }}"><a href="javascript:void(0)" style="color: black" onclick="
+        addTab('#tt', 'Предписание № {{ o.doc_number }}', '{% url 'edit_precept_form' id=o.pk %}');
+        ">№{{ o.doc_number }} от {{ o.doc_date|date:"d.m.Y" }}</a></li>
+    {% endfor %}
+
+</ul>

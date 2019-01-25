@@ -1,6 +1,6 @@
 from django.db import models
 from dictionaries.models import Organization, Article, Document, House, User
-from inspections.models import Inspection, Order
+from inspections.models import Inspection, Precept
 from simple_history.models import HistoricalRecords
 
 
