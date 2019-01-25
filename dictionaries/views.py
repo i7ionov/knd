@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-
+import string
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -59,7 +59,7 @@ def addr_table(request):
 @csrf_exempt
 def get_house_id(request):
     addr = Address.objects.get(pk=request.POST['addr_id'])
-    house_number = request.POST['house_number']
+    house_number = request.POST['house_number'].translate(str.maketrans({x: None for x in ['/', '\\', ' ', '.', '-']}))
     house, created = House.objects.get_or_create(address=addr, number=house_number)
     result = {'result': house.pk}
     return HttpResponse(json.dumps(result), content_type='application/json')

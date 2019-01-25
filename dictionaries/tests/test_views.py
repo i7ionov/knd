@@ -106,6 +106,19 @@ class GetHouseIdTest(BaseTest):
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(house.id, result['result'])
 
+    def test_get_house_id_removes_spaces_and_slashes(self):
+        data = {'addr_id': self.addr1.id, 'house_number': '1б'}
+        response = self.client.post('/dict/get_house_id/', data=data)
+        id1 = json.loads(response.content.decode('utf8'))['result']
+        data = {'addr_id': self.addr1.id, 'house_number': '1/б'}
+        response = self.client.post('/dict/get_house_id/', data=data)
+        id2 = json.loads(response.content.decode('utf8'))['result']
+        data = {'addr_id': self.addr1.id, 'house_number': '1  б'}
+        response = self.client.post('/dict/get_house_id/', data=data)
+        id3 = json.loads(response.content.decode('utf8'))['result']
+        self.assertEqual(id1, id2)
+        self.assertEqual(id2, id3)
+
 
 class FilesListTest(BaseTest):
     def test_returns_code_200(self):
