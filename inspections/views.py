@@ -79,6 +79,10 @@ def inspection_repeat(request, id):
 def inspection_form_save(request):
     inspection = models.Inspection.objects.get(pk=request.POST['pk'])
     form = InspectionForm(request.POST, instance=inspection)
+    result = 0
+    for v in inspection.violationininspection_set.all():
+        if v.violation_type.children.count() == 0:
+            inspection.violations_quantity += v.count
     if form.is_valid():
         form.save()
         save_violations_in_inspection(request.POST.getlist('violations'), inspection)

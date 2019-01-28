@@ -5,10 +5,6 @@
         {% csrf_token %}
         <input id="pk{{ uid }}" type="hidden" name="pk" value="{{ document.pk }}">
         {{ form.as_p }}
-        <input class="easyui-numberbox" label="Количество нарушений" name="violations_quantity"
-               labelPosition="top" value="{{ violations_quantity }}" style="width:300px;"
-               data-options="editable:false">
-
         <div class="easyui-panel" id='violations_panel{{ uid }}' style="padding:5px;width:95%;height:450px"
              title="Виды нарушений">
             <table id="violations_tree{{ uid }}" class="easyui-treegrid" style="width:100%;height:400px">
