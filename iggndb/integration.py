@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 import time
 import requests, shutil
 import zipfile
-from testiggndb import settings
+from iggndb import settings
 import os
 from datetime import datetime, timedelta
 import simplejson as json

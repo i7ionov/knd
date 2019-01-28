@@ -12,7 +12,7 @@ from sequences import get_next_value
 from inspections.forms import InspectionForm, PreceptForm
 from django.views.decorators.http import require_POST
 from iggn_tools import filter, messages, tools
-
+from iggndb import tasks
 
 @login_required
 @permission_required('inspections.view_inspection', raise_exception=True)
@@ -209,6 +209,13 @@ def violation_in_precept_json_list(request, id=0, parent_id=0):
 @csrf_exempt
 def inspection_json_table(request):
     return filter.filtered_table_json_response(request, models.Inspection, additional_fields_for_inspection)
+
+
+@login_required
+@permission_required('django_celery_beat.add_periodictask', raise_exception=True)
+def start_import(request):
+    tasks.import_from_gis_gkh.delay()
+    return HttpResponse(json.dumps([]), content_type='application/json')
 
 
 def additional_fields_for_inspection(object, item):

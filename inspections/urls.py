@@ -17,5 +17,5 @@ urlpatterns = [
     path('violation_in_precept_json_list/new/<int:parent_id>/', views.violation_in_precept_json_list,
          name='violation_in_order_json_list_new'),
     path('inspection_json_table/', views.inspection_json_table, name='inspection_json_table'),
-
+    path('start_import/', views.start_import, name='start_import'),
 ]
