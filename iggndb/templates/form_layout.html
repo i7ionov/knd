@@ -1,0 +1,53 @@
+{% if load_static %}{{ form.media }}{% endif %}
+<form id="fm{{ uid }}" method="post" enctype="multipart/form-data" style="height:95%">
+    <div class="easyui-layout" style="width:100%;height:100%;">
+        <div data-options="region:'west',split:true" title="Разделы" style="width:370px;">
+            <div class="easyui-accordion" id="panel{{ uid }}">
+                <div title="Комментарий" style="overflow:auto;padding:10px;">
+                    <textarea class="easyui-textbox" label="Комментарий" name="comment" labelPosition="top"
+                              multiline="true" id="comment{{ uid }}"
+                              style="width:100%;height:300px">{{ document.comment }}</textarea>
+                </div>
+                <div title="Дерево документов" style="overflow:auto;padding:10px;"
+                     data-options="
+                    href:'{% url 'document_tree' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'Дерево документов', '{% url 'document_tree' %}')}}],
+                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
+                </div>
+                <div title="Файлы" style="overflow:auto;padding:10px;"
+                     data-options="
+                    href:'{% url 'files_list' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'Файлы', '{% url 'files_list' %}')}}],
+                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
+                </div>
+                <div title="История документа" style="overflow:auto;padding:10px;"
+                     data-options="
+                    href:'{% url 'history_table' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'История документа', '{% url 'history_table' %}')}}],
+                    queryParams:{id:'{{ document.id }}'}">
+                </div>
+            </div>
+
+            {% block save %}{% endblock %}
+        </div>
+
+
+        <div data-options="region:'east',split:true,collapsed:true" title="Дополнительно" style="width:20%;"></div>
+        <div data-options="region:'center'">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</form>
+{% block javascript %}{% endblock %}
+
+
+
