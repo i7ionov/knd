@@ -162,10 +162,10 @@
     <object model="inspections.inspectionresult" pk="11">
         <field name="text" type="CharField">Неполучение заказной коресподенции (распоряжение, требование), направленной по юр. адресу</field>
     </object>
-    <object model="inspections.orderstatus" pk="1">
+    <object model="inspections.preceptstatus" pk="1">
         <field name="text" type="CharField">Выдано</field>
     </object>
-    <object model="inspections.orderstatus" pk="2">
+    <object model="inspections.preceptstatus" pk="2">
         <field name="text" type="CharField">Не выдано</field>
     </object>
     <object model="inspections.cancellation" pk="1">
@@ -180,22 +180,22 @@
     <object model="inspections.cancellation" pk="4">
         <field name="text" type="CharField">Отмена по решению руководителя органа государственного жилищного надзора</field>
     </object>
-    <object model="inspections.orderresult" pk="1">
+    <object model="inspections.preceptresult" pk="1">
         <field name="text" type="CharField">Не исполнено</field>
     </object>
-    <object model="inspections.orderresult" pk="2">
+    <object model="inspections.preceptresult" pk="2">
         <field name="text" type="CharField">Исполнено</field>
     </object>
-    <object model="inspections.orderresult" pk="3">
+    <object model="inspections.preceptresult" pk="3">
         <field name="text" type="CharField">Продлено</field>
     </object>
-    <object model="inspections.orderresult" pk="4">
+    <object model="inspections.preceptresult" pk="4">
         <field name="text" type="CharField">Исполнено частично</field>
     </object>
-    <object model="inspections.orderresult" pk="5">
+    <object model="inspections.preceptresult" pk="5">
         <field name="text" type="CharField">Снято с контроля</field>
     </object>
-    <object model="inspections.orderresult" pk="6">
+    <object model="inspections.preceptresult" pk="6">
         <field name="text" type="CharField">Обжалуется в суде</field>
     </object>
     <object model="inspections.violationtype" pk="1">
