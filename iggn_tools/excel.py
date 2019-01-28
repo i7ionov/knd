@@ -32,7 +32,7 @@ def import_insp_from_gis_gkh(file):
         insp, created = inspections.models.Inspection.objects.get_or_create(doc_number=number, doc_date=datetime.strptime(val[5], '%d.%m.%Y').date())
         insp.gis_gkh_number = val[1]
         insp.erp_number = val[3]
-        insp.doc_type = "распоряжение"
+        insp.doc_type = "проверка"
         insp.control_form = inspections.models.ControlForm.objects.get(text=val[8])
         insp.control_plan = inspections.models.ControlPlan.objects.get(text=val[6])
         if val[7] == "Государственный и муниципальный жилищный надзор (контроль)":

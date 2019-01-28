@@ -26,6 +26,8 @@ def history_table(request):
             history = d.inspection.history.all()
         if d.doc_type == 'предписание':
             history = d.precept.history.all()
+        if d.doc_type == 'административное дело':
+            history = d.adrecord.history.all()
     except (Document.DoesNotExist, ValueError):
         history = ''
     context = {'history': history}
