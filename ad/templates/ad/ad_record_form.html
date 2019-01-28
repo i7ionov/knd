@@ -20,5 +20,12 @@
 {% endblock %}
 
 {% block javascript %}
-
+    <div class="hide" id="adjudication_date_button{{ uid }}">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6"
+           onclick="calculate_date('#pk{{ uid }} ~ p #id_adjudication_date', '#pk{{ uid }} ~ p #id_adjudication_start_date', '10','{% url 'calculate_date' %}')">+10
+            дней</a>
+    </div>
+    <script>
+        $('#pk{{ uid }} ~ p #id_adjudication_start_date').parent().append($("#adjudication_date_button{{ uid }}").html());
+    </script>
 {% endblock %}
