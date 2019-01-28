@@ -4,6 +4,6 @@
 "id": "{{ node.id }}",
 "doc_type":"{{ node.doc_type }}",
 "doc_number":"{{ node.doc_number }}",
-"text":"{% if node.doc_type == 'административное дело' %}{{ node.doc_type }} id {{ node.id }} от {{ node.adrecord.protocol_date|date:"d.m.Y" }}{% else %}{{ node.doc_type }} №{{ node.doc_number }} от {{ node.doc_date|date:"d.m.Y" }}{% endif %}",
+"text":"{% if node.doc_type == 'административное дело' %}{{ node.doc_type }} №{{ node.doc_number }} от {{ node.adrecord.protocol_date|date:"d.m.Y" }}{% else %}{{ node.doc_type }} №{{ node.doc_number }} от {{ node.doc_date|date:"d.m.Y" }}{% endif %}",
 "children": {% if node.is_leaf_node %}[]{% endif %}
 {% for level in structure.closed_levels %}}]{% endfor %}{% endfor %}

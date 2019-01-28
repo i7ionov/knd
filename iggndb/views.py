@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import uuid
 from dictionaries.models import Document
+from ad.models import ADStage
 from iggn_tools import messages
 from inspections.forms import InspectionForm, PreceptForm
 
@@ -79,5 +80,6 @@ def document_tree(request, id=0):
     context = {
         'document': document,
         'uid': uid,
+         'ad_stage_list': ADStage.objects.all()
     }
     return render(request, 'document_tree/document_tree.html', context)

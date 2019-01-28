@@ -23,7 +23,7 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     path('dict/', include('dictionaries.urls')),
     path('insp/', include('inspections.urls')),
-    # path('ad/', include('ad.urls')),
+    path('ad/', include('ad.urls')),
     # path('analytic/', include('analytic.urls')),
     path('', views.index, name='index'),
     path('history_table/', views.history_table, name='history_table'),

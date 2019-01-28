@@ -1,0 +1,24 @@
+{% extends "form_layout.html" %}
+
+{% block content %}
+    <div style="padding: 5px">
+        {% csrf_token %}
+        <input id="pk{{ uid }}" type="hidden" name="pk" value="{{ document.pk }}">
+        {{ form.as_p }}
+
+    </div>
+{% endblock %}
+
+{% block save %}
+    {% if user_has_perm_to_save %}
+        <div style="text-align:center;padding:5px 0">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok"
+               onclick="save('#fm{{ uid }}', '{% url 'ad_record_form_save' %}');"
+               style="width:150px;">Сохранить</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

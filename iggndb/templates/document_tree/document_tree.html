@@ -1,15 +1,42 @@
 <div class="easyui-panel" style="padding:5px">
+
     {% if document.doc_type == 'проверка' %}
         <a href="javascript:void(0)" class="easyui-linkbutton"
            id="add_precept{{ uid }}"
            onclick="addTab('#tt', 'Предписание',
                    '{% url 'new_precept_form' id=document.pk %}')">Добавить предписание</a>
     {% endif %}
+
     {% if document.doc_type == 'предписание' %}
-        <a href="javascript:void(0)" class="easyui-linkbutton"
+        <div style="margin: 5px">
+         <a href="javascript:void(0)" class="easyui-linkbutton" style="width: 100%; margin: 1px"
            id="add_repeated{{ uid }}"
            onclick="addTab('#tt', 'Повторная проверка', '{% url 'inspection_repeat' id=document.id %}')">Добавить
             проверку предписания</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" style="width: 100%; margin: 1px"
+           id="add_adrecord_court{{ uid }}"
+           onclick="addTab('#tt', 'Административное дело',
+                   '{% url 'new_ad_record_form' ad_type=0 parent_id=document.id stage_id=0%}')">Добавить адм. дело, М/C</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" style="width: 100%; margin: 1px"
+           id="add_adrecord_iggn{{ uid }}"
+           onclick="addTab('#tt', 'Административное дело',
+                   '{% url 'new_ad_record_form' ad_type=1 parent_id=document.id stage_id=0%}')">Добавить адм. дело, ИГЖН</a>
+        </div>
+
+    {% endif %}
+
+    {% if document.doc_type == 'административное дело' and ad_stage_list and not document.adrecord.has_appeal %}
+        <div class="easyui-panel" style="margin: 5px" id="new_ad_stage_panel{{ uid }}">
+        <a href="#" class="easyui-menubutton" data-options="menu:'#new_ad_stage{{ uid }}',iconCls:'icon-edit'">Добавить
+            стадию АД</a>
+        </div>
+        <div id="new_ad_stage{{ uid }}">
+            {% for stage in ad_stage_list %}
+                <div onclick="$('#new_ad_stage_panel{{ uid }}').hide();
+                        addTab('#tt', '{{ stage.short_text }}',
+                       '{% url 'new_ad_record_form' ad_type=0 parent_id=document.id stage_id=stage.id %}')">{{ stage.short_text }}</div>
+            {% endfor %}
+        </div>
     {% endif %}
     <ul id="documents_tree{{ uid }}" class="easyui-tree"
         data-options="animate:true,lines:true">
