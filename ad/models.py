@@ -84,7 +84,7 @@ class ADRecord(Document):
     ad_type = models.IntegerField(default=0)  # информация, где проходит расмотрение (0-м/c, 1-инспекция, 2-обжалование)
     ad_stage = models.ForeignKey(ADStage, on_delete=models.SET_NULL, null=True,  blank=True, verbose_name='Стадия рассмотрения административного дела')
     article = models.ForeignKey(Article, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Статья')
-    protocol_date = models.DateField(null=True, blank=True, verbose_name='Дата простокола')
+    protocol_date = models.DateField(null=True, blank=True, verbose_name='Дата протокола')
     referring_to_instance_date = models.DateField(null=True, blank=True, verbose_name='Дата направления в инстанцию')
     court = models.ForeignKey(Court, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Инстанция')
     adjudication = models.ForeignKey(Adjudication, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Решение')
