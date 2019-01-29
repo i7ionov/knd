@@ -81,6 +81,7 @@ def inspection_form_save(request):
     inspection = models.Inspection.objects.get(pk=request.POST['pk'])
     form = InspectionForm(request.POST, instance=inspection)
     result = 0
+    inspection.violations_quantity = 0
     for v in inspection.violationininspection_set.all():
         if v.violation_type.children.count() == 0:
             inspection.violations_quantity += v.count

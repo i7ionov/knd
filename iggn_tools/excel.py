@@ -1,21 +1,10 @@
 # -*- coding: utf-8 -*-
-import xlrd, openpyxl
+import xlrd
 import inspections.models
 import dictionaries.models
 from django.core.exceptions import MultipleObjectsReturned
-from django.utils import timezone
-from django.http import HttpResponse
-import django
-import uuid
-from analytic import models
-from dictionaries.models import User, House
-from django.core.files.base import ContentFile
-from openpyxl.writer.excel import save_virtual_workbook
-from datetime import datetime, timedelta
-from django.db.models import Q
-from django.contrib.auth.models import User as DjangoUser
-from inspections.models import ViolationInInspection, Inspection
-from django.conf import settings
+from datetime import datetime
+
 
 
 def import_insp_from_gis_gkh(file):
@@ -62,13 +51,6 @@ def import_insp_from_gis_gkh(file):
         elif dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 1:
             # находим ее по огрн
             org = dictionaries.models.Organization.objects.get(ogrn=val[13])
-            org.kpp = val[14]
-            if val[11] == 'Организация':
-                org.org_type_id = 2
-            else:
-                org.org_type_id = 1
-            org.name = val[12]
-            org.save()
             insp.organization = org
         # если это гражданин
         else:
@@ -94,11 +76,6 @@ def import_insp_from_gis_gkh(file):
             insp.date_begin = datetime.strptime(val[17], '%d.%m.%Y').date()
         if val[18] != '':
             insp.date_end = datetime.strptime(val[18], '%d.%m.%Y').date()
-
-        if val[25] == "Нарушения выявлены":
-            insp.violations_quantity = 1
-        else:
-            insp.violations_quantity = 0
         if val[28] != '':
             insp.act_date = datetime.strptime(val[17], '%d.%m.%Y').date()
         insp.save()
@@ -172,7 +149,6 @@ def import_order_from_gis_gkh(file):
             order, created = inspections.models.Precept.objects.get_or_create(parent=insp, doc_number=val[2], doc_date=datetime.strptime(val[3], '%d.%m.%Y').date())
             if created:
                 order.doc_type = 'предписание'
-                order.root_id = insp.root_id
                 order.organization = insp.organization
             if val[6] != '':
                 order.order_end_date = datetime.strptime(val[6], '%d.%m.%Y').date()
