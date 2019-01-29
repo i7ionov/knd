@@ -4,6 +4,7 @@ from django.utils.safestring import mark_safe
 import uuid
 from dictionaries.models import Organization
 
+
 class OrganizationWidget(Widget):
     template_name = 'dictionaries/organization_widget.html'
 
