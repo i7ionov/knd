@@ -4,6 +4,10 @@
     <div style="padding: 5px">
         {% csrf_token %}
         <input id="pk{{ uid }}" type="hidden" name="pk" value="{{ document.pk }}">
+        {% if document.ad_stage %}
+        Закончилось:<label>{{ document.ad_stage.text }}</label>
+        {% endif %}
+
         {{ form.as_p }}
 
     </div>
