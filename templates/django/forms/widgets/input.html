@@ -1,1 +1,4 @@
-</br><input type="{{ widget.type }}" labelPosition="top" class="easyui-textbox" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+</br><input type="{{ widget.type }}" labelPosition="top" class="easyui-textbox" name="{{ widget.name }}"
+            style="width:500px;"
+        {% if widget.value != None %}value="{{ widget.value|stringformat:'s' }}"{% endif %}
+        {% include "django/forms/widgets/attrs.html" %}>

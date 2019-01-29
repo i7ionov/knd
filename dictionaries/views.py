@@ -8,6 +8,8 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required, permission_required
 import simplejson as json
 from django.http import HttpResponse
+
+from dictionaries.forms import OrganizationForm
 from dictionaries.models import House, Address, Document, File, WorkingDays, Organization
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -213,3 +215,62 @@ def org_json_list(request):
         except Organization.DoesNotExist:
             pass
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@login_required
+@permission_required('dictionaries.add_organization', raise_exception=True)
+def new_org_form(request):
+    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
+    # а если она подгружается с помощью jQuery, то load_static будет равен False
+    load_static = False if 'HTTP_REFERER' in request.META else True
+    uid = uuid.uuid1().hex
+    org = Organization()
+    org.save()
+    form = OrganizationForm()
+    context = {'form': form, 'load_static': load_static, 'uid': uid,
+               'user_has_perm_to_save': request.user.has_perm('dictionaries.change_organization'),
+               'document': org}
+    return render(request, 'dictionaries/org_form.html', context)
+
+
+@login_required
+@permission_required('dictionaries.change_organization', raise_exception=True)
+@require_POST
+def org_form_save(request):
+    org = Organization.objects.get(pk=request.POST['pk'])
+    form = OrganizationForm(request.POST, instance=org)
+    if form.is_valid():
+        form.save()
+        return messages.return_success()
+    else:
+        return messages.return_error(form.errors)
+
+
+@login_required
+@permission_required('dictionaries.view_organization', raise_exception=True)
+def edit_org_form(request, id):
+    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
+    # а если она подгружается с помощью jQuery, то load_static будет равен False
+    load_static = False if 'HTTP_REFERER' in request.META else True
+    uid = uuid.uuid1().hex
+    org = get_object_or_404(Organization, pk=id)
+    form = OrganizationForm(instance=org)
+    context = {'form': form, 'load_static': load_static, 'uid': uid,
+               'user_has_perm_to_save': request.user.has_perm('dictionaries.change_organization'),
+               'document': org, 'model_name': 'organization'}
+    return render(request, 'dictionaries/org_form.html', context)
+
+
+@login_required
+@permission_required('dictionaries.view_organization', raise_exception=True)
+@csrf_exempt
+def org_json_table(request):
+    return filter.filtered_table_json_response(request, Organization)
+
+
+@login_required
+@permission_required('dictionaries.view_organization', raise_exception=True)
+def org_table(request):
+    context = {'user_has_perm_to_add': request.user.has_perm('dictionaries.add_organization')}
+    context.update(csrf(request))
+    return render(request, 'dictionaries/org_table.html', context)

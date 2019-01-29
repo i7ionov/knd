@@ -54,15 +54,17 @@ class Address(models.Model):
 
 
 class Organization(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Наименование организации')
-    inn = models.CharField(max_length=50, null=True, verbose_name='ИНН')
-    ogrn = models.CharField(max_length=50, null=True, verbose_name='ОГРН')
-    is_bankrupt = models.BooleanField(default=False, verbose_name='Банкрот')
-    kpp = models.CharField(max_length=50, null=True, verbose_name='КПП')
-    org_type = models.ForeignKey(OrganizationType, on_delete=models.SET_NULL, null=True, verbose_name='Тип организации')
-    location_address = models.CharField(max_length=500, null=True, verbose_name='Адрес места нахождения')
-    telephone = models.CharField(max_length=50, null=True, verbose_name='Телефон')
-    email = models.CharField(max_length=50, null=True, verbose_name='Эл. почта')
+    name = models.CharField(max_length=100, blank=True, verbose_name='Наименование организации')
+    inn = models.CharField(max_length=50, blank=True, null=True, verbose_name='ИНН')
+    ogrn = models.CharField(max_length=50, blank=True, null=True, verbose_name='ОГРН')
+    is_bankrupt = models.BooleanField(default=False, blank=True, verbose_name='Банкрот')
+    kpp = models.CharField(max_length=50, null=True, blank=True, verbose_name='КПП')
+    org_type = models.ForeignKey(OrganizationType, on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name='Тип организации')
+    location_address = models.CharField(max_length=500, null=True, blank=True, verbose_name='Адрес места нахождения')
+    telephone = models.CharField(max_length=50, null=True, blank=True, verbose_name='Телефон')
+    email = models.CharField(max_length=50, null=True, blank=True, verbose_name='Эл. почта')
+    comment = models.CharField(max_length=1000, blank=True, null=True)
     history = HistoricalRecords(inherit=True)
 
     @property

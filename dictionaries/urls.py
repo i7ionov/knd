@@ -19,5 +19,10 @@ urlpatterns = [
     path('calculate_date/', views.calculate_date, name='calculate_date'),
 
     path('org_json_list/', views.org_json_list, name='org_json_list'),
+    path('org_json_table/', views.org_json_table, name='org_json_table'),
+    path('org_table/', views.org_table, name='org_table'),
+    path('org_form/new/', views.new_org_form, name='new_org_form'),
+    path('org_form/save/', views.org_form_save, name='org_form_save'),
+    path('org_form/<slug:id>/', views.edit_org_form, name='edit_org_form'),
 
 ]

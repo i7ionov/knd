@@ -1,0 +1,59 @@
+<table id="org_dg" sortName="id" sortOrder="desc"></table>
+<div id="org_toolbar">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newOrg()">Добавить новую организацию</a>
+
+</div>
+
+<script type="text/javascript">
+    $('#org_dg').datagrid({
+        url: '{% url 'org_json_table' %}',
+        method: 'post',
+        toolbar: "#org_toolbar",
+        remoteFilter: true,
+        pagination: true,
+        pageSize: 20,
+        height: height-60,
+        singleSelect: "true",
+        columns: [[
+            {field: 'id', title: 'id', width: 60, sortable: true},
+            {field: 'name', title: 'Наименование', width: 200, sortable: true},
+            {field: 'inn', title: 'ИНН', width: 200, sortable: true},
+            {field: 'ogrn', title: 'ОГРН', width: 100, sortable: true},
+            {field: 'kpp', title: 'КПП', width: 100, sortable: true},
+            {field: 'org_type', title: 'Тип', width: 250, sortable: true},
+            {field: 'location_address', title: 'Адрес', width: 200, sortable: true},
+            {field: 'telephone', title: 'Телефон', width: 100, sortable: true},
+            {field: 'email', title: 'Эл. почта', width: 100, sortable: true},
+            {field: 'comment', title: 'Коментарий', width: 100, sortable: true},
+            {field: 'is_bankrupt', title: 'Банкрот', width: 100, sortable: true},
+        ]],
+        columnMoving: true,
+        onBeforeDropColumn: function () {
+            $(this).datagrid('disableFilter');
+        },
+        onDropColumn: function () {
+            $(this).datagrid('enableFilter');
+            $(this).datagrid('doFilter');
+        },
+        onDblClickRow: function (index, row) {
+            addTab('#tt', row['name'], '/dict/org_form/' + row['id'] + '/');
+        }
+    });
+
+    $(function () {
+        let org_dg = $('#org_dg').datagrid();
+        org_dg.datagrid('enableFilter', [{
+            field: 'id',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }]);    // enable filter
+        org_dg.datagrid('columnMoving');
+    });
+
+    function newOrg() {
+        addTab('#tt', 'Новая организация', '{% url 'new_org_form' %}');
+    }
+
+
+</script>

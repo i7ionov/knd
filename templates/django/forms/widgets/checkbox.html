@@ -1,1 +1,3 @@
-{% include "django/forms/widgets/input.html" %}
+<input type="{{ widget.type }}" labelPosition="top" class="easyui-checkbox" name="{{ widget.name }}"
+        {% if widget.value != None %}
+            value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
