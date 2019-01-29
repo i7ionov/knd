@@ -1,0 +1,13 @@
+</br><input id="organization{{ uid }}" class="easyui-combobox" name="{{ widget.name }}"
+       {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
+                           style="width:500px" value="{{ inspection.organization.inn }}">
+
+<script type="text/javascript">
+    $('#organization{{ uid }}').combobox({
+                    method: 'get',
+                    mode: 'remote',
+                    url: '{% url 'org_json_list' %}',
+                    valueField: 'id',
+                    textField: 'text',
+                });
+</script>

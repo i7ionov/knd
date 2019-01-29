@@ -8,13 +8,14 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required, permission_required
 import simplejson as json
 from django.http import HttpResponse
-from dictionaries.models import House, Address, Document, File, WorkingDays
+from dictionaries.models import House, Address, Document, File, WorkingDays, Organization
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from iggn_tools import filter, messages
 import uuid
 from django.utils import timezone
 import calendar
+from django.db.models import Q
 
 
 @login_required
@@ -139,7 +140,7 @@ def working_day_year(request, year):
     weeks = range(1, 6)  # количество недель
     days_in_week = range(1, 8)  # количество дней в неделе
     cal = []
-    working_days = WorkingDays.objects.all() # TODO: выгрузка только года
+    working_days = WorkingDays.objects.all()  # TODO: выгрузка только года
     for i in range(1, 13):
         cal.append(calendar.monthcalendar(year, i))
     context = {'calendar': cal, 'weeks': weeks, 'days_in_week': days_in_week, 'year': year,
@@ -193,3 +194,18 @@ def calculate_date(request):
         return messages.return_success(datetime.strftime(result, '%d.%m.%Y'))
     except KeyError:
         return messages.return_error('В запросе передан не полный состав ключей')
+
+
+@login_required
+@require_GET
+def org_json_list(request):
+    print(request.GET)
+    try:
+        q = request.GET["q"]
+    except KeyError:
+        return messages.return_success()
+    data = []
+    for elem in Organization.objects.filter(Q(name__icontains=q) | Q(inn__icontains=q)):
+        data.append({"text": elem.__str__(), "id": elem.pk})
+    return HttpResponse(json.dumps(data), content_type='application/json')
+

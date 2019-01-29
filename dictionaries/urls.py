@@ -18,4 +18,6 @@ urlpatterns = [
     path('working_day_change/', views.working_day_change, name='working_day_change'),
     path('calculate_date/', views.calculate_date, name='calculate_date'),
 
+    path('org_json_list/', views.org_json_list, name='org_json_list'),
+
 ]
