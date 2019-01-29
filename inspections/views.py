@@ -14,6 +14,7 @@ from django.views.decorators.http import require_POST
 from iggn_tools import filter, messages, tools
 from iggndb import tasks
 
+
 @login_required
 @permission_required('inspections.view_inspection', raise_exception=True)
 def inspection_table(request):

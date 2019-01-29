@@ -16,13 +16,14 @@ from iggn_tools import filter, messages, tools
 
 @login_required
 @permission_required('ad.add_adrecord', raise_exception=True)
-def new_ad_record_form(request, ad_type=0, parent_id=0, stage_id=0):
+def new_ad_record_form(request, ad_type, parent_id, stage_id):
     # если ad_type равен 1 или 2 (первичное рассмотрение в суде или инспекции), то в parent_id передается pk проверки
     # если ad_type равен 3 (повторное рассмотрение после обжалования), то в parent_id передается pk предыдущего рассмотрения
     # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
     # а если она подгружается с помощью jQuery, то load_static будет равен False
     load_static = False if 'HTTP_REFERER' in request.META else True
     uid = uuid.uuid1().hex
+    parent = None
     ad = models.ADRecord()
     ad.doc_type = 'административное дело'
     ad.doc_number = get_next_value('ad')
@@ -31,7 +32,7 @@ def new_ad_record_form(request, ad_type=0, parent_id=0, stage_id=0):
     ad.inspector = User.objects.get(django_user=request.user)
     if ad_type == 1:
         ad.court_id = 1
-    if parent_id:
+    if parent_id != '0':
         parent = Document.objects.get(pk=parent_id)
         ad.parent = parent
         if parent.doc_type == 'административное дело':
@@ -76,3 +77,18 @@ def edit_ad_record_form(request, id):
                'user_has_perm_to_save': request.user.has_perm('ad.change_adrecord'),
                'document': ad}
     return render(request, 'ad/ad_record_form.html', context)
+
+
+@login_required
+@permission_required('ad.view_adrecord', raise_exception=True)
+@csrf_exempt
+def ad_record_json_table(request):
+    return filter.filtered_table_json_response(request, models.ADRecord)
+
+
+@login_required
+@permission_required('ad.view_adrecord', raise_exception=True)
+def ad_record_table(request):
+    context = {'user_has_perm_to_add': request.user.has_perm('ad.add_adrecord')}
+    context.update(csrf(request))
+    return render(request, 'ad/ad_record_table.html', context)

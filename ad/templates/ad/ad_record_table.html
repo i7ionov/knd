@@ -1,0 +1,313 @@
+<table id="ad_dg" sortName="dictionaries_document.id" sortOrder="desc"></table>
+<div id="ad_toolbar">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newADIGGN()">Новое административное
+        дело, ИГЖН</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newADCourt()">Новое административное
+        дело, МС</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editAD()">Редактировать</a>
+</div>
+
+<script type="text/javascript">
+    $('#ad_dg').datagrid({
+        url: '/ad/ad_record_json_table/',
+        method: 'post',
+        toolbar: "#ad_toolbar",
+        remoteFilter: true,
+        pagination: true,
+        pageSize: 20,
+        height: height-60,
+        singleSelect: "true",
+        columns: [[
+            {field: 'id', title: 'id', width: 60, sortable: true},
+            {field: 'ad_stage__text', title: 'Стадия', width: 100, sortable: true},
+            {field: 'protocol_date', title: 'Дата протокола', width: 60, sortable: true},
+            {field: 'referring_to_instance_date', title: 'Дата направления в инстанцию', width: 60, sortable: true},
+            {field: 'court__name', title: 'Инстанция', width: 150, sortable: true},
+            {field: 'adjudication__text', title: 'Решение', width: 100, sortable: true},
+            {field: 'adjudication_amount_of_fine', title: 'Размер штрафа', width: 100, sortable: true},
+            {field: 'adjudication_date', title: 'Дата вынесения решения', width: 100, sortable: true},
+            {field: 'adjudication_start_date', title: 'Дата вступления в силу', width: 100, sortable: true},
+            {
+                field: 'date_of_receipt_unlegal',
+                title: 'Дата поступ. постан. не вступившего в законную силу',
+                width: 100,
+                sortable: true
+            },
+            {
+                field: 'date_of_receipt_legal',
+                title: 'Дата поступ. постан. вступившего в законную силу',
+                width: 100,
+                sortable: true
+            },
+            {field: 'publish_gisgkh_date', title: 'Дата публикации в ГИС ЖКХ', width: 100, sortable: true},
+            {field: 'publish_erp_date', title: 'Дата публикации в ЕРП', width: 100, sortable: true},
+            {field: 'box_number', title: 'Номер коробки в архиве', width: 100, sortable: true},
+            {field: 'organization__org_type__text', title: 'Тип субъекта проверки', width: 200, sortable: true},
+            {field: 'organization__inn', title: 'ИНН', width: 100, align: 'right', sortable: true},
+            {field: 'organization__name', title: 'Организация', width: 200, sortable: true},
+        ]],
+        view: detailview,
+        detailFormatter: function (rowIndex, rowData) {
+            return "<div id='row" + rowData.id + "' title=\"Дерево документов\" style=\"overflow:auto;padding:10px;\"\n</div>";
+        },
+        onExpandRow: function (index, row) {
+            row = $('#row' + row.id).panel({
+                href: '{% url 'document_tree' %}',
+                method: 'post',
+                queryParams: {id: row.id, uid: row.id}
+            });
+            eval(row);
+
+        },
+        columnMoving: true,
+        onBeforeDropColumn: function () {
+            $(this).datagrid('disableFilter');
+        },
+        onDropColumn: function () {
+            $(this).datagrid('enableFilter');
+            $(this).datagrid('doFilter');
+        },
+        onDblClickRow: function (index, row) {
+            addTab('#tt', 'Административное дело № ' + row['doc_number'], '/ad/ad_record_form/' + row['id'] + '/');
+        }
+    });
+
+    $(function () {
+        let ad_dg = $('#ad_dg').datagrid();
+        ad_dg.datagrid('enableFilter', [{
+            field: 'id',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }, {
+            field: 'ad_record_inspection.violations_quantity',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }, {
+            field: 'adjudication_amount_of_fine',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }, {
+            field: 'referring_to_instance_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'referring_to_instance_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'referring_to_instance_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'adjudication_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'adjudication_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'adjudication_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'adjudication_start_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'adjudication_start_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'adjudication_start_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+            }, {
+            field: 'date_of_receipt_unlegal',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'date_of_receipt_unlegal');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'date_of_receipt_unlegal',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+            }, {
+            field: 'date_of_receipt_legal',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'date_of_receipt_legal');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'date_of_receipt_legal',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+            }, {
+            field: 'publish_gisgkh_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'publish_gisgkh_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'publish_gisgkh_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+            }, {
+            field: 'publish_erp_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'publish_erp_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'publish_erp_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+
+        }, {
+            field: 'protocol_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'protocol_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'protocol_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'ad_record_inspection.date_end',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'ad_record_inspection.date_end');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'ad_record_inspection.date_end',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'ad_record_inspection.doc_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'dictionaries_document.doc_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'dictionaries_document.doc_number',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'ad_record_inspection.act_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'inspections_inspection.act_date');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'inspections_inspection.act_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'ad_record_inspection.control_form.text',
+            type: 'combobox',
+            options: {
+                panelHeight: 'auto',
+                data: [{value: '1', text: 'внеплановая выездная'},
+                    {value: '2', text: 'внеплановая документарная'},
+                    {value: '4', text: 'плановая документарная'},
+                    {value: '5', text: 'плановая выездная'}],
+                onChange: function (value) {
+                    if (value === '') {
+                        ad_dg.datagrid('removeFilterRule', 'ad_record_inspection.control_form.id');
+                    } else {
+                        ad_dg.datagrid('addFilterRule', {
+                            field: 'ad_record_inspection.control_form.id',
+                            op: 'equal',
+                            value: value
+                        });
+                    }
+                    ad_dg.datagrid('doFilter');
+                }
+            }
+        }]);    // enable filter
+        ad_dg.datagrid('columnMoving');
+    });
+
+    function newADIGGN() {
+        addTab('#tt', 'Новое административное дело', '{% url 'new_ad_record_form' ad_type=1 parent_id=0 stage_id=0%}');
+    }
+    function newADCourt() {
+        addTab('#tt', 'Новое административное дело', '{% url 'new_ad_record_form' ad_type=2 parent_id=0 stage_id=0%}');
+    }
+
+</script>
