@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from ad.models import ADRecord
 from dictionaries.widgets.address_list import AddressListWidget
+from dictionaries.widgets.organization import OrganizationWidget
 from iggn_tools.widgets.none_widget import NoneWidget
 
 
@@ -16,6 +17,7 @@ class ADRecordForm(forms.ModelForm):
         widgets = {
             'comment': NoneWidget(),
             'houses': AddressListWidget(),
+            'organization': OrganizationWidget(),
         }
         labels = {
             'comment': _(''),

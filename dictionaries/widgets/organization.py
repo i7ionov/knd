@@ -8,9 +8,15 @@ class OrganizationWidget(Widget):
     template_name = 'dictionaries/organization_widget.html'
 
     def get_context(self, name, value, attrs=None):
+        text = ''
+        try:
+            text = Organization.objects.get(id=value)
+        except Organization.DoesNotExist:
+            pass
+
         return {'widget': {
             'name': name,
-            'value': Organization.objects.get(id=value),
+            'value': text,
         },
             'uid': uuid.uuid1().hex}
 

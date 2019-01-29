@@ -38,6 +38,7 @@ class PreceptForm(forms.ModelForm):
         widgets = {
             'comment': NoneWidget(),
             'houses': AddressListWidget(),
+            'organization': OrganizationWidget(),
         }
         labels = {
             'comment': _(''),
