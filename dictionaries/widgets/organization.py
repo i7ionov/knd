@@ -13,11 +13,11 @@ class OrganizationWidget(Widget):
         try:
             text = Organization.objects.get(id=value)
         except Organization.DoesNotExist:
-            pass
-
+            value = ''
         return {'widget': {
             'name': name,
-            'value': text,
+            'value': value,
+            'text': text,
         },
             'uid': uuid.uuid1().hex}
 

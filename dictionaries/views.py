@@ -198,14 +198,18 @@ def calculate_date(request):
 
 @login_required
 @require_GET
+@csrf_exempt
 def org_json_list(request):
-    print(request.GET)
-    try:
-        q = request.GET["q"]
-    except KeyError:
-        return messages.return_success()
     data = []
-    for elem in Organization.objects.filter(Q(name__icontains=q) | Q(inn__icontains=q)):
-        data.append({"text": elem.__str__(), "id": elem.pk})
+    if 'q' in request.GET:
+        q = request.GET["q"]
+        for elem in Organization.objects.filter(Q(name__icontains=q) | Q(inn__icontains=q)):
+            data.append({"text": elem.__str__(), "id": elem.pk})
+    elif 'init_id' in request.GET:
+        q = request.GET["init_id"]
+        try:
+            elem = Organization.objects.get(id=q)
+            data.append({"text": elem.__str__(), "id": elem.pk})
+        except Organization.DoesNotExist:
+            pass
     return HttpResponse(json.dumps(data), content_type='application/json')
-

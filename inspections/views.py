@@ -136,6 +136,7 @@ def new_precept_form(request, id):
 def precept_form_save(request):
     precept = models.Precept.objects.get(pk=request.POST['pk'])
     form = PreceptForm(request.POST, instance=precept)
+
     if form.is_valid():
         form.save()
         save_violations_in_precept(request.POST.getlist('violations'), precept)
