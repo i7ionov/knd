@@ -39,7 +39,7 @@ def new_inspection_form(request):
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
-               'document': insp}
+               'document': insp, 'model_name': 'inspection'}
     return render(request, 'inspections/inspection_form.html', context)
 
 
@@ -70,7 +70,7 @@ def inspection_repeat(request, id):
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
-               'document': insp}
+               'document': insp, 'model_name': 'inspection'}
     return render(request, 'inspections/inspection_form.html', context)
 
 
@@ -104,7 +104,7 @@ def edit_inspection_form(request, id):
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
-               'document': insp}
+               'document': insp, 'model_name': 'inspection'}
     return render(request, 'inspections/inspection_form.html', context)
 
 
@@ -127,7 +127,7 @@ def new_precept_form(request, id):
     form = PreceptForm(instance=precept)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_precept'),
-               'document': precept}
+               'document': precept, 'model_name': 'precept'}
     return render(request, 'inspections/precept_form.html', context)
 
 
@@ -157,7 +157,7 @@ def edit_precept_form(request, id):
     form = PreceptForm(instance=precept)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_precept'),
-               'document': precept}
+               'document': precept, 'model_name': 'precept'}
     return render(request, 'inspections/precept_form.html', context)
 
 

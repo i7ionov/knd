@@ -47,7 +47,7 @@ def new_ad_record_form(request, ad_type, parent_id, stage_id):
     form = ADRecordForm(instance=ad)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('ad.change_adrecord'),
-               'document': ad}
+               'document': ad, 'model_name': 'ad_record'}
     return render(request, 'ad/ad_record_form.html', context)
 
 
@@ -75,7 +75,7 @@ def edit_ad_record_form(request, id):
     form = ADRecordForm(instance=ad)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('ad.change_adrecord'),
-               'document': ad}
+               'document': ad, 'model_name': 'ad_record'}
     return render(request, 'ad/ad_record_form.html', context)
 
 

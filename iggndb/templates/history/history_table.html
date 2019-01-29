@@ -1,7 +1,7 @@
 <ul class="easyui-datalist" title="История" lines="true" style="width:400px;height:250px">
     {% for d in history %}
          <li value="{{ d.history_id }}"><a href="javascript:void(0)" style="color: black" onclick="
-        addTab('#tt', 'Версия от {{ d.history_date|date:"d.m.Y h:i:s" }}', '{% url 'history_form' id=d.id history_id=d.history_id %}');
+        addTab('#tt', 'Версия от {{ d.history_date|date:"d.m.Y h:i:s" }}', '{% url 'history_form' model=model id=d.id history_id=d.history_id %}');
         ">Версия от {{ d.history_date|date:"d.m.Y h:i:s" }}</a></li>
     {% endfor %}
 </ul>

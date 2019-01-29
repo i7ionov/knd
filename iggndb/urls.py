@@ -27,7 +27,7 @@ urlpatterns = [
     # path('analytic/', include('analytic.urls')),
     path('', views.index, name='index'),
     path('history_table/', views.history_table, name='history_table'),
-    path('history_form/<int:id>/<int:history_id>/', views.history_form, name='history_form'),
+    path('history_form/<slug:model>/<int:id>/<int:history_id>/', views.history_form, name='history_form'),
     path('document_tree_json/<int:id>/', views.document_tree_json, name='document_tree_json'),
     path('document_tree/', views.document_tree, name='document_tree'),
 ]
