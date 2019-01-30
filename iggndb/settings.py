@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'simple_history',
     'mixer',
+    'dbbackup',
     'iggndb',
     'iggn_tools',
     'dictionaries',
@@ -117,6 +118,9 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login/'
 
+# Backup
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': '/mnt/backup'}
 
 try:
     from .local_settings import *
