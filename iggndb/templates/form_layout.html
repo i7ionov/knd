@@ -18,6 +18,34 @@
                     handler: function(){refresh_accordion('#panel{{ uid }}', 'Дерево документов', '{% url 'document_tree' %}')}}],
                     queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
                 </div>
+                {% else %}
+                    <div title="Проверки" style="overflow:auto;padding:10px;"
+                         data-options="
+                    href:'{% url 'inspection_list' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'Проверки', '{% url 'inspection_list' %}')}}],
+                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}', model:'{{ model_name }}'}">
+                    </div>
+                    <div title="Предписания" style="overflow:auto;padding:10px;"
+                         data-options="
+                    href:'{% url 'precept_list' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'Предписания', '{% url 'precept_list' %}')}}],
+                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}', model:'{{ model_name }}'}">
+                    </div>
+                    <div title="Административные дела" style="overflow:auto;padding:10px;"
+                         data-options="
+                    href:'{% url 'ad_record_list' %}',
+                    method:'post',
+                    tools:[{
+                    iconCls:'icon-reload',
+                    handler: function(){refresh_accordion('#panel{{ uid }}', 'Административные дела', '{% url 'ad_record_list' %}')}}],
+                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}', model:'{{ model_name }}'}">
+                    </div>
                 {% endif %}
                 <div title="Файлы" style="overflow:auto;padding:10px;"
                      data-options="

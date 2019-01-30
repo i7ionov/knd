@@ -4,6 +4,8 @@ import simplejson as json
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
+
+from iggndb.model_settings import Object
 from . import models
 from dictionaries.models import Address, Organization, House, User, Document
 import uuid
@@ -92,3 +94,14 @@ def ad_record_table(request):
     context = {'user_has_perm_to_add': request.user.has_perm('ad.add_adrecord')}
     context.update(csrf(request))
     return render(request, 'ad/ad_record_table.html', context)
+
+
+@login_required
+@permission_required('ad.view_adrecord', raise_exception=True)
+@csrf_exempt
+def ad_record_list(request):
+    pk = request.POST['id']
+    model = request.POST['model']
+    o = Object(pk, model)
+    context = {'ad_records': o.object.document_set.filter(doc_type='административное дело')}
+    return render(request, 'ad/ad_record_list.html', context)

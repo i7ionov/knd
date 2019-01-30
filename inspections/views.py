@@ -4,6 +4,8 @@ import simplejson as json
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
+
+from iggndb.model_settings import Object
 from . import models
 from dictionaries.models import Address, Organization, House, User, Document
 import uuid
@@ -22,6 +24,27 @@ def inspection_table(request):
     context.update(csrf(request))
     return render(request, 'inspections/inspection_table.html', context)
 
+
+@login_required
+@permission_required('inspections.view_inspection', raise_exception=True)
+@csrf_exempt
+def inspection_list(request):
+    pk = request.POST['id']
+    model = request.POST['model']
+    o = Object(pk, model)
+    context = {'inspections': o.object.document_set.filter(doc_type='проверка')}
+    return render(request, 'inspections/inspection_list.html', context)
+
+
+@login_required
+@permission_required('inspections.view_precept', raise_exception=True)
+@csrf_exempt
+def precept_list(request):
+    pk = request.POST['id']
+    model = request.POST['model']
+    o = Object(pk, model)
+    context = {'precepts': o.object.document_set.filter(doc_type='предписание')}
+    return render(request, 'inspections/precept_list.html', context)
 
 @login_required
 @permission_required('inspections.add_inspection', raise_exception=True)

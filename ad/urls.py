@@ -7,4 +7,5 @@ urlpatterns = [
     path('ad_record_form/<slug:id>/', views.edit_ad_record_form, name='edit_ad_record_form'),
     path('ad_record_table/', views.ad_record_table, name='ad_record_table'),
     path('ad_record_json_table/', views.ad_record_json_table, name='ad_record_json_table'),
+    path('ad_record_list/', views.ad_record_list, name='ad_record_list'),
 ]
