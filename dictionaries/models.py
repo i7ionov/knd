@@ -75,7 +75,7 @@ class Organization(models.Model):
     location_address = models.CharField(max_length=500, null=True, blank=True, verbose_name='Адрес места нахождения')
     telephone = models.CharField(max_length=50, null=True, blank=True, verbose_name='Телефон')
     email = models.CharField(max_length=50, null=True, blank=True, verbose_name='Эл. почта')
-    comment = models.CharField(max_length=1000, blank=True, null=True)
+    comment = models.TextField(default="", blank=True, verbose_name='комментарий')
     files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
     history = HistoricalRecords(inherit=True)
 
@@ -99,7 +99,7 @@ class House(models.Model):
     number = models.CharField(max_length=100, verbose_name='Номер дома')
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, verbose_name='Адрес')
     organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, verbose_name='Организация')
-    comment = models.CharField(max_length=1000, null=True)
+    comment = models.TextField(default="", blank=True, verbose_name='комментарий')
     guid = models.CharField(max_length=100, null=True)
     files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
     history = HistoricalRecords(inherit=True)
