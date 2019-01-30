@@ -26,7 +26,7 @@
                     tools:[{
                     iconCls:'icon-reload',
                     handler: function(){refresh_accordion('#panel{{ uid }}', 'Файлы', '{% url 'files_list' %}')}}],
-                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
+                    queryParams:{id:'{{ document.id }}', uid:'{{ uid }}', model:'{{ model_name }}'}">
                 </div>
                 <div title="История документа" style="overflow:auto;padding:10px;"
                      data-options="

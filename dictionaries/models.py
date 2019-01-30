@@ -53,6 +53,17 @@ class Address(models.Model):
         verbose_name = "Адрес"
 
 
+class File(models.Model):
+    name = models.CharField(max_length=100)
+    path = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Файл"
+
+
 class Organization(models.Model):
     name = models.CharField(max_length=100, blank=True, verbose_name='Наименование организации')
     inn = models.CharField(max_length=50, blank=True, null=True, verbose_name='ИНН')
@@ -65,6 +76,7 @@ class Organization(models.Model):
     telephone = models.CharField(max_length=50, null=True, blank=True, verbose_name='Телефон')
     email = models.CharField(max_length=50, null=True, blank=True, verbose_name='Эл. почта')
     comment = models.CharField(max_length=1000, blank=True, null=True)
+    files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
     history = HistoricalRecords(inherit=True)
 
     @property
@@ -89,6 +101,7 @@ class House(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, verbose_name='Организация')
     comment = models.CharField(max_length=1000, null=True)
     guid = models.CharField(max_length=100, null=True)
+    files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
     history = HistoricalRecords(inherit=True)
 
     @property
@@ -112,17 +125,6 @@ class Article(AbstractListItem):
 
     class Meta:
         verbose_name = "Статья"
-
-
-class File(models.Model):
-    name = models.CharField(max_length=100)
-    path = models.CharField(max_length=1000)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Файл"
 
 
 # класс документа по проверке

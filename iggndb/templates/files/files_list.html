@@ -1,0 +1,11 @@
+<div style="margin-bottom:20px" id="files{{ uid }}">
+<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-add" id="open_file_select{{ uid }}"
+                       onclick="openFileDialog('{{ uid }}', '{{ document.pk }}', '{{ model }}')"
+                       style="width:90px">Добавить</a>
+</div>
+<ul class="easyui-datalist" title="Файлы" lines="true" style="width:400px;height:250px">
+    {% for f in files %}
+        <li value="{{ f.pk }}"><a href="{{ f.path }}" style="color: black">{{ f.name }}</a></li>
+    {% endfor %}
+
+</ul>

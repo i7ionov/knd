@@ -1,0 +1,45 @@
+<div id="file_dialog{{ uid }}">
+
+
+</div>
+<div id="file_dialog_toolbar{{ uid }}" style="padding:2px 0">
+    <div style="margin: 10px">
+        <form id="file_fm{{ uid }}" method="post" enctype="multipart/form-data" style="height:95%">
+            {% load staticfiles %}
+            <input name="parent_id" type="hidden" value="{{ parent_id }}">
+            <input name="model" type="hidden" value="{{ model }}">
+            <input name="file" id="file{{ uid }}" class="easyui-filebox" label="Путь к файлу" labelPosition="top"
+                   data-options="prompt:'Выберите файл'"
+                   style="width:100%">
+
+        </form>
+    </div>
+
+</div>
+<div id="file_dialog_buttons{{ uid }}">
+    <a href="javascript:void(0)" id="file_sel_btn{{ uid }}" class="easyui-linkbutton"
+       onclick="javascript:save('#file_fm{{ uid }}', '{% url 'file_add' %}')">Добавить</a>
+    <a href="javascript:void(0)" id="file_sel_close_btn{{ uid }}" class="easyui-linkbutton"
+       onclick="javascript:save('#file_fm{{ uid }}', '{% url 'file_add' %}');$('#file_dialog{{ uid }}').dialog('close')">Добавить
+        и закрыть</a>
+    <a href="javascript:void(0)" id="file_close_btn{{ uid }}" class="easyui-linkbutton"
+       onclick="javascript:$('#file_dialog{{ uid }}').dialog('close')">Закрыть</a>
+</div>
+<script>
+    $('#file{{ uid }}').filebox({});
+    $('#file_close_btn{{ uid }}').linkbutton({});
+    $('#file_sel_btn{{ uid }}').linkbutton({});
+    $('#file_sel_close_btn{{ uid }}').linkbutton({});
+    $('#file_dialog{{ uid }}').dialog({
+        title: 'Добавить файл',
+        width: 800,
+        height: 400,
+        resizable: true,
+        modal: true,
+        buttons: '#file_dialog_buttons{{ uid }}',
+        toolbar: '#file_dialog_toolbar{{ uid }}',
+        onClose: function () {
+            $(this).dialog('destroy');
+        }
+    });
+</script>

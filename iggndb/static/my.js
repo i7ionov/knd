@@ -14,7 +14,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function addTab(control, title, url, add_existing = true) {
+function addTab(control, title, url, add_existing = false) {
 
     if (!add_existing && $(control).tabs('exists', title)) {
         $(control).tabs('select', title);
@@ -30,10 +30,8 @@ function addTab(control, title, url, add_existing = true) {
 }
 
 
-
-
-function openFileDialog(uid, parent_id) {
-    $.post('/dict/file_select/', {'uid': uid, 'parent_id': parent_id},
+function openFileDialog(uid, parent_id, model) {
+    $.post('/file_select/', {'uid': uid, 'parent_id': parent_id, 'model': model},
         function (data) {
             $('#files' + uid).append(data);
             $('#file_dialog' + uid).dialog('open');
