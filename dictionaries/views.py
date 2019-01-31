@@ -148,8 +148,9 @@ def org_json_list(request):
     elif 'init_id' in request.GET:
         q = request.GET["init_id"]
         try:
-            elem = Organization.objects.get(id=q)
-            data.append({"text": elem.__str__(), "id": elem.pk})
+            if q:
+                elem = Organization.objects.get(id=q)
+                data.append({"text": elem.__str__(), "id": elem.pk})
         except Organization.DoesNotExist:
             pass
     return HttpResponse(json.dumps(data), content_type='application/json')
