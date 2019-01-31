@@ -343,10 +343,10 @@
 	// filter operators
 	$.fn.datagrid.defaults.operators = {
 		nofilter: {
-			text: 'No Filter'
+			text: 'Убрать фильтр'
 		},
 		contains: {
-			text: 'Contains',
+			text: 'Содержит',
 			isMatch: function(source, value){
 				source = String(source);
 				value = String(value);
@@ -354,13 +354,13 @@
 			}
 		},
 		equal: {
-			text: 'Equal',
+			text: 'Равно',
 			isMatch: function(source, value){
 				return source == value;
 			}
 		},
 		notequal: {
-			text: 'Not Equal',
+			text: 'Не равно',
 			isMatch: function(source, value){
 				return source != value;
 			}
@@ -382,25 +382,25 @@
 			}
 		},
 		less: {
-			text: 'Less',
+			text: 'Меньше',
 			isMatch: function(source, value){
 				return source < value;
 			}
 		},
 		lessorequal: {
-			text: 'Less Or Equal',
+			text: 'Меньше или равно',
 			isMatch: function(source, value){
 				return source <= value;
 			}
 		},
 		greater: {
-			text: 'Greater',
+			text: 'Больше',
 			isMatch: function(source, value){
 				return source > value;
 			}
 		},
 		greaterorequal: {
-			text: 'Greater Or Equal',
+			text: 'Больше или равно',
 			isMatch: function(source, value){
 				return source >= value;
 			}

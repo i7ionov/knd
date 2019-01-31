@@ -1,15 +1,18 @@
 <table id="insp_dg" sortName="dictionaries_document.id" sortOrder="desc"></table>
 <div id="insp_toolbar">
     {% if user_has_perm_to_add %}
-        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newINSP(1)">Новая проверка, жил. надзор</a>
-        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newINSP(2)">Новая проверка, лиц. контроль</a>
+        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true"
+           onclick="newINSP(1)">Новая проверка, жил. надзор</a>
+        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true"
+           onclick="newINSP(2)">Новая проверка, лиц. контроль</a>
     {% endif %}
-  </div>
+</div>
 
 <script type="text/javascript">
     function newINSP(control_kind) {
-        addTab('#tt', 'Новая проверка', '/insp/inspection_form/new/'+control_kind+'/');
+        addTab('#tt', 'Новая проверка', '/insp/inspection_form/new/' + control_kind + '/');
     }
+
     $('#insp_dg').datagrid({
         url: '/insp/inspection_json_table/',
         method: 'post',
@@ -65,7 +68,12 @@
             {field: 'houses__number', title: 'Дом', width: 200, sortable: true},
             {field: 'children__doc_number', title: 'Номер предписания', width: 200, sortable: true},
             {field: 'children__doc_date', title: 'Дата предписания', width: 200, sortable: true},
-            {field: 'children__precept__precept_result__id', title: 'Результат предписания', width: 200, sortable: true},
+            {
+                field: 'children__precept__precept_result__id',
+                title: 'Результат предписания',
+                width: 200,
+                sortable: true
+            },
         ]],
         view: detailview,
         detailFormatter: function (rowIndex, rowData) {
@@ -94,6 +102,10 @@
             type: 'numberbox',
             options: {precision: 0},
             op: ['equal', 'less', 'greater']
+        }, {
+            field: 'doc_number',
+            type: 'textbox',
+            op: ['equal', 'contains']
         }, {
             field: 'violations_quantity',
             type: 'numberbox',
