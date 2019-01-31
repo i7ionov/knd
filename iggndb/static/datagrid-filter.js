@@ -794,12 +794,12 @@
 			if (!$('#datagrid-filter-style').length){
 				$('head').append(
 					'<style id="datagrid-filter-style">' +
-					'a.datagrid-filter-btn{display:inline-block;width:22px;height:22px;margin:0;vertical-align:top;cursor:pointer;opacity:0.6;filter:alpha(opacity=60);}' +
+					'a.datagrid-filter-btn{display:inline-block;width:22px;margin:0;vertical-align:top;cursor:pointer;opacity:0.6;filter:alpha(opacity=60);}' +
 					'a:hover.datagrid-filter-btn{opacity:1;filter:alpha(opacity=100);}' +
 					'.datagrid-filter-row .textbox,.datagrid-filter-row .textbox .textbox-text{-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
 					'.datagrid-filter-row input{margin:0;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
 					'.datagrid-filter-c{overflow:hidden}' +
-					'.datagrid-filter-cache{position:absolute;width:10px;height:10px;left:-99999px;}' +
+					'.datagrid-filter-cache{position:absolute;width:10px;left:-99999px;}' +
 					'</style>'
 				);
 			}
@@ -866,7 +866,7 @@
 				if (!div){
 					div = $('<div class="datagrid-filter-c"></div>').appendTo(td);
 					var filter = opts.filters[fopts.type];
-					var input = filter.init(div, $.extend({height:24},fopts.options||{}));
+					var input = filter.init(div, $.extend({},fopts.options||{}));
 					input.addClass('datagrid-filter').attr('name', field);
 					input[0].filter = filter;
 					input[0].menu = createFilterButton(div, fopts.op);
