@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('inspection_table/', views.inspection_table, name='inspection_table'),
-    path('inspection_form/new/', views.new_inspection_form, name='new_inspection_form'),
+    path('inspection_form/new/<int:control_kind>/', views.new_inspection_form, name='new_inspection_form'),
     path('inspection_form/save/', views.inspection_form_save, name='inspection_form_save'),
     path('inspection_form/repeat/<int:id>/', views.inspection_repeat, name='inspection_repeat'),
     path('inspection_form/<slug:id>/', views.edit_inspection_form, name='edit_inspection_form'),

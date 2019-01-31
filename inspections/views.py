@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
 
 from iggndb.model_settings import Object
+from inspections.models import ControlKind
 from . import models
 from dictionaries.models import Address, Organization, House, User, Document
 import uuid
@@ -48,14 +49,17 @@ def precept_list(request):
 
 @login_required
 @permission_required('inspections.add_inspection', raise_exception=True)
-def new_inspection_form(request):
+def new_inspection_form(request, control_kind):
     # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
     # а если она подгружается с помощью jQuery, то load_static будет равен False
     load_static = False if 'HTTP_REFERER' in request.META else True
     uid = uuid.uuid1().hex
     insp = models.Inspection()
     insp.doc_type = 'проверка'
+    insp.control_kind = ControlKind.objects.get(pk=control_kind)
     insp.doc_number = get_next_value('inspection')
+    if control_kind == 2:
+        insp.doc_number = str(insp.doc_number) + 'л'
     insp.doc_date = datetime.now()
     insp.inspector = User.objects.get(django_user=request.user)
     insp.save()
@@ -125,8 +129,9 @@ def edit_inspection_form(request, id):
     uid = uuid.uuid1().hex
     insp = get_object_or_404(models.Inspection, pk=id)
     form = InspectionForm(instance=insp)
+    perm = True if insp.inspector == User.objects.get(django_user=request.user) else False
     context = {'form': form, 'load_static': load_static, 'uid': uid,
-               'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
+               'user_has_perm_to_save': perm,
                'document': insp, 'model_name': 'inspection'}
     return render(request, 'inspections/inspection_form.html', context)
 

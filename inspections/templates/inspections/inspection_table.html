@@ -1,13 +1,14 @@
 <table id="insp_dg" sortName="dictionaries_document.id" sortOrder="desc"></table>
 <div id="insp_toolbar">
     {% if user_has_perm_to_add %}
-        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newINSP()">Новая проверка</a>
+        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newINSP(1)">Новая проверка, жил. надзор</a>
+        <a href="#" id="create_new_insp_button" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newINSP(2)">Новая проверка, лиц. контроль</a>
     {% endif %}
   </div>
 
 <script type="text/javascript">
-    function newINSP() {
-        addTab('#tt', 'Новая проверка', ' {% url 'new_inspection_form' %} ');
+    function newINSP(control_kind) {
+        addTab('#tt', 'Новая проверка', '/insp/inspection_form/new/'+control_kind+'/');
     }
     $('#insp_dg').datagrid({
         url: '/insp/inspection_json_table/',
