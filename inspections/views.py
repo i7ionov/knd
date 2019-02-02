@@ -129,9 +129,12 @@ def edit_inspection_form(request, id):
     uid = uuid.uuid1().hex
     insp = get_object_or_404(models.Inspection, pk=id)
     form = InspectionForm(instance=insp)
-    perm = True if insp.inspector == User.objects.get(django_user=request.user) else False
+    user_has_perm_to_save = False
+    if insp.inspector == User.objects.get(django_user=request.user) or \
+            request.user.has_perm('inspections.can_change_others_inspections'):
+        user_has_perm_to_save = True
     context = {'form': form, 'load_static': load_static, 'uid': uid,
-               'user_has_perm_to_save': perm,
+               'user_has_perm_to_save': user_has_perm_to_save,
                'document': insp, 'model_name': 'inspection'}
     return render(request, 'inspections/inspection_form.html', context)
 
@@ -183,8 +186,12 @@ def edit_precept_form(request, id):
     uid = uuid.uuid1().hex
     precept = get_object_or_404(models.Precept, pk=id)
     form = PreceptForm(instance=precept)
+    user_has_perm_to_save = False
+    if precept.parent.inspection.inspector == User.objects.get(django_user=request.user) or \
+            request.user.has_perm('inspections.can_change_others_inspections'):
+        user_has_perm_to_save = True
     context = {'form': form, 'load_static': load_static, 'uid': uid,
-               'user_has_perm_to_save': request.user.has_perm('inspections.change_precept'),
+               'user_has_perm_to_save': user_has_perm_to_save,
                'document': precept, 'model_name': 'precept'}
     return render(request, 'inspections/precept_form.html', context)
 

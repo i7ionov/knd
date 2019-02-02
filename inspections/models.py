@@ -129,6 +129,7 @@ class Inspection(Document):
         self.changed_by = value
 
     class Meta:
+        permissions = (("can_change_others_inspections", "Сan change others inspections"),)
         verbose_name = "Проверка"
 
 

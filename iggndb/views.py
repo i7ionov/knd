@@ -76,6 +76,7 @@ def document_tree(request, id=0):
     context = {
         'document': document,
         'uid': uid,
+        'user_has_perm_to_add_adrecord': request.user.has_perm('ad.add_adrecord'),
          'ad_stage_list': ADStage.objects.all()
     }
     return render(request, 'document_tree/document_tree.html', context)
