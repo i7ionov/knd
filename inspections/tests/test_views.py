@@ -65,20 +65,24 @@ class InspectionJsonTableTest(BaseTest):
 
 
 class CreatingInspectionFormTest(BaseTest):
-
     def test_creating_inspection_uses_template(self):
         self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
-        response = self.client.get('/insp/inspection_form/new/0/')
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
         self.assertTemplateUsed(response, 'inspections/inspection_form.html')
 
     def test_creating_inspection_uses_form(self):
         self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
-        response = self.client.get('/insp/inspection_form/new/0/')
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
         self.assertIsInstance(response.context['form'], InspectionForm)
 
     def test_user_can_add_inspection_table_only_with_permission(self):
-        response = self.client.get('/insp/inspection_form/new/0/')
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
         self.assertEqual(response.status_code, 403)
+
+    def test_response_contains_uid(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
+        self.assertIn('uid', response.context)
 
 
 class SavingInspectionFormTest(BaseTest):
