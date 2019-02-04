@@ -1,29 +1,26 @@
 <div class="easyui-panel" style="padding:5px">
 
     {% if document.doc_type == 'проверка' %}
-        <a href="javascript:void(0)" class="easyui-linkbutton" style="width: 100%; margin: 1px"
+        <a href="javascript:void(0)" class="tree-doc-link-button easyui-linkbutton"
            id="add_precept{{ uid }}"
            onclick="addTab('#tt', 'Предписание',
                    '{% url 'new_precept_form' id=document.pk %}')">Добавить предписание</a>
     {% endif %}
     {% if document.doc_type == 'предписание' %}
-        <div style="margin: 5px">
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="width: 100%; margin: 1px"
+              <a href="javascript:void(0)" class="tree-doc-link-button easyui-linkbutton"
                id="add_repeated{{ uid }}"
                onclick="addTab('#tt', 'Повторная проверка', '{% url 'inspection_repeat' id=document.id %}')">Добавить
                 проверку предписания</a>
-
-        </div>
     {% endif %}
     {% if document.doc_type == 'предписание' or document.doc_type == 'проверка' %}
 
         {% if user_has_perm_to_add_adrecord %}
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="width: 100%; margin: 1px"
+            <a href="javascript:void(0)" class="easyui-linkbutton tree-doc-link-button"
                id="add_adrecord_court{{ uid }}"
                onclick="addTab('#tt', 'Административное дело',
                        '{% url 'new_ad_record_form' ad_type=0 parent_id=document.id stage_id=0 %}')">Добавить адм. дело,
                 М/C</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="width: 100%; margin: 1px"
+            <a href="javascript:void(0)" class="easyui-linkbutton tree-doc-link-button"
                id="add_adrecord_iggn{{ uid }}"
                onclick="addTab('#tt', 'Административное дело',
                        '{% url 'new_ad_record_form' ad_type=1 parent_id=document.id stage_id=0 %}')">Добавить адм. дело,
