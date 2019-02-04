@@ -40,9 +40,9 @@ class BaseTest(TestCase):
         self.v_type1.save()
         self.v_type2 = ViolationType(text='Type of violation2')
         self.v_type2.save()
-        self.control_kind_gn = ControlKind(text='Жилищный надзор')
+        self.control_kind_gn = ControlKind(text='Жилищный надзор', pk=1)
         self.control_kind_gn.save()
-        self.control_kind_lk = ControlKind(text='Лиензионный контроль')
+        self.control_kind_lk = ControlKind(text='Лиензионный контроль', pk=2)
         self.control_kind_lk.save()
 
 

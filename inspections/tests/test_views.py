@@ -2,7 +2,7 @@ from iggndb.tests.base import BaseTest
 from django.contrib.auth.models import Permission
 from inspections.forms import InspectionForm
 from inspections.models import Inspection, ViolationInInspection, ViolationType
-from dictionaries.models import Organization, User
+from dictionaries.models import Organization, User, Document
 import json
 from inspections.tests import data
 from datetime import datetime
@@ -10,7 +10,6 @@ from django.db import models
 
 
 class InspectionTableTest(BaseTest):
-
     def test_uses_template(self):
         self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
         response = self.client.get('/insp/inspection_table/')
@@ -19,6 +18,54 @@ class InspectionTableTest(BaseTest):
     def test_user_can_view_inspection_table_only_with_permission(self):
         response = self.client.get('/insp/inspection_table/')
         self.assertEqual(response.status_code, 403)
+
+    def test_response_pass_user_rights_in_context(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
+        response = self.client.get('/insp/inspection_table/')
+        self.assertEqual(response.context['user_has_perm_to_add'], True)
+
+
+class InspectionListTest(BaseTest):
+    def setUp(self):
+        super(InspectionListTest, self).setUp()
+        self.insp = Inspection(doc_number='1',
+                               doc_type='проверка',
+                               doc_date='2011-11-11',
+                               organization=self.org1,
+                               )
+        self.insp2 = Inspection(doc_number='2',
+                                doc_type='проверка',
+                                doc_date='2012-11-11',
+                                organization=self.org1,
+                                )
+        self.insp3 = Inspection(doc_number='3',
+                                doc_type='проверка',
+                                doc_date='2012-11-11',
+                                organization=self.org2,
+                                )
+        self.insp.save()
+        self.insp2.save()
+        self.insp3.save()
+
+    def test_uses_template(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
+        data = {'id': [self.org1.pk], 'model': ['organization']}
+        response = self.client.post('/insp/inspection_list/', data)
+        self.assertTemplateUsed(response, 'inspections/inspection_list.html')
+
+    def test_user_can_view_inspection_table_only_with_permission(self):
+        data = {'id': [self.org1.pk], 'model': ['organization']}
+        response = self.client.post('/insp/inspection_list/', data)
+        self.assertEqual(response.status_code, 403)
+
+    def test_response_pass_inspections_in_context(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
+        data = {'id': [self.org1.pk], 'model': ['organization']}
+        response = self.client.post('/insp/inspection_list/', data)
+        self.assertIn(Document.objects.get(pk=self.insp.pk), list(response.context['inspections']))
+        self.assertIn(Document.objects.get(pk=self.insp2.pk), list(response.context['inspections']))
+        self.assertNotIn(Document.objects.get(pk=self.insp3.pk), list(response.context['inspections']))
 
 
 class InspectionJsonTableTest(BaseTest):
@@ -79,10 +126,48 @@ class CreatingInspectionFormTest(BaseTest):
         response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
         self.assertEqual(response.status_code, 403)
 
-    def test_response_contains_uid(self):
+    def test_response_pass_uid_in_context(self):
         self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
         response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
         self.assertIn('uid', response.context)
+
+    def test_response_pass_user_rights_in_context(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        self.user.user_permissions.add(Permission.objects.get(codename='change_inspection'))
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
+        self.assertEqual(response.context['user_has_perm_to_save'], True)
+
+    def test_response_pass_user_rights_in_context2(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
+        self.assertEqual(response.context['user_has_perm_to_save'], False)
+
+    def test_response_pass_inspection_in_context(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
+        self.assertIsInstance(response.context['document'], Inspection)
+        self.assertEqual(response.context['document'].doc_type, 'проверка')
+
+    def test_inspection_has_valid_control_kind(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
+        self.assertEqual(response.context['document'].control_kind, self.control_kind_gn)
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_lk.pk}/')
+        self.assertEqual(response.context['document'].control_kind, self.control_kind_lk)
+
+    def test_inspection_doc_number_has_postfix(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        # если лицензионный контроль, то в номере документа должна быть л
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_lk.pk}/')
+        self.assertIn('л', response.context['document'].doc_number)
+        # если жилищный надзор, то это должна быть просто цифра
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
+        self.assertIsInstance(response.context['document'].doc_number, int)
+
+    def test_response_pass_model_name_in_context(self):
+        self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
+        response = self.client.get(f'/insp/inspection_form/new/{self.control_kind_gn.pk}/')
+        self.assertEqual(response.context['model_name'], 'inspection')
 
 
 class SavingInspectionFormTest(BaseTest):
