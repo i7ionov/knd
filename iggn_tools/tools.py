@@ -20,8 +20,11 @@ def screen(string):
 # 7 преобразует в 7/1
 # 7/1 преобразует в 7/2
 def increment_doc_number(string):
-    m_doc_num = string.split('/')
-    if len(m_doc_num) > 1:
-        return '/'.join(m_doc_num[0:-1]) + '/' + str(int(m_doc_num[-1]) + 1)
-    else:
-        return string + '/' + '1'
+    try:
+        m_doc_num = string.split('/')
+        if len(m_doc_num) > 1:
+            return '/'.join(m_doc_num[0:-1]) + '/' + str(int(m_doc_num[-1]) + 1)
+        else:
+            return string + '/' + '1'
+    except:
+        return string
