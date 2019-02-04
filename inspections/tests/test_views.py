@@ -68,16 +68,16 @@ class CreatingInspectionFormTest(BaseTest):
 
     def test_creating_inspection_uses_template(self):
         self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
-        response = self.client.get('/insp/inspection_form/new/')
+        response = self.client.get('/insp/inspection_form/new/0/')
         self.assertTemplateUsed(response, 'inspections/inspection_form.html')
 
     def test_creating_inspection_uses_form(self):
         self.user.user_permissions.add(Permission.objects.get(codename='add_inspection'))
-        response = self.client.get('/insp/inspection_form/new/')
+        response = self.client.get('/insp/inspection_form/new/0/')
         self.assertIsInstance(response.context['form'], InspectionForm)
 
     def test_user_can_add_inspection_table_only_with_permission(self):
-        response = self.client.get('/insp/inspection_form/new/')
+        response = self.client.get('/insp/inspection_form/new/0/')
         self.assertEqual(response.status_code, 403)
 
 

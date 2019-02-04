@@ -47,6 +47,7 @@ def precept_list(request):
     context = {'precepts': o.object.document_set.filter(doc_type='предписание')}
     return render(request, 'inspections/precept_list.html', context)
 
+
 @login_required
 @permission_required('inspections.add_inspection', raise_exception=True)
 def new_inspection_form(request, control_kind):
