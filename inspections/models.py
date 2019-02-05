@@ -137,7 +137,7 @@ class Precept(Document):
     precept_begin_date = models.DateField(null=True, blank=True, verbose_name='дата начала исполнения предписания')
     precept_end_date = models.DateField(null=True, blank=True, verbose_name='дата окончания исполнения предписания')
     precept_result = models.ForeignKey(PreceptResult, on_delete=models.SET_NULL, null=True, blank=True,
-                                       default="1", verbose_name='результат предписания')
+                                       verbose_name='результат предписания')
     prolongation_date = models.DateField(null=True, blank=True,
                                          verbose_name='дата окончания исполнения предписания с продлением')
     comment = models.TextField(default="", blank=True)  # комментарий

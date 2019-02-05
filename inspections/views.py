@@ -50,54 +50,39 @@ def precept_list(request):
 
 @login_required
 @permission_required('inspections.add_inspection', raise_exception=True)
-def new_inspection_form(request, control_kind):
+def new_inspection_form(request, control_kind=None, id=None):
     # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
     # а если она подгружается с помощью jQuery, то load_static будет равен False
     load_static = False if 'HTTP_REFERER' in request.META else True
     uid = uuid.uuid1().hex
     insp = models.Inspection()
     insp.doc_type = 'проверка'
-    insp.control_kind = ControlKind.objects.get(pk=control_kind)
-    insp.doc_number = get_next_value('inspection')
-    if control_kind == 2:
-        insp.doc_number = str(insp.doc_number) + 'л'
     insp.doc_date = datetime.now()
-    insp.inspector = User.objects.get(django_user=request.user)
-    insp.save()
-    form = InspectionForm(instance=insp)
-    context = {'form': form, 'load_static': load_static, 'uid': uid,
-               'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
-               'document': insp, 'model_name': 'inspection'}
-    return render(request, 'inspections/inspection_form.html', context)
-
-
-@login_required
-@permission_required('inspections.add_inspection', raise_exception=True)
-def inspection_repeat(request, id):
-    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
-    # а если она подгружается с помощью jQuery, то load_static будет равен False
-    load_static = False if 'HTTP_REFERER' in request.META else True
-    uid = uuid.uuid1().hex
-    try:
-        precept = models.Precept.objects.get(pk=id)
-        insp = models.Inspection()
-        insp.parent = precept
-        insp.doc_type = 'проверка'
-        insp.doc_number = tools.increment_doc_number(precept.doc_number)
-        insp.doc_date = datetime.now()
-        insp.legal_basis = precept.parent.inspection.legal_basis
-        insp.control_kind = precept.parent.inspection.control_kind
-        insp.control_form = precept.parent.inspection.control_form
-        insp.control_plan = precept.parent.inspection.control_plan
-        insp.organization = precept.organization
-        if precept.parent.inspection.inspector:
-            insp.inspector = precept.parent.inspection.inspector
-        else:
-            insp.inspector = User.objects.get(django_user=request.user)
+    if id:
+        try:
+            precept = models.Precept.objects.get(pk=id)
+            insp.parent = precept
+            insp.doc_number = tools.increment_doc_number(precept.doc_number)
+            insp.legal_basis = precept.parent.inspection.legal_basis
+            insp.control_kind = precept.parent.inspection.control_kind
+            insp.control_form = precept.parent.inspection.control_form
+            insp.control_plan = precept.parent.inspection.control_plan
+            insp.organization = precept.organization
+            if precept.parent.inspection.inspector:
+                insp.inspector = precept.parent.inspection.inspector
+            else:
+                insp.inspector = User.objects.get(django_user=request.user)
+            insp.save()
+            insp.houses.set(precept.houses.all())
+        except (KeyError, models.Precept.DoesNotExist):
+            return messages.return_error(f'Не найдено предписание с id={id}')
+    elif control_kind:
+        insp.control_kind = ControlKind.objects.get(pk=control_kind)
+        insp.doc_number = get_next_value('inspection')
+        if control_kind == 2:
+            insp.doc_number = str(insp.doc_number) + 'л'
+        insp.inspector = User.objects.get(django_user=request.user)
         insp.save()
-        insp.houses.set(precept.houses.all())
-    except (KeyError, models.Precept.DoesNotExist):
-        return messages.return_error(f'Не найдено предписание с id={id}')
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': request.user.has_perm('inspections.change_inspection'),
@@ -272,7 +257,8 @@ def additional_fields_for_inspection(object, item):
     if precept is not None:
         object['children__doc_number'] = precept.doc_number
         object['children__doc_date'] = precept.doc_date
-        object['children__precept__precept_result__id'] = precept.precept_result.text
+        if precept.precept_result:
+            object['children__precept__precept_result__id'] = precept.precept_result.text
     return object
 
 

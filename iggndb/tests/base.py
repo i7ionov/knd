@@ -5,7 +5,7 @@ from django.http import HttpRequest
 from django.contrib.auth.models import User as DjangoUser
 from dictionaries.models import User, Organization, Address, House
 from django.test import Client
-from inspections.models import Inspection, ViolationInInspection, ViolationType, ControlKind
+from inspections.models import Inspection, ViolationInInspection, ViolationType, ControlKind, PreceptResult
 
 
 class BaseTest(TestCase):
@@ -44,6 +44,4 @@ class BaseTest(TestCase):
         self.control_kind_gn.save()
         self.control_kind_lk = ControlKind(text='Лиензионный контроль', pk=2)
         self.control_kind_lk.save()
-
-
 
