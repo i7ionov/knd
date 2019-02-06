@@ -7,6 +7,13 @@ from simple_history import register
 
 # Create your models here.
 
+class Department(models.Model):
+    name = models.CharField(max_length=200, verbose_name='отдел')
+    name_rp = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name = "отдел"
+
 
 class User(models.Model):
     django_user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE)
@@ -14,8 +21,8 @@ class User(models.Model):
     name_rp = models.CharField(max_length=200)
     position = models.CharField(max_length=200)
     position_rp = models.CharField(max_length=200)
-    department = models.CharField(max_length=200)
-    department_rp = models.CharField(max_length=200)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True,
+                                   verbose_name='отдел')
 
     def __str__(self):
         return self.name
@@ -98,10 +105,16 @@ class House(models.Model):
     verbose_name = "Дом"
     number = models.CharField(max_length=100, verbose_name='Номер дома')
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, verbose_name='Адрес')
-    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, verbose_name='Организация')
+    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, verbose_name='Организация',
+                                     blank=True)
     comment = models.TextField(default="", blank=True, verbose_name='комментарий')
     guid = models.CharField(max_length=100, null=True)
     files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
+    building_year = models.IntegerField(default=0, blank=True, verbose_name='год постройки')
+    number_of_apartments = models.IntegerField(default=0, blank=True, verbose_name='количество квартир')
+    total_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь')
+    living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь жилых помещений')
+    non_living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь нежилых помещений')
     history = HistoricalRecords(inherit=True)
 
     @property

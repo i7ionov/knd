@@ -11,67 +11,67 @@ class ExportResult(models.Model):
 
 
 class GeneralReport(models.Model):
-    # Если составление отчета инициируется вручную, но заполняются date_begin и date_end
-    date_begin = models.DateField(null=True, blank=True, verbose_name='Начало отчетного периода')
-    date_end = models.DateField(null=True, blank=True, verbose_name='Окончание отчетного периода')
-    # Если отчет составляется автоматически то заполняется month и year
-    month = models.IntegerField(verbose_name='Месяц', default=0)
-    year = models.IntegerField(verbose_name='Год', default=0)
+    # Р•СЃР»Рё СЃРѕСЃС‚Р°РІР»РµРЅРёРµ РѕС‚С‡РµС‚Р° РёРЅРёС†РёРёСЂСѓРµС‚СЃСЏ РІСЂСѓС‡РЅСѓСЋ, РЅРѕ Р·Р°РїРѕР»РЅСЏСЋС‚СЃСЏ date_begin Рё date_end
+    date_begin = models.DateField(null=True, blank=True, verbose_name='РќР°С‡Р°Р»Рѕ РѕС‚С‡РµС‚РЅРѕРіРѕ РїРµСЂРёРѕРґР°')
+    date_end = models.DateField(null=True, blank=True, verbose_name='РћРєРѕРЅС‡Р°РЅРёРµ РѕС‚С‡РµС‚РЅРѕРіРѕ РїРµСЂРёРѕРґР°')
+    # Р•СЃР»Рё РѕС‚С‡РµС‚ СЃРѕСЃС‚Р°РІР»СЏРµС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё С‚Рѕ Р·Р°РїРѕР»РЅСЏРµС‚СЃСЏ month Рё year
+    month = models.IntegerField(verbose_name='РњРµСЃСЏС†', default=0)
+    year = models.IntegerField(verbose_name='Р“РѕРґ', default=0)
     control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True, blank=True,
-                                     verbose_name='вид контроля')
-    # Раздел 1
-    houses_total_area = models.IntegerField(verbose_name='Площадь обследованных МКД и жилых домов', default=0)
+                                     verbose_name='РІРёРґ РєРѕРЅС‚СЂРѕР»СЏ')
+    # Р Р°Р·РґРµР» 1
+    houses_total_area = models.IntegerField(verbose_name='РџР»РѕС‰Р°РґСЊ РѕР±СЃР»РµРґРѕРІР°РЅРЅС‹С… РњРљР” Рё Р¶РёР»С‹С… РґРѕРјРѕРІ', default=0)
     houses_plan_area = models.IntegerField(
-        verbose_name='Площадь обследованных МКД и жилых домов в результате плановых проверок',
+        verbose_name='РџР»РѕС‰Р°РґСЊ РѕР±СЃР»РµРґРѕРІР°РЅРЅС‹С… РњРљР” Рё Р¶РёР»С‹С… РґРѕРјРѕРІ РІ СЂРµР·СѓР»СЊС‚Р°С‚Рµ РїР»Р°РЅРѕРІС‹С… РїСЂРѕРІРµСЂРѕРє',
         default=0)
     houses_precept_area = models.IntegerField(
-        verbose_name='Площадь обследованных МКД и жилых домов в результате проверки исполнения предписаний',
+        verbose_name='РџР»РѕС‰Р°РґСЊ РѕР±СЃР»РµРґРѕРІР°РЅРЅС‹С… РњРљР” Рё Р¶РёР»С‹С… РґРѕРјРѕРІ РІ СЂРµР·СѓР»СЊС‚Р°С‚Рµ РїСЂРѕРІРµСЂРєРё РёСЃРїРѕР»РЅРµРЅРёСЏ РїСЂРµРґРїРёСЃР°РЅРёР№',
         default=0)
-    houses = models.IntegerField(verbose_name='Количество обследованных МКД и жилых домов', default=0)
-    doc = models.IntegerField(verbose_name='Количество документарных проверок', default=0)
-    doc_plan = models.IntegerField(verbose_name='Количество документарных плановых проверок', default=0)
-    doc_appeals = models.IntegerField(verbose_name='Количество документарных проверок по обращениям граждан', default=0)
-    doc_prosecutor = models.IntegerField(verbose_name='Количество документарных проверок по требованию прокуратуры',
+    houses = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЃР»РµРґРѕРІР°РЅРЅС‹С… РњРљР” Рё Р¶РёР»С‹С… РґРѕРјРѕРІ', default=0)
+    doc = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРєСѓРјРµРЅС‚Р°СЂРЅС‹С… РїСЂРѕРІРµСЂРѕРє', default=0)
+    doc_plan = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРєСѓРјРµРЅС‚Р°СЂРЅС‹С… РїР»Р°РЅРѕРІС‹С… РїСЂРѕРІРµСЂРѕРє', default=0)
+    doc_appeals = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРєСѓРјРµРЅС‚Р°СЂРЅС‹С… РїСЂРѕРІРµСЂРѕРє РїРѕ РѕР±СЂР°С‰РµРЅРёСЏРј РіСЂР°Р¶РґР°РЅ', default=0)
+    doc_prosecutor = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРєСѓРјРµРЅС‚Р°СЂРЅС‹С… РїСЂРѕРІРµСЂРѕРє РїРѕ С‚СЂРµР±РѕРІР°РЅРёСЋ РїСЂРѕРєСѓСЂР°С‚СѓСЂС‹',
                                          default=0)
     doc_oms = models.IntegerField(
-        verbose_name='Количество документарных проверок в отношении органов местного самоуправления', default=0)
-    doc_precept = models.IntegerField(verbose_name='Количество документарных проверок исполнения предписания',
+        verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРєСѓРјРµРЅС‚Р°СЂРЅС‹С… РїСЂРѕРІРµСЂРѕРє РІ РѕС‚РЅРѕС€РµРЅРёРё РѕСЂРіР°РЅРѕРІ РјРµСЃС‚РЅРѕРіРѕ СЃР°РјРѕСѓРїСЂР°РІР»РµРЅРёСЏ', default=0)
+    doc_precept = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРєСѓРјРµРЅС‚Р°СЂРЅС‹С… РїСЂРѕРІРµСЂРѕРє РёСЃРїРѕР»РЅРµРЅРёСЏ РїСЂРµРґРїРёСЃР°РЅРёСЏ',
                                       default=0)
-    out = models.IntegerField(verbose_name='Количество выездных поверок', default=0)
-    out_plan = models.IntegerField(verbose_name='Количество выездных плановых поверок', default=0)
-    out_appeals = models.IntegerField(verbose_name='Количество выездных поверок по обращениям граждан', default=0)
-    out_prosecutor = models.IntegerField(verbose_name='Количество выездных поверок по требованию прокуратуры',
+    out = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїРѕРІРµСЂРѕРє', default=0)
+    out_plan = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїР»Р°РЅРѕРІС‹С… РїРѕРІРµСЂРѕРє', default=0)
+    out_appeals = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїРѕРІРµСЂРѕРє РїРѕ РѕР±СЂР°С‰РµРЅРёСЏРј РіСЂР°Р¶РґР°РЅ', default=0)
+    out_prosecutor = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїРѕРІРµСЂРѕРє РїРѕ С‚СЂРµР±РѕРІР°РЅРёСЋ РїСЂРѕРєСѓСЂР°С‚СѓСЂС‹',
                                          default=0)
     out_oms = models.IntegerField(
-        verbose_name='Количество выездных поверок в отношении органов местного самоуправления', default=0)
-    out_physic = models.IntegerField(verbose_name='Количество выездных поверок в отношении физического лица', default=0)
-    out_order = models.IntegerField(verbose_name='Количество выездных поверок исполнения предписания', default=0)
-    overdue = models.IntegerField(verbose_name='Количество проверок, проведенных с нарушением срока', default=0)
-    overdue_doc = models.IntegerField(verbose_name='Количество документарных проверок, проведенных с нарушением срока',
+        verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїРѕРІРµСЂРѕРє РІ РѕС‚РЅРѕС€РµРЅРёРё РѕСЂРіР°РЅРѕРІ РјРµСЃС‚РЅРѕРіРѕ СЃР°РјРѕСѓРїСЂР°РІР»РµРЅРёСЏ', default=0)
+    out_physic = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїРѕРІРµСЂРѕРє РІ РѕС‚РЅРѕС€РµРЅРёРё С„РёР·РёС‡РµСЃРєРѕРіРѕ Р»РёС†Р°', default=0)
+    out_order = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїРѕРІРµСЂРѕРє РёСЃРїРѕР»РЅРµРЅРёСЏ РїСЂРµРґРїРёСЃР°РЅРёСЏ', default=0)
+    overdue = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕРІРµСЂРѕРє, РїСЂРѕРІРµРґРµРЅРЅС‹С… СЃ РЅР°СЂСѓС€РµРЅРёРµРј СЃСЂРѕРєР°', default=0)
+    overdue_doc = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРєСѓРјРµРЅС‚Р°СЂРЅС‹С… РїСЂРѕРІРµСЂРѕРє, РїСЂРѕРІРµРґРµРЅРЅС‹С… СЃ РЅР°СЂСѓС€РµРЅРёРµРј СЃСЂРѕРєР°',
                                       default=0)
-    overdue_out = models.IntegerField(verbose_name='Количество выездных проверок, проведенных с нарушением срока',
+    overdue_out = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РµР·РґРЅС‹С… РїСЂРѕРІРµСЂРѕРє, РїСЂРѕРІРµРґРµРЅРЅС‹С… СЃ РЅР°СЂСѓС€РµРЅРёРµРј СЃСЂРѕРєР°',
                                       default=0)
-    # Раздел 2 - нарушения
-    # Раздел 3 - результаты деятельности
-    exec_doc = models.IntegerField(verbose_name='Количество составленных исполнительных документов',
+    # Р Р°Р·РґРµР» 2 - РЅР°СЂСѓС€РµРЅРёСЏ
+    # Р Р°Р·РґРµР» 3 - СЂРµР·СѓР»СЊС‚Р°С‚С‹ РґРµСЏС‚РµР»СЊРЅРѕСЃС‚Рё
+    exec_doc = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚Р°РІР»РµРЅРЅС‹С… РёСЃРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РґРѕРєСѓРјРµРЅС‚РѕРІ',
                                    default=0)
-    act = models.IntegerField(verbose_name='Количество составленных актов',
+    act = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚Р°РІР»РµРЅРЅС‹С… Р°РєС‚РѕРІ',
                               default=0)
-    precept = models.IntegerField(verbose_name='Количество составленных предписаний',
+    precept = models.IntegerField(verbose_name='РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃС‚Р°РІР»РµРЅРЅС‹С… РїСЂРµРґРїРёСЃР°РЅРёР№',
                                   default=0)
 
 
 class ViolationInGeneralReport(models.Model):
     violation_type = models.ForeignKey(ViolationType, on_delete=models.SET_NULL, null=True,
-                                       verbose_name='тип нарушения')
-    count = models.IntegerField(default=0, verbose_name='количество нарушений выявлено')
-    count_to_remove = models.IntegerField(default=0, verbose_name='количество нарушений к устранению')
-    count_of_removed = models.IntegerField(default=0, verbose_name='количество нарушений по факту устранено')
-    report = models.ForeignKey(GeneralReport, on_delete=models.SET_NULL, null=True, verbose_name='Отчет')
+                                       verbose_name='С‚РёРї РЅР°СЂСѓС€РµРЅРёСЏ')
+    count = models.IntegerField(default=0, verbose_name='РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°СЂСѓС€РµРЅРёР№ РІС‹СЏРІР»РµРЅРѕ')
+    count_to_remove = models.IntegerField(default=0, verbose_name='РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°СЂСѓС€РµРЅРёР№ Рє СѓСЃС‚СЂР°РЅРµРЅРёСЋ')
+    count_of_removed = models.IntegerField(default=0, verbose_name='РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°СЂСѓС€РµРЅРёР№ РїРѕ С„Р°РєС‚Сѓ СѓСЃС‚СЂР°РЅРµРЅРѕ')
+    report = models.ForeignKey(GeneralReport, on_delete=models.SET_NULL, null=True, verbose_name='РћС‚С‡РµС‚')
 
 
 class AbstractItemCountInReport(models.Model):
-    model_name = models.TextField(verbose_name='имя модели справочника')
-    object_id = models.IntegerField(verbose_name='id элемента справочкинка')
-    count = models.IntegerField(default=0, verbose_name='количество')
-    report = models.ForeignKey(GeneralReport, on_delete=models.SET_NULL, null=True, verbose_name='Отчет')
+    model_name = models.TextField(verbose_name='РёРјСЏ РјРѕРґРµР»Рё СЃРїСЂР°РІРѕС‡РЅРёРєР°')
+    object_id = models.IntegerField(verbose_name='id СЌР»РµРјРµРЅС‚Р° СЃРїСЂР°РІРѕС‡РєРёРЅРєР°')
+    count = models.IntegerField(default=0, verbose_name='РєРѕР»РёС‡РµСЃС‚РІРѕ')
+    report = models.ForeignKey(GeneralReport, on_delete=models.SET_NULL, null=True, verbose_name='РћС‚С‡РµС‚')
