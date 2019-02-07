@@ -1,3 +1,5 @@
+from datetime import timedelta, datetime
+
 from django.test import TestCase
 from django.urls import resolve
 from iggndb.views import index
@@ -24,11 +26,13 @@ class BaseTest(TestCase):
         self.org4.save()
         self.addr1 = Address(area='area1', city='city1', place='place1', street='street1')
         self.addr1.save()
-        self.house1 = House(number='1', address=self.addr1)
+        self.house1 = House(number='1', address=self.addr1, total_area=123)
         self.house1.save()
+        self.house3 = House(number='3', address=self.addr1, total_area=100)
+        self.house3.save()
         self.addr2 = Address(area='area2', city='city2', place='place2', street='street2')
         self.addr2.save()
-        self.house2 = House(number='2', address=self.addr2)
+        self.house2 = House(number='2', address=self.addr2, total_area=321)
         self.house2.save()
         self.v_type1 = ViolationType(text='Type of violation1')
         self.v_type1.save()
@@ -68,4 +72,20 @@ class BaseTest(TestCase):
         self.inspection_result4.save()
         self.inspection_result5 = InspectionResult(text='Проверка предписания')
         self.inspection_result5.save()
+
+        now = datetime.today()
+        td = timedelta(35)
+        month_ago = now - td
+        month_later = now + td
+        self.insp1 = Inspection(doc_number='1',
+                                doc_date=now,
+                                organization=self.org1,
+                                control_form=self.control_form_doc,
+                                control_kind=self.control_kind_gn,
+                                legal_basis=self.legal_basis1,
+                                inspection_result=self.inspection_result1)
+        self.insp1.save()
+        self.insp1.houses.add(self.house1)
+        self.violation1 = ViolationInInspection(violation_type=self.v_type1, count=2, inspection=self.insp1)
+        self.violation1.save()
 

@@ -4,7 +4,8 @@ from inspections.models import Inspection
 
 def generate_general_report_period(date_begin, date_end, control_kind_id):
     report = GeneralReport()
-    inspections = Inspection.objects.filter(doc_date__range=(date_begin, date_end)).filter(control_kind_id=control_kind_id)
+    inspections = Inspection.objects.filter(doc_date__range=(date_begin, date_end)).filter(
+        control_kind_id=control_kind_id)
     iterate_inspections(inspections, report)
     return report
 
@@ -58,13 +59,17 @@ def iterate_inspections(inspections, report):
                 if 'документарная' in insp.control_form.text.lower():
                     report.overdue_doc += 1
             if insp.inspection_result:
-                insp_rexult, created = AbstractItemCountInReport.objects.get_or_create(model_name='inspection_result', object_id=insp.inspection_result.id)
+                insp_result, created = AbstractItemCountInReport.objects.get_or_create(model_name='inspection_result',
+                                                                                       object_id=insp.inspection_result.id,
+                                                                                       report=report)
+                insp_result.count += 1
+                insp_result.save()
 
             report.save()
             # статистика по выявленным нарушениям
             for v in insp.violationininspection_set.all():
                 violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.id,
-                                                                                        report=report)
+                                                                                    report=report)
                 violation.count += v.count
                 violation.save()
             # статистика по исправленным нарушениям
