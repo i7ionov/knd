@@ -1,5 +1,5 @@
 from django.db import models
-from dictionaries.models import User
+from dictionaries.models import User, Department
 from inspections.models import ViolationType, ControlKind, InspectionResult
 
 
@@ -11,6 +11,9 @@ class ExportResult(models.Model):
 
 
 class GeneralReport(models.Model):
+    report_status = models.TextField(null=True, blank=True, verbose_name='Статус формирования отчета')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник, запросивший отчет')
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, verbose_name='Отдел, по которому составляется отчет')
     # Если составление отчета инициируется вручную, но заполняются date_begin и date_end
     date_begin = models.DateField(null=True, blank=True, verbose_name='Начало отчетного периода')
     date_end = models.DateField(null=True, blank=True, verbose_name='Окончание отчетного периода')
@@ -19,6 +22,7 @@ class GeneralReport(models.Model):
     year = models.IntegerField(verbose_name='Год', default=0)
     control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name='вид контроля')
+    total_inspections = models.IntegerField(verbose_name='Всего проверок', default=0)
     # Раздел 1
     houses_total_area = models.IntegerField(verbose_name='Площадь обследованных МКД и жилых домов', default=0)
     houses_plan_area = models.IntegerField(
