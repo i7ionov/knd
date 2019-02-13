@@ -27,27 +27,6 @@ class InspectionTableTest(BaseTest):
 
 
 class InspectionListTest(BaseTest):
-    def setUp(self):
-        super(InspectionListTest, self).setUp()
-        self.insp = Inspection(doc_number='1',
-                               doc_type='проверка',
-                               doc_date='2011-11-11',
-                               organization=self.org1,
-                               )
-        self.insp2 = Inspection(doc_number='2',
-                                doc_type='проверка',
-                                doc_date='2012-11-11',
-                                organization=self.org1,
-                                )
-        self.insp3 = Inspection(doc_number='3',
-                                doc_type='проверка',
-                                doc_date='2012-11-11',
-                                organization=self.org2,
-                                )
-        self.insp.save()
-        self.insp2.save()
-        self.insp3.save()
-
     def test_uses_template(self):
         self.user.user_permissions.add(Permission.objects.get(codename='view_inspection'))
         data = {'id': [self.org1.pk], 'model': ['organization']}
@@ -172,12 +151,6 @@ class CreatingInspectionFormTest(BaseTest):
 class RepeatingInspectionFormTest(BaseTest):
     def setUp(self):
         super(RepeatingInspectionFormTest, self).setUp()
-        self.insp = Inspection(doc_number='1',
-                               doc_type='проверка',
-                               doc_date='2011-11-11',
-                               organization=self.org1,
-                               )
-        self.insp.save()
         self.precept = Precept(doc_number='1',
                                doc_type='предписание',
                                doc_date='2011-11-11',
