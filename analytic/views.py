@@ -85,7 +85,7 @@ def filter_form(request):
         if get_count:
             return tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, True)
         else:
-            tasks.export_to_excel.task(request_post, app_str, model_str, request.user.pk, False)
+            tasks.export_to_excel.delay(request_post, app_str, model_str, request.user.pk, False)
             return messages.return_success()
     else:
         if request.GET['uid']:
