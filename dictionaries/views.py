@@ -183,7 +183,7 @@ def org_form_save(request):
         form.save()
         return messages.return_success()
     else:
-        return messages.return_error(form.errors)
+        return messages.return_form_error(form)
 
 
 @login_required

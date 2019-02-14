@@ -61,9 +61,9 @@ def ad_record_form_save(request):
     form = ADRecordForm(request.POST, instance=ad)
     if form.is_valid():
         form.save()
-        return HttpResponse(json.dumps([{'result': 'Форма успешно сохранена'}]), content_type='application/json')
+        return messages.return_success()
     else:
-        return HttpResponse(json.dumps([{'result': form.errors}]), content_type='application/json')
+        return messages.return_form_error(form)
 
 
 @login_required

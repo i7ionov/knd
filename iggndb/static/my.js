@@ -50,18 +50,8 @@ function save(form, url, id_input) {
         success: function (data) {
             let result = JSON.parse(data)[0];
             if (result.errorMsg) {
-                $.messager.show({
-                    title: 'Ошибка',
-                    msg: result.errorMsg,
-                    timeout: 1000,
-                    showType: 'show',
-                    style: {
-                        right: '',
-                        top: document.body.scrollTop + document.documentElement.scrollTop,
-                        bottom: ''
-                    }
-                });
-            } else if (result.count) {
+                $.messager.alert('Ошибка', result.errorMsg);
+              } else if (result.count) {
                 $.messager.show({
                     title: 'Результат',
                     msg: 'Количество записей, удовлетворяющих заданным условиям: ' + result.count,
