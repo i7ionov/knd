@@ -58,9 +58,8 @@ def get_filtered_query_set(model, request, filtering_rules=None):
         rules = None
     if filtering_rules:
         pass
-    print(rules)
-    rules.extend(filtering_rules)
-    print(rules)
+    if rules and filtering_rules:
+        rules.extend(filtering_rules)
     # сортировка
     if "sort" in request.POST:
         sort = request.POST['sort']
