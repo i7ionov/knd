@@ -1,4 +1,6 @@
 """Модуль содержит методы для формирования QuerySet'ов"""
+from functools import reduce
+
 import simplejson as json
 import django
 from datetime import date, datetime
@@ -8,10 +10,12 @@ from django.db import models
 from django.http import HttpResponse
 
 
-def filtered_table_json_response(request, model, func=None):
+def filtered_table_json_response(request, model, func=None, filtering_rules=None):
     """Метод создает типовой JSON ответ на request, генерируемый EasyUI DataGrid.
     Response содержит отфильтрованую по критериям таблицу указанной модели.
-    :param func: функция добавляющая дополнительные поля для выдачи"""
+    :param func: функция добавляющая дополнительные поля для выдачи
+    :param filtering_rules: дополнительные правила фильтрафии
+    """
     objects = []
     # пагинация
     page = 1
@@ -23,7 +27,7 @@ def filtered_table_json_response(request, model, func=None):
     start = rows * (page - 1)
     end = start + rows
     # получаем отфильтрованый QuerySet
-    query = get_filtered_query_set(model, request)
+    query = get_filtered_query_set(model, request, filtering_rules)
     # получаем список полей модели для отображения
     fields = get_model_columns([], model)
     for item in query[start:end]:
@@ -38,11 +42,12 @@ def filtered_table_json_response(request, model, func=None):
     return HttpResponse(json.dumps(data, default=datetime_handler), content_type='application/json')
 
 
-def get_filtered_query_set(model, request):
+def get_filtered_query_set(model, request, filtering_rules=None):
     """
     Метод создает QuerySet по указанной модели, применяет к ней фильтрации, сортировки по переданным правилам
     :param model: Модель, по которой создается QuerySet
     :param request: POST request, полученный от EasyUI DataGrid
+    :param filtering_rules: дополнительные правила фильтрафии
     :return: QuerySet
     """
     # фильтрация
@@ -51,6 +56,11 @@ def get_filtered_query_set(model, request):
         rules = json.loads(request.POST['filterRules'])
     else:
         rules = None
+    if filtering_rules:
+        pass
+    print(rules)
+    rules.extend(filtering_rules)
+    print(rules)
     # сортировка
     if "sort" in request.POST:
         sort = request.POST['sort']

@@ -26,8 +26,8 @@ from django.db.models import Q
 @login_required
 @csrf_exempt
 def general_report_table_json(request):
-    # TODO: добавить в реквест фильтрацию по пользователю, чтобы отображались только отчеты пользователя и общие отчеты
-    return filter.filtered_table_json_response(request, GeneralReport)
+    rules = [{'field': 'user__django_user__id', 'op': 'equals', 'value': request.user.id}]
+    return filter.filtered_table_json_response(request, GeneralReport, filtering_rules=rules)
 
 
 @require_GET
