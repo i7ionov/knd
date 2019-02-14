@@ -102,8 +102,9 @@ def inspection_form_save(request):
         if v.violation_type.children.count() == 0:
             inspection.violations_quantity += v.count
     if request.POST['control_form'] == '' or int(request.POST['control_form']) < 4:
-        if len(request.POST.getlist('houses')) == 0:
-            return messages.return_error('Необходимо заполнить адреса домов')
+        if request.POST['inspection_result'] != '12':
+            if len(request.POST.getlist('houses')) == 0:
+                return messages.return_error('Необходимо заполнить адреса домов')
     if form.is_valid():
         form.save()
         save_violations_in_inspection(request.POST.getlist('violations'), inspection)
