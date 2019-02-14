@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
-import xlrd
+import uuid
+from iggn_tools import filter
+import xlrd, openpyxl
+import django
+from django.core.files.base import ContentFile
+from openpyxl.writer.excel import save_virtual_workbook
+
 import inspections.models
 import dictionaries.models
+import analytic.models
 from django.core.exceptions import MultipleObjectsReturned
 from datetime import datetime
-
+from django.utils import timezone
 
 
 def import_insp_from_gis_gkh(file):
@@ -158,3 +165,49 @@ def import_order_from_gis_gkh(file):
         except MultipleObjectsReturned:
             pass
         row = row + 1
+
+
+def export_excel(query_set, user_id, get_http_response=False):
+    result = analytic.models.ExportResult()
+    result.user = dictionaries.models.User.objects.get(django_user__pk=user_id)
+    count = query_set.count()
+    wb = openpyxl.Workbook()
+    ws = wb.worksheets[0]
+    ws.title = "iggndb"
+    fields = filter.get_model_columns([], query_set.model)
+    # заголовок
+    for col, field in enumerate(fields):
+        ws.cell(1, col + 1).value = field['verbose_name']
+    # данные
+    for row, item in enumerate(query_set):
+        for col, field in enumerate(fields):
+            pass
+            if field['field'].__class__ == django.db.models.fields.related.ManyToManyField:
+                # для полей типа ManyToMany просто перечисляем через запятую все найденные значения
+                # это значит, что во второй модели должна быть прописана функция __str__
+                val = ''
+                f = item
+                for p in str(field['prefix'] + field['name']).split('.'):
+                    if f is None:
+                        continue
+                    f = f.__getattribute__(p)
+                if f is None:
+                    continue
+                for i in f.all():
+                    if val == '':
+                        val = str(i)
+                    else:
+                        val = val + ',' + str(i)
+                ws.cell(row + 2, col + 1).value = val
+            else:
+                # с этого момента начинаем брать каскадом значения полей
+                # например field['prefix'] может быть равен 'organization.org_type.'
+                # а field['name'] равен 'text'
+                # в таком случае наша задача получить значение поля item.organization.org_type.text
+                ws.cell(row + 2, col + 1).value = filter.get_value(item, field['prefix'] + field['name'])
+        result.text = "Сделано %s из %s" % (row, count)
+        result.save()
+    result.text = 'Выгрузка таблицы "' + query_set.model._meta.verbose_name + '" с фильтрацией'
+    result.datetime = timezone.now()
+    result.file.save(uuid.uuid1().hex+'.xlsx', ContentFile(save_virtual_workbook(wb)))
+    result.save()

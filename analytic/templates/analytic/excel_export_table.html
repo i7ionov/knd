@@ -1,0 +1,93 @@
+<div class="container" style="margin-top: 5px">
+    <table id="excel_export_dg{{ uid }}" style="height:600px">
+        <thead>
+        <tr>
+            <th data-options="field:'id'">ID</th>
+            <th data-options="field:'Дата'">Дата</th>
+            <th data-options="field:'Результат'">Результат</th>
+            <th data-options="field:'Файл'">Файл</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.id }}</td>
+                <td>{{ result.datetime|date:"d.m.Y" }}</td>
+                <td>{{ result.text }}</td>
+                <td>{% if result.file %}<a href="{{ result.file.url }}">{{ result.file.name }}</a> {% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="excel_export_toolbar{{ uid }}">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
+           onclick="$('#excel_export_dlg{{ uid }}').dialog('open').dialog('center')">Новая выгрузка</a>
+    </div>
+</div>
+<div id="excel_export_dlg{{ uid }}" class="easyui-dialog" title="Новая выгрузка"
+     data-options="iconCls:'icon-add',closed:true,modal:true,border:'thin',buttons:'#excel_export_dlg_buttons{{ uid }}'"
+     style="width:600px;height:600px;padding:10px;">
+    <form id="fm{{ uid }}" method="post">
+        <div style="margin:5px">
+
+            {% csrf_token %}
+            <div>
+                <select id="table_select{{ uid }}" class="easyui-combobox" name="table" label="Таблица"
+                        labelPosition="top">
+                    <option value="inspections.inspection">Проверки</option>
+                    <option value="ad.adrecord">Административные дела</option>
+                    <option value="dictionaries.Organization">Организации</option>
+                    <option value="dictionaries.House">Дома</option>
+                    <option value="dictionaries.User">Сотрудники</option>
+                    <option value="inspections.Precept">Предписания</option>
+                </select>
+                <div id="filter_form{{ uid }}"></div>
+            </div>
+
+
+        </div>
+    </form>
+
+</div>
+<div id="excel_export_dlg_buttons{{ uid }}">
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="apply_btn{{ uid }}"
+       style="width:100px">Запустить</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="count_btn{{ uid }}"
+       style="width:200px">Посчитать кол-во</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+       onclick="$('#excel_export_dlg{{ uid }}').dialog('close')" style="width:100px">Отменить</a>
+</div>
+<script type="text/javascript">
+    $('#excel_export_dg{{ uid }}').datagrid({
+        toolbar: "#excel_export_toolbar{{ uid }}",
+    });
+    let current_table = '';
+    $('#table_select{{ uid }}').combobox({
+        onSelect: function (rec) {
+            if (rec.value.length > 0 && current_table !== rec.value) {
+                current_table = rec.value;
+                let model = current_table.split('.')[1];
+                let app = current_table.split('.')[0];
+                let url = '{% url 'filter_form' %}?uid={{ uid }}&app=' + app + '&model=' + model;
+                $.get(url,
+                    function (data) {
+                        const ff = $('#filter_form{{ uid }}');
+                        ff.empty();
+                        ff.html(data);
+                        $('#apply_btn{{ uid }}').linkbutton({
+                            onClick: function () {
+                                save('#fm{{ uid }}', url, null);
+                                $('#filter_form{{ uid }}').dialog('close')
+                            }
+                        });
+                        $('#count_btn{{ uid }}').linkbutton({
+                            onClick: function () {
+                                save('#fm{{ uid }}', url + '&get_count=true', null);
+                            }
+                        });
+                    });
+            }
+        }
+    });
+
+</script>

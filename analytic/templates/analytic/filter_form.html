@@ -1,0 +1,50 @@
+<div class="easyui-panel"><select id="field_select{{ uid }}" class="easyui-combobox" name="field" label="Поля"
+            labelPosition="top" style="width:300px">
+        {% for field in fields %}
+            {% if field.verbose_name %}
+                <option value="{{ field.prefix }}{{ field.name }}">{{ field.verbose_name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <a id="add_field_btn{{ uid }}" href="javascript:void(0)" class="easyui-linkbutton c6"
+       style="width:150px;">Добавить</a>
+</div>
+<br>
+<div id="main_accordion{{ uid }}" style="width:95%;"></div>
+
+<script>
+    $('#main_accordion{{ uid }}').accordion({
+        multiple: true,
+    });
+
+    $('#field_select{{ uid }}').combobox({});
+    $('#add_field_btn{{ uid }}').linkbutton({
+        onClick: function () {
+            let model = '{{ model }}';
+            let app = '{{ app }}';
+            let url = '{% url 'field_filter_form' %}?uid={{ uid }}&app=' + app + '&model=' + model;
+            let field = $('#field_select{{ uid }}').combobox('getValue');
+            let field_verbose_name = $('#field_select{{ uid }}').combobox('getText');
+            $.post(url, {'uid': '{{ uid }}', 'field': field},
+                function (data) {
+                    $('#main_accordion{{ uid }}').accordion('add', {
+                        title: field_verbose_name,
+                        tools: [{
+                            iconCls: 'icon-cancel',
+                            handler: function () {
+                                let pp = $('#main_accordion{{ uid }}').accordion('getPanel', field_verbose_name);
+                                if (pp) {
+                                    let index = $('#main_accordion{{ uid }}').accordion('getPanelIndex', pp);
+                                    $('#main_accordion{{ uid }}').accordion('remove', index);
+                                }
+                            }
+                        }],
+                        content: data
+                    });
+                });
+        }
+    });
+
+
+</script>
