@@ -24,7 +24,7 @@ urlpatterns = [
     path('dict/', include('dictionaries.urls')),
     path('insp/', include('inspections.urls')),
     path('ad/', include('ad.urls')),
-    # path('analytic/', include('analytic.urls')),
+    path('analytic/', include('analytic.urls')),
     path('', views.index, name='index'),
     path('history_table/', views.history_table, name='history_table'),
     path('history_form/<slug:model>/<int:id>/<int:history_id>/', views.history_form, name='history_form'),

@@ -1,0 +1,86 @@
+<table id="gen_report_dg{{ uid }}"></table>
+<div id="gen_report_toolbar{{ uid }}">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
+       onclick="$('#new_gen_report_dlg{{ uid }}').dialog('open').dialog('center')">Новый отчет</a>
+
+</div>
+<div id="new_gen_report_dlg{{ uid }}" class="easyui-dialog" title="Новый отчет"
+     data-options="iconCls:'icon-add',closed:true,modal:true,border:'thin',buttons:'#new_gen_report_dlg_buttons{{ uid }}'"
+     style="width:500px;height:400px;padding:10px;">
+    <form id="new_gen_report_fm{{ uid }}" method="post" novalidate style="margin:0;padding:20px">
+        {% csrf_token %}
+        <div style="margin-bottom:10px">
+            <input name="date_begin" class="easyui-datebox" required="true" label="Начало" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="date_end" class="easyui-datebox" required="true" label="Конец" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <select class="easyui-combobox" name="control_kind" label="Вид контроля" style="width:100%;">
+                <option selected value="0">-</option>
+                {% for control_kind in control_kinds %}
+                    <option value="{{ control_kind.id }}">{{ control_kind.text }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="margin-bottom:10px">
+            <select class="easyui-combobox" name="department" label="Отдел" style="width:100%;">
+                <option selected value="0">-</option>
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+    </form>
+</div>
+<div id="new_gen_report_dlg_buttons{{ uid }}">
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok"
+       onclick="save('#new_gen_report_fm{{ uid }}', '{% url 'new_general_report' %}');$('#new_gen_report_dlg{{ uid }}').dialog('close')"
+       style="width:100px">Запустить</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+       onclick="$('#new_gen_report_dlg{{ uid }}').dialog('close')" style="width:100px">Отменить</a>
+</div>
+<script type="text/javascript">
+    $('#gen_report_dg{{ uid }}').datagrid({
+        url: '{% url 'general_report_table_json' %}',
+        method: 'post',
+        toolbar: "#gen_report_toolbar{{ uid }}",
+        remoteFilter: true,
+        pagination: true,
+        pageSize: 20,
+        height: height - 60,
+        singleSelect: "true",
+        columns: [[
+            {field: 'id', title: 'id', width: 100, sortable: true},
+            {field: 'report_status', title: 'Статус', width: 100, sortable: true},
+            {field: 'department__name', title: 'Отдел', width: 300, align: 'right', sortable: true},
+            {field: 'date_begin', title: 'С', width: 100, sortable: true},
+            {field: 'date_end', title: 'По', width: 100, sortable: true},
+            {field: 'control_kind__text', title: 'Вид контроля', width: 200, sortable: true},
+        ]],
+        columnMoving: true,
+        onBeforeDropColumn: function () {
+            $(this).datagrid('disableFilter');
+        },
+        onDropColumn: function () {
+            $(this).datagrid('enableFilter');
+            $(this).datagrid('doFilter');
+        },
+        onDblClickRow: function (index, row) {
+            addTab('#tt', 'Отчет №' + row['id'], '/analytic/general_report_form/' + row['id'] + '/');
+        }
+    });
+
+    $(function () {
+        let gen_report_dg = $('#gen_report_dg{{ uid }}').datagrid();
+        gen_report_dg.datagrid('enableFilter', [{
+            field: 'id',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }]);    // enable filter
+    });
+
+
+</script>

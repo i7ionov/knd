@@ -1,14 +1,17 @@
+from datetime import datetime
 from .models import GeneralReport, ViolationInGeneralReport, AbstractItemCountInReport
 from inspections.models import Inspection
 
 
 def generate_general_report_period(user_id, date_begin, date_end, control_kind_id=None, department_id=None):
-    report = GeneralReport(report_status='Формируется...', user_id=user_id)
+    report = GeneralReport(report_status='Формируется...', user_id=user_id, date=datetime.now())
     inspections = Inspection.objects.filter(doc_date__range=(date_begin, date_end))
     if control_kind_id:
         inspections.filter(control_kind_id=control_kind_id)
+        report.control_kind_id = control_kind_id
     if department_id:
         inspections.filter(inspector__department_id=department_id)
+        report.department_id = department_id
     iterate_inspections(inspections, report)
     return report
 
@@ -30,7 +33,7 @@ def iterate_inspections(inspections, report):
             if insp.control_form and 'документарная' in insp.control_form.text.lower():
                 report.doc += 1
                 # если проверка плановая
-                if insp.control_plan.id == 2:
+                if insp.control_plan and insp.control_plan.id == 2:
                     report.doc_plan += 1
                 if insp.legal_basis:
                     if 'обращ' in insp.legal_basis.text.lower():
@@ -38,7 +41,7 @@ def iterate_inspections(inspections, report):
                     elif 'прокур' in insp.legal_basis.text.lower():
                         report.doc_prosecutor += 1
                     elif 'предпис' in insp.legal_basis.text.lower():
-                        report.doc_order += 1
+                        report.doc_precept += 1
                 if insp.organization and 'Орган местного самоуправления' in insp.organization.org_type.text:
                     report.doc_oms += 1
             # если проверка выездная
@@ -53,7 +56,7 @@ def iterate_inspections(inspections, report):
                     elif 'прокур' in insp.legal_basis.text.lower():
                         report.out_prosecutor += 1
                     elif 'предпис' in insp.legal_basis.text.lower():
-                        report.out_order += 1
+                        report.out_precept += 1
                 if insp.organization and 'Орган местного самоуправления' in insp.organization.org_type.text:
                     report.out_oms += 1
             # если дата акта больше дата окончания проверки
@@ -68,24 +71,30 @@ def iterate_inspections(inspections, report):
             if insp.inspection_result:
                 insp_result, created = AbstractItemCountInReport.objects.get_or_create(model_name='inspection_result',
                                                                                        object_id=insp.inspection_result.id,
-                                                                                       report=report)
+                                                                                       report=report,
+                                                                                       text=insp.inspection_result.text)
                 insp_result.count += 1
                 insp_result.save()
             # статистика по выявленным нарушениям
             for v in insp.violationininspection_set.all():
-                violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.id,
+                if v.violation_type.children.count() == 0:
+                    violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.violation_type.id,
                                                                                     report=report)
-                violation.count += v.count
-                violation.save()
+                    violation.count += v.count
+                    report.violation_count += v.count
+                    violation.save()
             # статистика по исправленным нарушениям
-            for o in insp.children.all():
-                if o.order:
-                    for v in o.order.violationinorder_set.all():
-                        violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.id,
+            for p in insp.children.all():
+                if p.doc_type == 'предписание':
+                    for v in p.precept.violationinprecept_set.all():
+                        if v.violation_type.children.count == 0:
+                            violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.violation_type.id,
                                                                                             report=report)
-                        violation.count_to_remove += v.count_to_remove
-                        violation.count_of_removed += v.count_of_removed
-                        violation.save()
+                            violation.count_to_remove += v.count_to_remove
+                            violation.count_of_removed += v.count_of_removed
+                            report.violation_count_to_remove += v.count_to_remove
+                            report.violation_count_of_removed += v.count_of_removed
+                            violation.save()
     report.report_status = 'Завершен'
     report.save()
     return report

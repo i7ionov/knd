@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import string
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_exempt
 from django.template.context_processors import csrf
 from django.views.decorators.http import require_POST, require_GET
@@ -52,7 +53,7 @@ def addr_table(request):
     context = {}
     try:
         context['uid'] = request.GET['uid']
-    except ():
+    except MultiValueDictKeyError:
         context['uid'] = uuid.uuid1().hex
     return render(request, 'dictionaries/address_table.html', context)
 

@@ -1,0 +1,204 @@
+<div class="container">
+
+    <table class="table table-striped table-sm table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Наименование</th>
+            <th>Итого</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row"></th>
+            <td>Отчет составлен:</td>
+            <td>{{ report.date }}</td>
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <td>Отдел</td>
+            <td>{{ report.department.name }}</td>
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <td>Вид надзора</td>
+            <td>{{ report.control_kind.text }}</td>
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <td>Всего проверок:</td>
+            <td>{{ report.total_inspections }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <table class="table table-striped table-sm table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Наименование показателей</th>
+            <th>Итого</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="h4">
+            <th scope="row">1</th>
+            <td>Площадь обследованных МКД и жилых домов, всего (тыс. кв.м)</td>
+            <td>{{ report.houses_total_area }}</td>
+        </tr>
+        <tr>
+            <th scope="row">1.1</th>
+            <td>из них в результате плановых проверок</td>
+            <td>{{ report.houses_plan_area }}</td>
+        </tr>
+        <tr>
+            <th scope="row">1.2</th>
+            <td>из них в результате проверки исполнения предписаний</td>
+            <td>{{ report.houses_precept_area }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">2</th>
+            <td>Количество обследованных МКД и жилых домов, всего</td>
+            <td>{{ report.houses }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">3</th>
+            <td>Завершенных проверок со статусами:</td>
+            <td></td>
+        </tr>
+        {% for result in results %}
+            <tr>
+                <th scope="row">3.{{ forloop.counter }}</th>
+                <td> {{ result.text }}</td>
+                <td>{{ result.count }}</td>
+            </tr>
+        {% endfor %}
+        <tr class="h4">
+            <th scope="row">4</th>
+            <td>Количество документарных проверок, проведенных в отчетном периоде, всего</td>
+            <td>{{ report.doc }}</td>
+        </tr>
+        <tr>
+            <th scope="row">4.1</th>
+            <td>по плану</td>
+            <td>{{ report.doc_plan }}</td>
+        </tr>
+        <tr>
+            <th scope="row">4.2</th>
+            <td>по обращениям граждан</td>
+            <td>{{ report.doc_appeals }}</td>
+        </tr>
+        <tr>
+            <th scope="row">4.3</th>
+            <td>по требованию прокуратуры</td>
+            <td>{{ report.doc_prosecutor }}</td>
+        </tr>
+        <tr>
+            <th scope="row">4.4</th>
+            <td>в отношении органов местного самоуправления</td>
+            <td>{{ report.doc_oms }}</td>
+        </tr>
+        <tr>
+            <th scope="row">4.5</th>
+            <td> исполнение предписания</td>
+            <td>{{ report.doc_precept }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">5</th>
+            <td>Количество выездных поверок, проведенных в отчетном периоде, всего</td>
+            <td>{{ report.out }}</td>
+        </tr>
+        <tr>
+            <th scope="row">5.1</th>
+            <td>по плану</td>
+            <td>{{ report.out_plan }}</td>
+        </tr>
+        <tr>
+            <th scope="row">5.2</th>
+            <td>по обращениям граждан</td>
+            <td>{{ report.out_appeals }}</td>
+        </tr>
+        <tr>
+            <th scope="row">5.3</th>
+            <td>по требованию прокуратуры</td>
+            <td>{{ report.out_prosecutor }}</td>
+        </tr>
+        <tr>
+            <th scope="row">5.4</th>
+            <td>в отношении органов местного самоуправления</td>
+            <td>{{ report.out_oms }}</td>
+        </tr>
+        <tr>
+            <th scope="row">5.4</th>
+            <td>в отношении физического лица</td>
+            <td>{{ report.out_physic }}</td>
+        </tr>
+        <tr>
+            <th scope="row">5.5</th>
+            <td> исполнение предписания</td>
+            <td>{{ report.out_precept }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">6</th>
+            <td>Количество проверок, проведенных с нарушением срока, всего</td>
+            <td>{{ report.overdue }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6.1</th>
+            <td>документарных проверок</td>
+            <td>{{ report.overdue_doc }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6.2</th>
+            <td>выездных проверок</td>
+            <td>{{ report.overdue_out }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">7</th>
+            <td>Количество составленных исполнительных документов</td>
+            <td>{{ report.exec_doc }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">8</th>
+            <td>Количество составленных актов</td>
+            <td>{{ report.act }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">9</th>
+            <td>Количество составленных предписаний</td>
+            <td>{{ report.precept }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-striped table-sm table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Нарушение</th>
+            <th>Выявлено</th>
+            <th>Устранить</th>
+            <th>Устранено</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="h4">
+            <th scope="row"></th>
+            <td>всего</td>
+            <td>{{ report.violation_count }}</td>
+            <td>{{ report.violation_count_to_remove }}</td>
+            <td>{{ report.violation_count_of_removed }}</td>
+        </tr>
+        {% for v in violations %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td> {{ v.violation_type.parent.text }}{{ v.violation_type.text }}</td>
+                <td>{{ v.count }}</td>
+                <td>{{ v.count_to_remove }}</td>
+                <td>{{ v.count_of_removed }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

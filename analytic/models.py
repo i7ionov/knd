@@ -13,7 +13,9 @@ class ExportResult(models.Model):
 class GeneralReport(models.Model):
     report_status = models.TextField(null=True, blank=True, verbose_name='Статус формирования отчета')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник, запросивший отчет')
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, verbose_name='Отдел, по которому составляется отчет')
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True,
+                                   verbose_name='Отдел, по которому составляется отчет')
+    date = models.DateField(null=True, blank=True, verbose_name='Дата составления отчета')
     # Если составление отчета инициируется вручную, но заполняются date_begin и date_end
     date_begin = models.DateField(null=True, blank=True, verbose_name='Начало отчетного периода')
     date_end = models.DateField(null=True, blank=True, verbose_name='Окончание отчетного периода')
@@ -49,13 +51,16 @@ class GeneralReport(models.Model):
     out_oms = models.IntegerField(
         verbose_name='Количество выездных поверок в отношении органов местного самоуправления', default=0)
     out_physic = models.IntegerField(verbose_name='Количество выездных поверок в отношении физического лица', default=0)
-    out_order = models.IntegerField(verbose_name='Количество выездных поверок исполнения предписания', default=0)
+    out_precept = models.IntegerField(verbose_name='Количество выездных поверок исполнения предписания', default=0)
     overdue = models.IntegerField(verbose_name='Количество проверок, проведенных с нарушением срока', default=0)
     overdue_doc = models.IntegerField(verbose_name='Количество документарных проверок, проведенных с нарушением срока',
                                       default=0)
     overdue_out = models.IntegerField(verbose_name='Количество выездных проверок, проведенных с нарушением срока',
                                       default=0)
     # Раздел 2 - нарушения
+    violation_count = models.IntegerField(verbose_name='Количество выявленных нарушений', default=0)
+    violation_count_to_remove = models.IntegerField(verbose_name='Количество нарушений к устранению', default=0)
+    violation_count_of_removed = models.IntegerField(verbose_name='Количество устраненных нарушений', default=0)
     # Раздел 3 - результаты деятельности
     exec_doc = models.IntegerField(verbose_name='Количество составленных исполнительных документов',
                                    default=0)
@@ -77,5 +82,6 @@ class ViolationInGeneralReport(models.Model):
 class AbstractItemCountInReport(models.Model):
     model_name = models.TextField(verbose_name='имя модели справочника')
     object_id = models.IntegerField(verbose_name='id элемента справочкинка')
+    text = models.TextField(verbose_name='наименование элемента справочника')
     count = models.IntegerField(default=0, verbose_name='количество')
     report = models.ForeignKey(GeneralReport, on_delete=models.SET_NULL, null=True, verbose_name='Отчет')
