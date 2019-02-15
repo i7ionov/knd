@@ -54,7 +54,7 @@ class Address(models.Model):
     street = models.CharField(max_length=100, verbose_name='Улица')
 
     def __str__(self):
-        return self.city + self.street
+        return f'{self.city}, {self.street}'
 
     class Meta:
         verbose_name = "Адрес"
@@ -112,9 +112,9 @@ class House(models.Model):
     files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
     building_year = models.IntegerField(default=0, blank=True, verbose_name='год постройки', null=True)
     number_of_apartments = models.IntegerField(default=0, blank=True, verbose_name='количество квартир', null=True)
-    total_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь', null=True)
-    living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь жилых помещений', null=True)
-    non_living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь нежилых помещений', null=True)
+    total_area = models.FloatField(default=0, blank=True, verbose_name='общая площадь', null=True)
+    living_area = models.FloatField(default=0, blank=True, verbose_name='общая площадь жилых помещений', null=True)
+    non_living_area = models.FloatField(default=0, blank=True, verbose_name='общая площадь нежилых помещений', null=True)
     # основание внесения изменения
     changing_doc_number = models.CharField(max_length=500, verbose_name='основание для изменения: номер документа', null=True)
     changing_doc_date = models.DateField(verbose_name='основание для изменения: дата документа', blank=True, null=True)
@@ -125,7 +125,7 @@ class House(models.Model):
     management_start_date = models.DateField(verbose_name='lата начала осуществления деятельности по управлению МКД', blank=True, null=True)
     # исключение из реестра
     exclusion_date = models.DateField(verbose_name='дата исключения из реестра', blank=True, null=True)
-    exclusion_legal_basis = models.CharField(max_length=500, verbose_name='основание для исключения из реестра', null=True)
+    exclusion_legal_basis = models.CharField(max_length=500, verbose_name='основание для исключения из реестра', null=True, blank=True)
 
     history = HistoricalRecords(inherit=True)
 

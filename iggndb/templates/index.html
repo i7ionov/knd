@@ -16,6 +16,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#" onclick="addTab('#tt', 'Организации', '{% url 'org_table' %}')">Организации</a>
+                            <li><a href="#" onclick="addTab('#tt', 'Дома', '{% url 'house_table' %}')">Дома</a>
                             {% if user.is_staff %}
                             <li><a href="#" onclick="addTab('#tt', 'Календарь', '{% url 'working_day_calendar' %}')">Календарь</a></li>
                             {% endif %}

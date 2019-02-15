@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 import simplejson as json
 from django.http import HttpResponse
 
-from dictionaries.forms import OrganizationForm
+from dictionaries.forms import OrganizationForm, HouseForm
 from dictionaries.models import House, Address, Document, File, WorkingDays, Organization
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -226,3 +226,64 @@ def org_table(request):
     context = {'user_has_perm_to_add': request.user.has_perm('dictionaries.add_organization')}
     context.update(csrf(request))
     return render(request, 'dictionaries/org_table.html', context)
+
+
+@login_required
+@permission_required('dictionaries.add_house', raise_exception=True)
+def new_house_form(request):
+    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
+    # а если она подгружается с помощью jQuery, то load_static будет равен False
+    load_static = False if 'HTTP_REFERER' in request.META else True
+    uid = uuid.uuid1().hex
+    house = House()
+    house.save()
+    form = HouseForm()
+    context = {'form': form, 'load_static': load_static, 'uid': uid,
+               'user_has_perm_to_save': request.user.has_perm('dictionaries.change_house'),
+               'document': house}
+    return render(request, 'dictionaries/house_form.html', context)
+
+
+@login_required
+@permission_required('dictionaries.change_house', raise_exception=True)
+@require_POST
+def house_form_save(request):
+    house = House.objects.get(pk=request.POST['pk'])
+    form = HouseForm(request.POST, instance=house)
+    if form.is_valid():
+        form.save()
+        history = house.history.most_recent()
+        # TODO: нужно причину исключения убирать
+        return messages.return_success()
+    else:
+        return messages.return_form_error(form)
+
+
+@login_required
+@permission_required('dictionaries.view_house', raise_exception=True)
+def edit_house_form(request, id):
+    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
+    # а если она подгружается с помощью jQuery, то load_static будет равен False
+    load_static = False if 'HTTP_REFERER' in request.META else True
+    uid = uuid.uuid1().hex
+    house = get_object_or_404(House, pk=id)
+    form = HouseForm(instance=house)
+    context = {'form': form, 'load_static': load_static, 'uid': uid,
+               'user_has_perm_to_save': request.user.has_perm('dictionaries.change_house'),
+               'document': house, 'model_name': 'house'}
+    return render(request, 'dictionaries/house_form.html', context)
+
+
+@login_required
+@permission_required('dictionaries.view_house', raise_exception=True)
+@csrf_exempt
+def house_json_table(request):
+    return filter.filtered_table_json_response(request, House)
+
+
+@login_required
+@permission_required('dictionaries.view_house', raise_exception=True)
+def house_table(request):
+    context = {'user_has_perm_to_add': request.user.has_perm('dictionaries.add_house')}
+    context.update(csrf(request))
+    return render(request, 'dictionaries/house_table.html', context)

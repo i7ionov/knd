@@ -22,4 +22,10 @@ urlpatterns = [
     path('org_form/save/', views.org_form_save, name='org_form_save'),
     path('org_form/<slug:id>/', views.edit_org_form, name='edit_org_form'),
 
+    path('house_json_table/', views.house_json_table, name='house_json_table'),
+    path('house_table/', views.house_table, name='house_table'),
+    path('house_form/new/', views.new_house_form, name='new_house_form'),
+    path('house_form/save/', views.house_form_save, name='house_form_save'),
+    path('house_form/<slug:id>/', views.edit_house_form, name='edit_house_form'),
+
 ]

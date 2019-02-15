@@ -1,7 +1,7 @@
 from ad.forms import ADRecordForm
 from ad.models import ADRecord
-from dictionaries.forms import OrganizationForm
-from dictionaries.models import Organization
+from dictionaries.forms import OrganizationForm, HouseForm
+from dictionaries.models import Organization, House
 from iggndb import settings
 from inspections.forms import InspectionForm, PreceptForm
 from inspections.models import Inspection, Precept
@@ -39,6 +39,12 @@ class Object:
             self.template = 'dictionaries/org_form.html'
             self.file_location = f'{settings.MEDIA_ROOT}/organization/{self.object.pk}'
             self.base_file_url = f'/media/organization/{self.object.pk}'
+        elif model_str == 'house':
+            self.object = House.objects.get(id=pk)
+            self.form = HouseForm
+            self.template = 'dictionaries/house_form.html'
+            self.file_location = f'{settings.MEDIA_ROOT}/house/{self.object.pk}'
+            self.base_file_url = f'/media/house/{self.object.pk}'
 
 
 

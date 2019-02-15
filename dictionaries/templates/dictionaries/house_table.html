@@ -1,0 +1,67 @@
+<table id="house_dg" sortName="id" sortOrder="desc"></table>
+<div id="house_toolbar">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newHouse()">Добавить новый дом</a>
+
+</div>
+
+<script type="text/javascript">
+    $('#house_dg').datagrid({
+        url: '{% url 'house_json_table' %}',
+        method: 'post',
+        toolbar: "#house_toolbar",
+        remoteFilter: true,
+        pagination: true,
+        pageSize: 20,
+        height: height-60,
+        singleSelect: "true",
+        columns: [[
+            {field: 'id', title: 'id', width: 70, sortable: true},
+            {field: 'address__area', title: 'Район', width: 100, sortable: true},
+            {field: 'address__place', title: 'Мун. обр.', width: 100, sortable: true},
+            {field: 'address__city', title: 'Нас. пункт', width: 150, sortable: true},
+            {field: 'address__street', title: 'Улица', width: 150, sortable: true},
+            {field: 'number', title: 'Дом', width: 50, align: 'right', sortable: true},
+            {field: 'organization__name', title: 'Организация', width: 200, align: 'right', sortable: true},
+            {field: 'organization__inn', title: 'ИНН', width: 100, align: 'right', sortable: true},
+            {field: 'building_year', title: 'Год постройки', width: 100, align: 'right', sortable: true},
+            {field: 'number_of_apartments', title: 'Кол-во квартир', width: 100, align: 'right', sortable: true},
+            {field: 'total_area', title: 'Общая площадь', width: 100, align: 'right', sortable: true},
+            {field: 'living_area', title: 'Площадь жил. пом.', width: 100, align: 'right', sortable: true},
+            {field: 'non_living_area', title: 'Площадь нежил. пом.', width: 100, align: 'right', sortable: true},
+            {field: 'changing_doc_number', title: 'Основание для внесения: № док.', width: 100, align: 'right', sortable: true},
+            {field: 'changing_doc_date', title: 'Основание для внесения: дата док.', width: 100, align: 'right', sortable: true},
+            {field: 'changing_doc_header', title: 'Основание для внесения: заголовок', width: 100, align: 'right', sortable: true},
+            {field: 'changing_org_date', title: 'Дата смены орг.', width: 100, align: 'right', sortable: true},
+            {field: 'agr_conclusion_date', title: 'Дата заключения договора', width: 100, align: 'right', sortable: true},
+            {field: 'management_start_date', title: 'Дата начала управления', width: 100, align: 'right', sortable: true},
+        ]],
+        columnMoving: true,
+        onBeforeDropColumn: function () {
+            $(this).datagrid('disableFilter');
+        },
+        onDropColumn: function () {
+            $(this).datagrid('enableFilter');
+            $(this).datagrid('doFilter');
+        },
+        onDblClickRow: function (index, row) {
+            addTab('#tt', row['address__city'] + ' ' + row['address__street'] + ' д.' + row['number'], '/dict/house_form/' + row['id'] + '/');
+        }
+    });
+
+    $(function () {
+        let house_dg = $('#house_dg').datagrid();
+        house_dg.datagrid('enableFilter', [{
+            field: 'id',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        }]);    // enable filter
+        house_dg.datagrid('columnMoving');
+    });
+
+    function newHouse() {
+        addTab('#tt', 'Новый дом', '{% url 'new_house_form' %}');
+    }
+
+
+</script>

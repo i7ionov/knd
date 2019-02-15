@@ -219,13 +219,35 @@ def import_houses_from_licensing(file):
     file = 'C:\\1.xlsx'
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_name('Сведения об МКД')
-    row = 9
+    row = 8
     while row < sheet.nrows and sheet.row_values(row)[0] != '':
-        val = sheet.row_values(row)
-        print(val[0])
-        area = val[1]
-        place = val[2]
-        city = val[3]
-        street = val[5]
-        number = normalize_house_number(val[6])
         row = row + 1
+        val = sheet.row_values(row)
+        area = val[1].strip()
+        place = val[2].strip()
+        city = val[3].strip()
+        street = val[5].strip()
+        number = val[6] if type(val[6]) is str else int(val[6])
+        number = normalize_house_number(number)
+        addr, created = dictionaries.models.Address.objects.get_or_create(area=area, place=place, city=city, street=street)
+        house, created = dictionaries.models.House.objects.get_or_create(address=addr, number=number)
+        try:
+            org = dictionaries.models.Organization.objects.get(inn=int(val[16]))
+            house.organization = org
+        except dictionaries.models.Organization.DoesNotExist:
+            pass
+        house.building_year = int(val[7]) if val[7] else 0
+        house.number_of_apartments = int(val[8]) if val[8] else 0
+        house.total_area = val[9] if val[9] else 0
+        house.living_area = val[10] if val[10] else 0
+        house.non_living_area = val[11] if val[11] else 0
+        house.changing_doc_number = val[19] if val[19] else None
+        house.changing_doc_date = datetime(*xlrd.xldate_as_tuple(val[21], rb.datemode)) if val[21] else None
+        house.changing_doc_header = val[22] if val[22] else None
+        house.changing_org_date = datetime(*xlrd.xldate_as_tuple(val[24], rb.datemode)) if val[24] else None
+        house.agr_conclusion_date = datetime(*xlrd.xldate_as_tuple(val[25], rb.datemode)) if val[25] else None
+        house.management_start_date = datetime(*xlrd.xldate_as_tuple(val[26], rb.datemode)) if val[26] else None
+        house.exclusion_date = datetime(*xlrd.xldate_as_tuple(val[28], rb.datemode)) if val[28] else None
+        house.exclusion_legal_basis = val[29] if val[29] else None
+        house.save()
+
