@@ -110,11 +110,23 @@ class House(models.Model):
     comment = models.TextField(default="", blank=True, verbose_name='комментарий')
     guid = models.CharField(max_length=100, null=True)
     files = models.ManyToManyField(File, blank=True, verbose_name='файлы')
-    building_year = models.IntegerField(default=0, blank=True, verbose_name='год постройки')
-    number_of_apartments = models.IntegerField(default=0, blank=True, verbose_name='количество квартир')
-    total_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь')
-    living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь жилых помещений')
-    non_living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь нежилых помещений')
+    building_year = models.IntegerField(default=0, blank=True, verbose_name='год постройки', null=True)
+    number_of_apartments = models.IntegerField(default=0, blank=True, verbose_name='количество квартир', null=True)
+    total_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь', null=True)
+    living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь жилых помещений', null=True)
+    non_living_area = models.IntegerField(default=0, blank=True, verbose_name='общая площадь нежилых помещений', null=True)
+    # основание внесения изменения
+    changing_doc_number = models.CharField(max_length=500, verbose_name='основание для изменения: номер документа', null=True)
+    changing_doc_date = models.DateField(verbose_name='основание для изменения: дата документа', blank=True, null=True)
+    changing_doc_header = models.CharField(max_length=500, verbose_name='основание для изменения: заголовок документа', null=True)
+    # внесение в реестр
+    changing_org_date = models.DateField(verbose_name='дата смены организации в реестре', blank=True, null=True)
+    agr_conclusion_date = models.DateField(verbose_name='дата заключения договора', blank=True, null=True)
+    management_start_date = models.DateField(verbose_name='lата начала осуществления деятельности по управлению МКД', blank=True, null=True)
+    # исключение из реестра
+    exclusion_date = models.DateField(verbose_name='дата исключения из реестра', blank=True, null=True)
+    exclusion_legal_basis = models.CharField(max_length=500, verbose_name='основание для исключения из реестра', null=True)
+
     history = HistoricalRecords(inherit=True)
 
     @property

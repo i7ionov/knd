@@ -14,6 +14,8 @@ from dictionaries.forms import OrganizationForm
 from dictionaries.models import House, Address, Document, File, WorkingDays, Organization
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+
+from dictionaries.tools import normalize_house_number
 from iggn_tools import filter, messages
 import uuid
 from django.utils import timezone
@@ -63,7 +65,7 @@ def addr_table(request):
 @csrf_exempt
 def get_house_id(request):
     addr = Address.objects.get(pk=request.POST['addr_id'])
-    house_number = request.POST['house_number'].translate(str.maketrans({x: None for x in ['/', '\\', ' ', '.', '-']}))
+    house_number = normalize_house_number(request.POST['house_number'])
     house, created = House.objects.get_or_create(address=addr, number=house_number)
     result = {'result': house.pk}
     return HttpResponse(json.dumps(result), content_type='application/json')

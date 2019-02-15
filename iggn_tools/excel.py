@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
+
+from dictionaries.tools import normalize_house_number
 from iggn_tools import filter
 import xlrd, openpyxl
 import django
@@ -211,3 +213,19 @@ def export_excel(query_set, user_id, get_http_response=False):
     result.datetime = timezone.now()
     result.file.save(uuid.uuid1().hex+'.xlsx', ContentFile(save_virtual_workbook(wb)))
     result.save()
+
+
+def import_houses_from_licensing(file):
+    file = 'C:\\1.xlsx'
+    rb = xlrd.open_workbook(file)
+    sheet = rb.sheet_by_name('Сведения об МКД')
+    row = 9
+    while row < sheet.nrows and sheet.row_values(row)[0] != '':
+        val = sheet.row_values(row)
+        print(val[0])
+        area = val[1]
+        place = val[2]
+        city = val[3]
+        street = val[5]
+        number = normalize_house_number(val[6])
+        row = row + 1
