@@ -72,6 +72,16 @@ def get_house_id(request):
 
 
 @login_required
+@require_POST
+@csrf_exempt
+def get_houses_numbers(request, addr_id):
+    data = []
+    for h in House.objects.filter(address_id=addr_id):
+        data.append({"text": h.number, "id": h.pk})
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@login_required
 def working_day_calendar(request):
     year = timezone.now().year
     context = {'year': year, 'uid': uuid.uuid1().hex}

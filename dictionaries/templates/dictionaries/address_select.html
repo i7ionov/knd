@@ -3,7 +3,7 @@
     <div style="margin: 10px">
         <label for="house_number{{ uid }}">Номер дома:</label>
         <br>
-        <input id="house_number{{ uid }}" class="easyui-textbox" style="width:150px;">
+        <input id="house_number{{ uid }}" style="width:150px;">
 
     </div>
 
@@ -18,7 +18,11 @@
        onclick="$('#address_dialog{{ uid }}').dialog('close')">Закрыть</a>
 </div>
 <script>
-    $('#house_number{{ uid }}').textbox({});
+    $('#house_number{{ uid }}').combobox({
+        remote: true,
+        valueField: 'text',
+        textField: 'text',
+    });
     $('#addr_close_btn{{ uid }}').linkbutton({});
     $('#addr_sel_btn{{ uid }}').linkbutton({});
     $('#addr_sel_close_btn{{ uid }}').linkbutton({});

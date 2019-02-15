@@ -31,7 +31,7 @@
     function addAddress(uid, name = 'address_list') {
         let row = $('#addr_dg' + uid).datalist('getSelected');
         let addr_id = row['id'];
-        let house = $('#house_number' + uid).textbox('getValue');
+        let house = $('#house_number' + uid).combobox('getValue');
         let addr = row['city'] + ' ' + row['street'] + ' ' + house;
         $.post('{% url 'get_house_id' %}', {'addr_id': addr_id, 'house_number': house},
             function (data) {

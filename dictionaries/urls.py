@@ -7,6 +7,7 @@ urlpatterns = [
     path('addr_table_json/', views.addr_table_json, name='addr_table_json'),
     path('addr_table/', views.addr_table, name='addr_table'),
     path('get_house_id/', views.get_house_id, name='get_house_id'),
+    path('get_houses_numbers/<slug:addr_id>/', views.get_houses_numbers, name='get_houses_numbers'),
 
     path('working_day_year/<int:year>/', views.working_day_year, name='working_day_year'),
     path('working_day_year/', views.working_day_year, name='working_day_year'),

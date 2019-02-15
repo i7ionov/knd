@@ -14,7 +14,12 @@
             {field: 'street', title: 'Улица', width: 100, align: 'right', sortable: true},
             {field: 'place', title: 'Поселение', width: 100, sortable: true},
             {field: 'area', title: 'Муниципальное образование', width: 100, sortable: true}
-         ]]
+         ]],
+        onSelect: function (index,row) {
+            let url='/dict/get_houses_numbers/' + row['id'] + '/';
+            console.log(url);
+            $('#house_number{{ uid }}').combobox('reload', url);
+        }
     });
 
     $(function () {
