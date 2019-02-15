@@ -137,6 +137,14 @@ class House(models.Model):
     def _history_user(self, value):
         self.changed_by = value
 
+    def save_without_historical_record(self, *args, **kwargs):
+        self.skip_history_when_saving = True
+        try:
+            ret = self.save(*args, **kwargs)
+        finally:
+            del self.skip_history_when_saving
+        return ret
+
     def __str__(self):
         return f'{self.address.place}, {self.address.city}, {self.address.street}, {self.number}'
 
