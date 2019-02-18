@@ -64,7 +64,7 @@ def new_general_report(request):
     date_end = datetime.strptime(request.POST['date_end'], '%d.%m.%Y').strftime('%Y-%m-%d')
     control_kind = request.POST['control_kind'] if request.POST['control_kind'] != '0' else None
     department = request.POST['department'] if request.POST['department'] != '0' else None
-    general_report.generate_general_report_period(user.pk, date_begin, date_end, control_kind, department)
+    tasks.generate_general_report_period(user.pk, date_begin, date_end, control_kind, department)
     return messages.return_success()
 
 

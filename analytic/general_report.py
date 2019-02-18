@@ -1,26 +1,9 @@
 from datetime import datetime
 from .models import GeneralReport, ViolationInGeneralReport, AbstractItemCountInReport
 from inspections.models import Inspection
-from django.db.models import Q
 
 
-def generate_general_report_period(user_id, date_begin, date_end, control_kind_id=None, department_id=None):
-    report = GeneralReport(report_status='Формируется...', user_id=user_id, date=datetime.now())
-    inspections = Inspection.objects.filter(doc_date__range=(date_begin, date_end))
-    # исключаем тестовые проверки
-    inspections = inspections.exclude(inspection_result_id=12)
-    if control_kind_id:
-        inspections = inspections.filter(control_kind_id=control_kind_id)
-        report.control_kind_id = control_kind_id
-    if department_id:
-        inspections = inspections.filter(inspector__department_id=department_id)
-        report.department_id = department_id
-    iterate_inspections(inspections, report)
-    return report
 
-
-def generate_general_report_month(month, year):
-    pass
 
 
 def iterate_inspections(inspections, report):
@@ -32,6 +15,12 @@ def iterate_inspections(inspections, report):
             if house.id not in houses_list:
                 houses_list.append(house.id)
                 report.houses += 1
+                report.houses_total_area += house.total_area
+                # если проверка плановая
+                if insp.control_plan and insp.control_plan.id == 2:
+                    report.houses_plan_area += house.total_area
+                if insp.legal_basis and 'предпис' in insp.legal_basis.text.lower():
+                    report.houses_precept_area += house.total_area
             # если проверка документарная
             if insp.control_form and 'документарная' in insp.control_form.text.lower():
                 report.doc += 1
@@ -51,7 +40,7 @@ def iterate_inspections(inspections, report):
             if insp.control_form and 'выездная' in insp.control_form.text.lower():
                 report.out += 1
                 # если проверка плановая
-                if insp.control_plan.id == 2:
+                if insp.control_plan and insp.control_plan.id == 2:
                     report.out_plan += 1
                 if insp.legal_basis:
                     if 'обращ' in insp.legal_basis.text.lower():
@@ -69,7 +58,13 @@ def iterate_inspections(inspections, report):
                     report.overdue_out += 1
                 if 'документарная' in insp.control_form.text.lower():
                     report.overdue_doc += 1
-
+            if insp.act_date:
+                report.act += 1
+                report.exec_doc += 1
+            for c in insp.children.all():
+                if c.doc_type == 'предписание':
+                    report.precept += 1
+                    report.exec_doc += 1
             report.save()
             if insp.inspection_result:
                 insp_result, created = AbstractItemCountInReport.objects.get_or_create(model_name='inspection_result',
@@ -98,6 +93,7 @@ def iterate_inspections(inspections, report):
                             report.violation_count_to_remove += v.count_to_remove
                             report.violation_count_of_removed += v.count_of_removed
                             violation.save()
+
     report.report_status = 'Завершен'
     report.save()
     return report
