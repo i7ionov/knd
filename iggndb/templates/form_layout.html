@@ -65,17 +65,19 @@
                     handler: function(){refresh_accordion('#panel{{ uid }}', 'История документа', '{% url 'history_table' %}')}}],
                     queryParams:{id:'{{ document.id }}', model:'{{ model_name }}'}">
                 </div>
+                {% if user.is_staff %}
+                    <div title="Удаление документа" style="overflow:auto;padding:10px;">
+                        <div style="text-align:center;padding:5px 0">
+
+                            <a href="javascript:void(0)"
+                               onclick="if(confirm('Удалить?')) {save('#fm{{ uid }}','{% url 'delete_document' %}');}"
+                               style="width:150px;">Удалить</a>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
 
             {% block save %}{% endblock %}
-            {% if user.is_staff %}
-                <div style="text-align:center;padding:5px 0">
-
-                    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="delete{{ uid }}"
-                       onclick="if(confirm('Удалить?')) {save('#fm{{ uid }}','{% url 'delete_document' %}');}"
-                       style="width:150px;">Удалить</a>
-                </div>
-            {% endif %}
         </div>
 
 
