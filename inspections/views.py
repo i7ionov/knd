@@ -21,8 +21,7 @@ from iggndb import tasks
 @login_required
 @permission_required('inspections.view_inspection', raise_exception=True)
 def inspection_table(request):
-    context = {'user_has_perm_to_add': request.user.has_perm('inspections.add_inspection')}
-    context.update(csrf(request))
+    context = {'user_has_perm_to_add': request.user.has_perm('inspections.add_inspection'), 'uid': uuid.uuid1().hex}
     return render(request, 'inspections/inspection_table.html', context)
 
 
