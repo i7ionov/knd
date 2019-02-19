@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 import string
+
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.datastructures import MultiValueDictKeyError
@@ -9,7 +11,7 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required, permission_required
 import simplejson as json
 from django.http import HttpResponse
-
+from django.contrib.admin.models import LogEntryManager, LogEntry
 from dictionaries.forms import OrganizationForm, HouseForm
 from dictionaries.models import House, Address, Document, File, WorkingDays, Organization
 from django.core.files.storage import FileSystemStorage
@@ -287,3 +289,20 @@ def house_table(request):
     context = {'user_has_perm_to_add': request.user.has_perm('dictionaries.add_house')}
     context.update(csrf(request))
     return render(request, 'dictionaries/house_table.html', context)
+
+
+@login_required
+@permission_required('dictionaries.delete_document', raise_exception=True)
+def delete_document(request):
+    id = request.POST['pk']
+    try:
+        ct = ContentType.objects.get(app_label='dictionaries', model='document')
+    except ContentType.DoesNotExist:
+        return messages.return_error('Не найден ContentType')
+    try:
+        d = Document.objects.get(pk=id)
+    except Document.DoesNotExist:
+        return messages.return_error('Не найден документ с таким id')
+    LogEntry.objects.log_action(request.user.pk, ct.pk, id, str(d), 3)
+    d.delete()
+    return messages.return_success()

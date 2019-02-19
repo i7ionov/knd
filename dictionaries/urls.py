@@ -28,4 +28,6 @@ urlpatterns = [
     path('house_form/save/', views.house_form_save, name='house_form_save'),
     path('house_form/<slug:id>/', views.edit_house_form, name='edit_house_form'),
 
+    path('delete_document/', views.delete_document, name='delete_document'),
+
 ]

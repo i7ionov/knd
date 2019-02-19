@@ -9,15 +9,15 @@
                               style="width:100%;height:300px">{{ document.comment }}</textarea>
                 </div>
                 {% if document.doc_type %}
-                <div title="Дерево документов" style="overflow:auto;padding:10px;"
-                     data-options="
+                    <div title="Дерево документов" style="overflow:auto;padding:10px;"
+                         data-options="
                     href:'{% url 'document_tree' %}',
                     method:'post',
                     tools:[{
                     iconCls:'icon-reload',
                     handler: function(){refresh_accordion('#panel{{ uid }}', 'Дерево документов', '{% url 'document_tree' %}')}}],
                     queryParams:{id:'{{ document.id }}', uid:'{{ uid }}'}">
-                </div>
+                    </div>
                 {% else %}
                     <div title="Проверки" style="overflow:auto;padding:10px;"
                          data-options="
@@ -68,6 +68,14 @@
             </div>
 
             {% block save %}{% endblock %}
+            {% if user.is_staff %}
+                <div style="text-align:center;padding:5px 0">
+
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="delete{{ uid }}"
+                       onclick="if(confirm('Удалить?')) {save('#fm{{ uid }}','{% url 'delete_document' %}');}"
+                       style="width:150px;">Удалить</a>
+                </div>
+            {% endif %}
         </div>
 
 
