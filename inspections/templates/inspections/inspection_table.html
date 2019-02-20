@@ -6,7 +6,7 @@
         <a href="#" id="create_new_button{{ uid }}" class="easyui-linkbutton" iconCls="icon-add" plain="true"
            onclick="newINSP(2)">Новая проверка, лиц. контроль</a>
     {% endif %}
-    {% if False %}
+    {% if True %}
         <a href="#" id="filter_button" class="easyui-linkbutton" iconCls="icon-filter" plain="true"
            onclick="$('#filter_dlg{{ uid }}').dialog('open').dialog('center')">Фильтры</a>
     {% endif %}
@@ -18,7 +18,7 @@
 </div>
 <div id="filter_dlg_buttons{{ uid }}">
     <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="apply_btn{{ uid }}"
-       style="width:100px">ОК</a>
+       onclick="applyFilter();$('#filter_dlg{{ uid }}').dialog('close')" style="width:100px">ОК</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
        onclick="$('#filter_dlg{{ uid }}').dialog('close')" style="width:100px">Отменить</a>
 </div>
@@ -273,4 +273,14 @@
         href: '{% url 'filter_form' %}'
     })
 
+    function applyFilter() {
+        console.log('Applying');
+        $('#filter_fields{{ uid }}').find('input').each(function (i, elem) {
+            if ((typeof $(elem).attr('name') == 'string') && ($(elem).attr('name') !== '' )) {
+                console.log($(elem).attr('name'));
+                console.log($(elem).val());
+            }
+
+        });
+    }
 </script>

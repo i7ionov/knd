@@ -11,10 +11,10 @@
        style="width:150px;">Добавить</a>
 </div>
 <br>
-<div id="main_accordion{{ uid }}" style="width:95%;"></div>
+<div id="filter_fields{{ uid }}" style="width:95%;"></div>
 
 <script>
-    $('#main_accordion{{ uid }}').accordion({
+    $('#filter_fields{{ uid }}').accordion({
         multiple: true,
     });
 
@@ -28,15 +28,15 @@
             let field_verbose_name = $('#field_select{{ uid }}').combobox('getText');
             $.post(url, {'uid': '{{ uid }}', 'field': field},
                 function (data) {
-                    $('#main_accordion{{ uid }}').accordion('add', {
+                    $('#filter_fields{{ uid }}').accordion('add', {
                         title: field_verbose_name,
                         tools: [{
                             iconCls: 'icon-cancel',
                             handler: function () {
-                                let pp = $('#main_accordion{{ uid }}').accordion('getPanel', field_verbose_name);
+                                let pp = $('#filter_fields{{ uid }}').accordion('getPanel', field_verbose_name);
                                 if (pp) {
-                                    let index = $('#main_accordion{{ uid }}').accordion('getPanelIndex', pp);
-                                    $('#main_accordion{{ uid }}').accordion('remove', index);
+                                    let index = $('#filter_fields{{ uid }}').accordion('getPanelIndex', pp);
+                                    $('#filter_fields{{ uid }}').accordion('remove', index);
                                 }
                             }
                         }],

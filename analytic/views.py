@@ -93,7 +93,7 @@ def filter_form(request):
         else:
             uid = uuid.uuid1().hex
         context = {
-            'uid': uuid.uuid1().hex,
+            'uid': uid,
             'app': app_str,
             'model': model_str,
             'fields': iggn_tools.filter.get_model_columns([], apps.get_model(app_str, model_str))
