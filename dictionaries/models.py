@@ -73,10 +73,10 @@ class File(models.Model):
 
 class Organization(models.Model):
     name = models.CharField(max_length=100, blank=True, verbose_name='Наименование организации')
-    inn = models.CharField(max_length=50, blank=True, null=True, verbose_name='ИНН')
-    ogrn = models.CharField(max_length=50, blank=True, null=True, verbose_name='ОГРН')
+    inn = models.CharField(max_length=100, blank=True, null=True, verbose_name='ИНН')
+    ogrn = models.CharField(max_length=100, blank=True, null=True, verbose_name='ОГРН')
     is_bankrupt = models.BooleanField(default=False, blank=True, verbose_name='Банкрот')
-    kpp = models.CharField(max_length=50, null=True, blank=True, verbose_name='КПП')
+    kpp = models.CharField(max_length=100, null=True, blank=True, verbose_name='КПП')
     org_type = models.ForeignKey(OrganizationType, on_delete=models.SET_NULL, null=True, blank=True,
                                  verbose_name='Тип организации')
     location_address = models.CharField(max_length=500, null=True, blank=True, verbose_name='Адрес места нахождения')

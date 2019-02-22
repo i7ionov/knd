@@ -57,7 +57,7 @@ def import_insp_from_gis_gkh(file):
             except MultipleObjectsReturned:
                 print("Несколько организаций с именем " + val[12])
         # если у нас эта организация уже есть
-        elif dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 1:
+        elif dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 1 and val[11] != 'Гражданин':
             # находим ее по огрн
             org = dictionaries.models.Organization.objects.get(ogrn=val[13])
             insp.organization = org
