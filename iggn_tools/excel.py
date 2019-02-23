@@ -87,6 +87,8 @@ def import_insp_from_gis_gkh(file):
             insp.date_end = datetime.strptime(val[18], '%d.%m.%Y').date()
         if val[28] != '':
             insp.act_date = datetime.strptime(val[17], '%d.%m.%Y').date()
+            if insp.inspection_result is None:
+                insp.inspection_result_id = 1
         insp.save()
         row = row + 1
 
