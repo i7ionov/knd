@@ -3,9 +3,6 @@ from .models import GeneralReport, ViolationInGeneralReport, AbstractItemCountIn
 from inspections.models import Inspection
 
 
-
-
-
 def iterate_inspections(inspections, report):
     houses_list = []
     for insp in inspections:
@@ -22,7 +19,7 @@ def iterate_inspections(inspections, report):
                 if insp.legal_basis and 'предпис' in insp.legal_basis.text.lower():
                     report.houses_precept_area += house.total_area
             # если проверка документарная
-            if insp.control_form and 'документарная' in insp.control_form.text.lower():
+            if insp.control_form_id == 2:
                 report.doc += 1
                 # если проверка плановая
                 if insp.control_plan and insp.control_plan.id == 2:
@@ -37,7 +34,7 @@ def iterate_inspections(inspections, report):
                 if insp.organization and 'Орган местного самоуправления' in insp.organization.org_type.text:
                     report.doc_oms += 1
             # если проверка выездная
-            if insp.control_form and 'выездная' in insp.control_form.text.lower():
+            if insp.control_form_id == 1:
                 report.out += 1
                 # если проверка плановая
                 if insp.control_plan and insp.control_plan.id == 2:
@@ -51,6 +48,21 @@ def iterate_inspections(inspections, report):
                         report.out_precept += 1
                 if insp.organization and 'Орган местного самоуправления' in insp.organization.org_type.text:
                     report.out_oms += 1
+            # если проверка документарная и выездная
+            if insp.control_form_id == 3:
+                report.doc_and_out += 1
+                # если проверка плановая
+                if insp.control_plan and insp.control_plan.id == 2:
+                    report.doc_and_out_plan += 1
+                if insp.legal_basis:
+                    if 'обращ' in insp.legal_basis.text.lower():
+                        report.doc_and_out_appeals += 1
+                    elif 'прокур' in insp.legal_basis.text.lower():
+                        report.doc_and_out_prosecutor += 1
+                    elif 'предпис' in insp.legal_basis.text.lower():
+                        report.doc_and_out_precept += 1
+                if insp.organization and 'Орган местного самоуправления' in insp.organization.org_type.text:
+                    report.doc_and_out_oms += 1
             # если дата акта больше дата окончания проверки
             if insp.date_end and insp.act_date and insp.date_end < insp.act_date:
                 report.overdue += 1

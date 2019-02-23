@@ -52,6 +52,15 @@ class GeneralReport(models.Model):
         verbose_name='Количество выездных поверок в отношении органов местного самоуправления', default=0)
     out_physic = models.IntegerField(verbose_name='Количество выездных поверок в отношении физического лица', default=0)
     out_precept = models.IntegerField(verbose_name='Количество выездных поверок исполнения предписания', default=0)
+    doc_and_out = models.IntegerField(verbose_name='Количество документарных и выездных проверок', default=0)
+    doc_and_out_plan = models.IntegerField(verbose_name='Количество документарных и выездных плановых проверок', default=0)
+    doc_and_out_appeals = models.IntegerField(verbose_name='Количество документарных и выездных проверок по обращениям граждан', default=0)
+    doc_and_out_prosecutor = models.IntegerField(verbose_name='Количество документарных и выездных проверок по требованию прокуратуры',
+                                         default=0)
+    doc_and_out_oms = models.IntegerField(
+        verbose_name='Количество документарных и выездных проверок в отношении органов местного самоуправления', default=0)
+    doc_and_out_precept = models.IntegerField(verbose_name='Количество документарных и выездных проверок исполнения предписания',
+                                      default=0)
     overdue = models.IntegerField(verbose_name='Количество проверок, проведенных с нарушением срока', default=0)
     overdue_doc = models.IntegerField(verbose_name='Количество документарных проверок, проведенных с нарушением срока',
                                       default=0)

@@ -44,7 +44,7 @@
         <tbody>
         <tr class="h4">
             <th scope="row">1</th>
-            <td>Площадь обследованных МКД и жилых домов, всего (тыс. кв.м)</td>
+            <td>Площадь обследованных МКД и жилых домов, всего (кв.м)</td>
             <td>{{ report.houses_total_area }}</td>
         </tr>
         <tr>
@@ -141,31 +141,61 @@
         </tr>
         <tr class="h4">
             <th scope="row">6</th>
+            <td>Количество документарных и выездных проверок, проведенных в отчетном периоде, всего</td>
+            <td>{{ report.doc_and_out }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6.1</th>
+            <td>по плану</td>
+            <td>{{ report.doc_and_out_plan }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6.2</th>
+            <td>по обращениям граждан</td>
+            <td>{{ report.doc_and_out_appeals }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6.3</th>
+            <td>по требованию прокуратуры</td>
+            <td>{{ report.doc_and_out_prosecutor }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6.4</th>
+            <td>в отношении органов местного самоуправления</td>
+            <td>{{ report.doc_and_out_oms }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6.5</th>
+            <td> исполнение предписания</td>
+            <td>{{ report.doc_and_out_precept }}</td>
+        </tr>
+        <tr class="h4">
+            <th scope="row">7</th>
             <td>Количество проверок, проведенных с нарушением срока, всего</td>
             <td>{{ report.overdue }}</td>
         </tr>
         <tr>
-            <th scope="row">6.1</th>
+            <th scope="row">7.1</th>
             <td>документарных проверок</td>
             <td>{{ report.overdue_doc }}</td>
         </tr>
         <tr>
-            <th scope="row">6.2</th>
+            <th scope="row">7.2</th>
             <td>выездных проверок</td>
             <td>{{ report.overdue_out }}</td>
         </tr>
         <tr class="h4">
-            <th scope="row">7</th>
+            <th scope="row">8</th>
             <td>Количество составленных исполнительных документов</td>
             <td>{{ report.exec_doc }}</td>
         </tr>
         <tr class="h4">
-            <th scope="row">8</th>
+            <th scope="row">9</th>
             <td>Количество составленных актов</td>
             <td>{{ report.act }}</td>
         </tr>
         <tr class="h4">
-            <th scope="row">9</th>
+            <th scope="row">10</th>
             <td>Количество составленных предписаний</td>
             <td>{{ report.precept }}</td>
         </tr>
