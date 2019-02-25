@@ -57,10 +57,10 @@ def get_filtered_query_set(model, request, filtering_rules=None):
         # [{"field":"name","op":"contains","value":"org"}]
         rules = json.loads(request.POST['filterRules'])
     else:
-        rules = None
+        rules = []
     if filtering_rules:
         pass
-    if rules and filtering_rules:
+    if filtering_rules:
         rules.extend(filtering_rules)
     # сортировка
     if "sort" in request.POST:
