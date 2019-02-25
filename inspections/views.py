@@ -67,10 +67,7 @@ def new_inspection_form(request, control_kind=None, id=None):
             insp.control_form = precept.parent.inspection.control_form
             insp.control_plan = precept.parent.inspection.control_plan
             insp.organization = precept.organization
-            if precept.parent.inspection.inspector:
-                insp.inspector = precept.parent.inspection.inspector
-            else:
-                insp.inspector = User.objects.get(django_user=request.user)
+            insp.inspector = User.objects.get(django_user=request.user)
             insp.save()
             insp.houses.set(precept.houses.all())
         except (KeyError, models.Precept.DoesNotExist):
