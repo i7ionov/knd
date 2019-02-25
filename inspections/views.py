@@ -120,7 +120,7 @@ def edit_inspection_form(request, id):
     form = InspectionForm(instance=insp)
     user_has_perm_to_save = False
     if insp.inspector == User.objects.get(django_user=request.user) or \
-            request.user.has_perm('inspections.can_change_others_inspections'):
+            request.user.has_perm('inspections.can_change_others_inspections') or insp.inspector is None:
         user_has_perm_to_save = True
     context = {'form': form, 'load_static': load_static, 'uid': uid,
                'user_has_perm_to_save': user_has_perm_to_save,
