@@ -11,7 +11,7 @@ class InspectionForm(forms.ModelForm):
     class Meta:
         model = Inspection
         fields = ['doc_number', 'doc_date', 'date_begin', 'date_end', 'legal_basis', 'control_kind', 'control_form',
-                  'control_plan', 'inspector', 'organization', 'comment', 'houses', 'inspection_result', 'cancellation',
+                  'control_plan', 'inspection_tasks', 'inspector', 'organization', 'comment', 'houses', 'inspection_result', 'cancellation',
                   'act_date']
         widgets = {
             'comment': NoneWidget(),
