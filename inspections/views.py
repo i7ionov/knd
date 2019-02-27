@@ -92,18 +92,19 @@ def new_inspection_form(request, control_kind=None, id=None):
 def inspection_form_save(request):
     inspection = models.Inspection.objects.get(pk=request.POST['pk'])
     form = InspectionForm(request.POST, instance=inspection)
-    result = 0
-    inspection.violations_quantity = 0
-    for v in inspection.violationininspection_set.all():
-        if v.violation_type.children.count() == 0:
-            inspection.violations_quantity += v.count
+
     if request.POST['control_form'] == '' or int(request.POST['control_form']) < 4:
         if request.POST['inspection_result'] != '12':
             if len(request.POST.getlist('houses')) == 0:
                 return messages.return_error('Необходимо заполнить адреса домов')
     if form.is_valid():
-        form.save()
         save_violations_in_inspection(request.POST.getlist('violations'), inspection)
+        inspection.violations_quantity = 0
+        for v in inspection.violationininspection_set.all():
+            if v.violation_type.children.count() == 0:
+                inspection.violations_quantity += v.count
+        form.save()
+
         return messages.return_success()
     else:
         return messages.return_form_error(form)
