@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
 
 from iggndb.model_settings import Object
-from inspections.models import ControlKind
+from inspections.models import ControlKind, InspectionTask
 from . import models
 from dictionaries.models import Address, Organization, House, User, Document
 import uuid
@@ -246,6 +246,10 @@ def start_import(request):
 
 
 def additional_fields_for_inspection(object, item):
+    # Задачи проверки
+    task = InspectionTask.objects.filter(inspection__id=item.id).first()
+    if task is not None:
+        object['inspection_tasks__text'] = task.text
     # Адрес
     house = House.objects.filter(document__id=item.id).first()
     if house is not None:
