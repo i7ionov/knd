@@ -77,6 +77,8 @@ class GeneralReport(models.Model):
                               default=0)
     precept = models.IntegerField(verbose_name='Количество составленных предписаний',
                                   default=0)
+    executed_precept = models.IntegerField(verbose_name='Количество исполненных предписаний',
+                                  default=0)
 
 
 class ViolationInGeneralReport(models.Model):

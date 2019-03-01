@@ -77,6 +77,8 @@ def iterate_inspections(inspections, report):
             if c.doc_type == 'предписание':
                 report.precept += 1
                 report.exec_doc += 1
+                if c.precept.precept_result_id == 2:
+                    report.executed_precept += 1
         report.save()
         if insp.inspection_result:
             insp_result, created = AbstractItemCountInReport.objects.get_or_create(model_name='inspection_result',
