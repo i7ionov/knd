@@ -166,7 +166,7 @@ def import_order_from_gis_gkh(file):
                 precept.precept_begin_date = precept.doc_date
             if val[6] != '' and precept.precept_end_date is None:
                 precept.precept_end_date = datetime.strptime(val[6], '%d.%m.%Y').date()
-            if val[7] != '' and precept.precept_result_id == 1:
+            if val[7] != '' and (precept.precept_result_id == 1 or precept.precept_result is None):
                 precept.precept_result_id = 2
             precept.save()
         except inspections.models.Inspection.DoesNotExist:
