@@ -1,4 +1,4 @@
-<table id="dg{{ uid }}" sortName="dictionaries_document.id" sortOrder="desc"></table>
+<table id="dg{{ uid }}" sortName="dictionaries_document.id" sortorder="desc"></table>
 <div id="toolbar{{ uid }}">
     {% if user_has_perm_to_add %}
         <a href="#" id="create_new_button{{ uid }}" class="easyui-linkbutton" iconCls="icon-add" plain="true"
@@ -12,7 +12,7 @@
     {% endif %}
 </div>
 <div id="filter_dlg{{ uid }}" class="easyui-dialog" title="Фильтры"
-     data-options="iconCls:'icon-filter',closed:true,modal:true,border:'thin',buttons:'#filter_dlg_buttons{{ uid }}'"
+     data-options="iconCls:'icon-filter',closed:true,modal:true,bprecept:'thin',buttons:'#filter_dlg_buttons{{ uid }}'"
      style="width:600px;height:600px;padding:10px;">
 
 </div>
@@ -82,8 +82,10 @@
             {field: 'houses__address__city', title: 'Город', width: 200, sortable: true},
             {field: 'houses__address__street', title: 'Улица', width: 200, sortable: true},
             {field: 'houses__number', title: 'Дом', width: 200, sortable: true},
-            {field: 'children__doc_number', title: 'Номер предписания', width: 200, sortable: true},
-            {field: 'children__doc_date', title: 'Дата предписания', width: 200, sortable: true},
+            {field: 'children__doc_number', title: 'Номер предписания', width: 100, sortable: true},
+            {field: 'children__doc_date', title: 'Дата предписания', width: 60, sortable: true},
+            {field: 'children__precept_begin_date', title: 'Дата начала исполнения', width: 60, sortable: true},
+            {field: 'children__precept_end_date', title: 'Дата окончания исполнения', width: 60, sortable: true},
             {
                 field: 'children__precept__precept_result__id',
                 title: 'Результат предписания',
@@ -195,46 +197,22 @@
                     dg{{ uid }}.datagrid('doFilter');
                 }
             }
- }, {
+        }, {
             field: 'inspector__department__name',
             type: 'combobox',
             options: {
                 panelHeight: 'auto',
                 data: [
                     {% for dep in departments %}
-                    {value: '{{ dep.id }}', text: '{{ dep.name }}'},
+                        {value: '{{ dep.id }}', text: '{{ dep.name }}'},
                     {% endfor %}
-                    ],
+                ],
                 onChange: function (value) {
                     if (value === '') {
                         dg{{ uid }}.datagrid('removeFilterRule', 'inspector__department__name');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
                             field: 'inspector__department__id',
-                            op: 'equal',
-                            value: value
-                        });
-                    }
-                    dg{{ uid }}.datagrid('doFilter');
-                }
-            }
-        }, {
-            field: 'children__order__order_result__id',
-            type: 'combobox',
-            options: {
-                panelHeight: 'auto',
-                data: [{value: '1', text: 'Не исполнено'},
-                    {value: '2', text: 'Исполнено'},
-                    {value: '3', text: 'Продлено'},
-                    {value: '4', text: 'Исполнено частично'},
-                    {value: '5', text: 'Снято с контроля'},
-                    {value: '6', text: 'Обжалуется в суде'}],
-                onChange: function (value) {
-                    if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'children__order__order_result__id');
-                    } else {
-                        dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'children__order__order_result__id',
                             op: 'equal',
                             value: value
                         });
@@ -262,7 +240,7 @@
                     dg{{ uid }}.datagrid('doFilter');
                 }
             }
-            }, {
+        }, {
             field: 'type',
             type: 'combobox',
             options: {
@@ -283,7 +261,62 @@
                 }
             }
         }, {
-            field: 'children__order__order_result__id',
+            field: 'children__doc_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        dg{{ uid }}.datagrid('removeFilterRule', 'children__doc_date');
+                    } else {
+                        dg{{ uid }}.datagrid('addFilterRule', {
+                            field: 'children__doc_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    dg{{ uid }}.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'children__precept_begin_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        dg{{ uid }}.datagrid('removeFilterRule', 'children__precept_begin_date');
+                    } else {
+                        dg{{ uid }}.datagrid('addFilterRule', {
+                            field: 'children__precept_begin_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    dg{{ uid }}.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'children__precept_end_date',
+            type: 'daterangebox',
+            options: {
+                onChange: function (value) {
+                    if (value === '') {
+                        dg{{ uid }}.datagrid('removeFilterRule', 'children__precept_end_date');
+                    } else {
+                        dg{{ uid }}.datagrid('addFilterRule', {
+                            field: 'children__precept_end_date',
+                            op: 'between',
+                            value: value
+                        });
+                    }
+                    dg{{ uid }}.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'children__doc_number',
+            type: 'textbox',
+            op: ['equal', 'contains']
+        }, {
+            field: 'children__precept__precept_result__id',
             type: 'combobox',
             options: {
                 panelHeight: 'auto',
@@ -295,10 +328,10 @@
                     {value: '6', text: 'Обжалуется в суде'}],
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'children__order__order_result__id');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'children__precept__precept_result__id');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'children__order__order_result__id',
+                            field: 'children__precept__precept_result__id',
                             op: 'equal',
                             value: value
                         });
@@ -320,7 +353,7 @@
     function applyFilter() {
         console.log('Applying');
         $('#filter_fields{{ uid }}').find('input').each(function (i, elem) {
-            if ((typeof $(elem).attr('name') == 'string') && ($(elem).attr('name') !== '' )) {
+            if ((typeof $(elem).attr('name') == 'string') && ($(elem).attr('name') !== '')) {
                 console.log($(elem).attr('name'));
                 console.log($(elem).val());
             }

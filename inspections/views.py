@@ -266,6 +266,8 @@ def additional_fields_for_inspection(object, item):
     if precept is not None:
         object['children__doc_number'] = precept.doc_number
         object['children__doc_date'] = precept.doc_date
+        object['children__precept_begin_date'] = precept.precept_begin_date
+        object['children__precept_end_date'] = precept.precept_end_date
         if precept.precept_result:
             object['children__precept__precept_result__id'] = precept.precept_result.text
     return object
