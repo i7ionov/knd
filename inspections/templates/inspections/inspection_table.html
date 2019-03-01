@@ -201,7 +201,6 @@
             field: 'inspector__department__name',
             type: 'combobox',
             options: {
-                panelHeight: 'auto',
                 data: [
                     {% for dep in departments %}
                         {value: '{{ dep.id }}', text: '{{ dep.name }}'},
@@ -254,6 +253,26 @@
                         dg{{ uid }}.datagrid('addFilterRule', {
                             field: 'parent',
                             op: 'isnone',
+                            value: value
+                        });
+                    }
+                    dg{{ uid }}.datagrid('doFilter');
+                }
+            }
+        }, {
+            field: 'inspection_result__text',
+            type: 'combobox',
+            options: {
+                data: [{% for ir in inspection_results %}
+                    {value: '{{ ir.id }}', text: '{{ ir.text }}'},
+                {% endfor %}],
+                onChange: function (value) {
+                    if (value === '') {
+                        dg{{ uid }}.datagrid('removeFilterRule', 'inspection_result__id');
+                    } else {
+                        dg{{ uid }}.datagrid('addFilterRule', {
+                            field: 'inspection_result__id',
+                            op: 'equal',
                             value: value
                         });
                     }

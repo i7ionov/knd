@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
 
 from iggndb.model_settings import Object
-from inspections.models import ControlKind, InspectionTask
+from inspections.models import ControlKind, InspectionTask,InspectionResult
 from . import models
 from dictionaries.models import Address, Organization, House, User, Document, Department
 import uuid
@@ -22,6 +22,7 @@ from iggndb import tasks
 @permission_required('inspections.view_inspection', raise_exception=True)
 def inspection_table(request):
     context = {'departments': Department.objects.all(),
+               'inspection_results': InspectionResult.objects.all(),
         'user_has_perm_to_add': request.user.has_perm('inspections.add_inspection'), 'uid': uuid.uuid1().hex}
     return render(request, 'inspections/inspection_table.html', context)
 
