@@ -138,7 +138,8 @@ def datetime_handler(obj):
     """Приводит дату в формат %d.%m.%Y"""
     if isinstance(obj, (datetime, date)):
         return obj.strftime('%d.%m.%Y')
-        # return obj.isoformat()
+    else:
+        return str(obj)
 
 
 def get_value(item, field):
@@ -156,7 +157,7 @@ def get_value(item, field):
         val = val.__getattribute__(p)
     if val is None:
         return None
-    return str(val)
+    return datetime_handler(val)
 
 
 def get_model_columns(field_list, model, prefix='', parent_verbose_name=''):
