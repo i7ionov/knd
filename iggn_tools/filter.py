@@ -105,7 +105,6 @@ def add_filter_from_easyui(query, rule):
     criteria = rule['value']
     if criteria == '' or criteria is None:
         return query
-    print(rule['op'])
     if rule['op'] == 'between':
         try:
             date_begin = datetime.strptime(criteria.split('-')[0], '%d.%m.%Y')
