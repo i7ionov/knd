@@ -68,7 +68,7 @@
             {field: 'organization__inn', title: 'ИНН', width: 100, align: 'right', sortable: true},
             {field: 'organization__name', title: 'Организация', width: 200, sortable: true},
             {field: 'inspector__name', title: 'ФИО Инспектора', width: 200, align: 'right', sortable: true},
-            {field: 'inspector__department__name', title: 'Отдел', width: 200, sortable: true},
+            {field: 'inspector__department__name', title: 'Отдел', width: 420, sortable: true},
             {field: 'inspection_result__text', title: 'Результат', width: 200, sortable: true},
             {field: 'gis_gkh_number', title: 'Номер ГИС ЖКХ', width: 120, sortable: true},
             {field: 'erp_number', title: 'Номер ЕРП', width: 120, sortable: true},
@@ -195,7 +195,29 @@
                     dg{{ uid }}.datagrid('doFilter');
                 }
             }
-
+ }, {
+            field: 'inspector__department__name',
+            type: 'combobox',
+            options: {
+                panelHeight: 'auto',
+                data: [
+                    {% for dep in departments %}
+                    {value: '{{ dep.id }}', text: '{{ dep.name }}'},
+                    {% endfor %}
+                    ],
+                onChange: function (value) {
+                    if (value === '') {
+                        dg{{ uid }}.datagrid('removeFilterRule', 'inspector__department__name');
+                    } else {
+                        dg{{ uid }}.datagrid('addFilterRule', {
+                            field: 'inspector__department__id',
+                            op: 'equal',
+                            value: value
+                        });
+                    }
+                    dg{{ uid }}.datagrid('doFilter');
+                }
+            }
         }, {
             field: 'children__order__order_result__id',
             type: 'combobox',

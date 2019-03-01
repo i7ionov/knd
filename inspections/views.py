@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from iggndb.model_settings import Object
 from inspections.models import ControlKind, InspectionTask
 from . import models
-from dictionaries.models import Address, Organization, House, User, Document
+from dictionaries.models import Address, Organization, House, User, Document, Department
 import uuid
 from datetime import datetime
 from sequences import get_next_value
@@ -21,7 +21,8 @@ from iggndb import tasks
 @login_required
 @permission_required('inspections.view_inspection', raise_exception=True)
 def inspection_table(request):
-    context = {'user_has_perm_to_add': request.user.has_perm('inspections.add_inspection'), 'uid': uuid.uuid1().hex}
+    context = {'departments': Department.objects.all(),
+        'user_has_perm_to_add': request.user.has_perm('inspections.add_inspection'), 'uid': uuid.uuid1().hex}
     return render(request, 'inspections/inspection_table.html', context)
 
 
