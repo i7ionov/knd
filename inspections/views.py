@@ -251,6 +251,9 @@ def additional_fields_for_inspection(object, item):
     task = InspectionTask.objects.filter(inspection__id=item.id).first()
     if task is not None:
         object['inspection_tasks__text'] = task.text
+    # Вычисляем тип проверки
+    type = 'Проверка исполнения предписания' if item.parent else 'Основная'
+    object['type'] = type
     # Адрес
     house = House.objects.filter(document__id=item.id).first()
     if house is not None:

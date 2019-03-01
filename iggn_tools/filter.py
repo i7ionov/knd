@@ -105,6 +105,7 @@ def add_filter_from_easyui(query, rule):
     criteria = rule['value']
     if criteria == '' or criteria is None:
         return query
+    print(rule['op'])
     if rule['op'] == 'between':
         try:
             date_begin = datetime.strptime(criteria.split('-')[0], '%d.%m.%Y')
@@ -122,6 +123,13 @@ def add_filter_from_easyui(query, rule):
         field = field+'__lt'
     elif rule['op'] == 'greater':
         field = field+'__gt'
+    elif rule['op'] == 'isnone':
+        if criteria == '1':
+            field = field
+            criteria = None
+        else:
+            field = field + '_id__gt'
+            criteria = 0
     query = query.filter(Q(**{field: criteria}))
     return query
 
