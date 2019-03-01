@@ -157,13 +157,18 @@ def import_order_from_gis_gkh(file):
         val = sheet.row_values(row)
         try:
             insp = inspections.models.Inspection.objects.get(gis_gkh_number=val[1])
-            order, created = inspections.models.Precept.objects.get_or_create(parent=insp, doc_number=val[2], doc_date=datetime.strptime(val[3], '%d.%m.%Y').date())
+            precept, created = inspections.models.Precept.objects.get_or_create(parent=insp, doc_number=val[2], doc_date=datetime.strptime(val[3], '%d.%m.%Y').date())
             if created:
-                order.doc_type = 'предписание'
-                order.organization = insp.organization
-            if val[6] != '':
-                order.order_end_date = datetime.strptime(val[6], '%d.%m.%Y').date()
-            order.save()
+                precept.doc_type = 'предписание'
+                precept.organization = insp.organization
+                precept.houses.set(precept.parent.inspection.houses.all())
+            if precept.precept_begin_date is None:
+                precept.precept_begin_date = precept.doc_date
+            if val[6] != '' and precept.precept_end_date is None:
+                precept.precept_end_date = datetime.strptime(val[6], '%d.%m.%Y').date()
+            if val[7] != '' and precept.precept_result_id == 1:
+                precept.precept_result_id = 2
+            precept.save()
         except inspections.models.Inspection.DoesNotExist:
             print("Not found inspection: " + val[1])
         except MultipleObjectsReturned:
