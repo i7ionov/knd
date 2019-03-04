@@ -22,10 +22,12 @@ from inspections.models import Inspection
 
 @app.task
 def generate_general_report_period(user_id, date_begin, date_end, control_kind_id=None, department_id=None):
-    report = GeneralReport(report_status='Формируется...', user_id=user_id, date=datetime.now())
+    report = GeneralReport(report_status='Формируется...', user_id=user_id, date=datetime.now(), date_begin=date_begin,
+                           date_end=date_end)
     inspections = Inspection.objects.filter(act_date__range=(date_begin, date_end))
     # исключаем тестовые проверки
-    inspections = inspections.exclude(inspection_result_id=12)
+    inspections = inspections.exclude(inspection_result_id=12).exclude(control_form__id=4).exclude(
+        control_form__id=5)
     if control_kind_id:
         inspections = inspections.filter(control_kind_id=control_kind_id)
         report.control_kind_id = control_kind_id

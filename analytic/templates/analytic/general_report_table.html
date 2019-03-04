@@ -1,4 +1,4 @@
-<table id="gen_report_dg{{ uid }}"></table>
+<table id="gen_report_dg{{ uid }}" sortName="id" sortorder="desc"></table>
 <div id="gen_report_toolbar{{ uid }}">
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
        onclick="$('#new_gen_report_dlg{{ uid }}').dialog('open').dialog('center')">Новый отчет</a>
@@ -53,6 +53,7 @@
         singleSelect: "true",
         columns: [[
             {field: 'id', title: 'id', width: 100, sortable: true},
+            {field: 'date', title: 'Дата составления отчета', width: 100, sortable: true},
             {field: 'report_status', title: 'Статус', width: 100, sortable: true},
             {field: 'department__name', title: 'Отдел', width: 300, align: 'right', sortable: true},
             {field: 'date_begin', title: 'С', width: 100, sortable: true},
