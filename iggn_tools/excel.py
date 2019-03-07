@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import uuid
 
+from django.db.models import Q
+
 from dictionaries.tools import normalize_house_number
 from iggn_tools import filter
 import xlrd, openpyxl
@@ -27,69 +29,71 @@ def import_insp_from_gis_gkh(file):
             row = row + 1
             continue
         number = val[4].replace('Распоряжение № ', '').lower().replace(' ', '')
-        insp, created = inspections.models.Inspection.objects.get_or_create(doc_number=number, doc_date=datetime.strptime(val[5], '%d.%m.%Y').date())
-        insp.gis_gkh_number = val[1]
-        insp.erp_number = val[3]
-        insp.doc_type = "проверка"
-        insp.control_form = inspections.models.ControlForm.objects.get(text=val[8])
-        insp.control_plan = inspections.models.ControlPlan.objects.get(text=val[6])
-        if val[7] == "Государственный и муниципальный жилищный надзор (контроль)":
-            insp.control_kind = inspections.models.ControlKind.objects.get(pk=1)
-        elif val[7] == "Лицензионный контроль":
-            insp.control_kind = inspections.models.ControlKind.objects.get(pk=2)
-        # если не введен ОГРН, то это, скорее всего гражданин
-        # или если ОГРН введен, но у нас такого нет
-        if val[13] != "" and dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 0:
-            # ищем или создаем по названию
-            try:
-                org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
-                if created:
-                    org.name = val[12]
-                    org.inn = "ОГРН: " + val[13]
-                    org.ogrn = val[13]
-                    org.kpp = val[14]
-                    if val[11] == 'Организация':
-                        org.org_type_id = 2
-                    else:
-                        org.org_type_id = 3
-                    org.save()
+        year = datetime.strptime(val[5], '%d.%m.%Y').year
+        insp = inspections.models.Inspection.objects.filter(doc_date__year=year, doc_number=number).last()
+        if insp is not None:
+            insp.gis_gkh_number = val[1]
+            insp.erp_number = val[3]
+            insp.doc_type = "проверка"
+            insp.control_form = inspections.models.ControlForm.objects.get(text=val[8])
+            insp.control_plan = inspections.models.ControlPlan.objects.get(text=val[6])
+            if val[7] == "Государственный и муниципальный жилищный надзор (контроль)":
+                insp.control_kind = inspections.models.ControlKind.objects.get(pk=1)
+            elif val[7] == "Лицензионный контроль":
+                insp.control_kind = inspections.models.ControlKind.objects.get(pk=2)
+            # если не введен ОГРН, то это, скорее всего гражданин
+            # или если ОГРН введен, но у нас такого нет
+            if val[13] != "" and dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 0:
+                # ищем или создаем по названию
+                try:
+                    org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
+                    if created:
+                        org.name = val[12]
+                        org.inn = "ОГРН: " + val[13]
+                        org.ogrn = val[13]
+                        org.kpp = val[14]
+                        if val[11] == 'Организация':
+                            org.org_type_id = 2
+                        else:
+                            org.org_type_id = 3
+                        org.save()
+                    insp.organization = org
+                except MultipleObjectsReturned:
+                    print("Несколько организаций с именем " + val[12])
+            # если у нас эта организация уже есть
+            elif dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 1 and val[11] != 'Гражданин':
+                # находим ее по огрн
+                org = dictionaries.models.Organization.objects.get(ogrn=val[13])
                 insp.organization = org
-            except MultipleObjectsReturned:
-                print("Несколько организаций с именем " + val[12])
-        # если у нас эта организация уже есть
-        elif dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 1 and val[11] != 'Гражданин':
-            # находим ее по огрн
-            org = dictionaries.models.Organization.objects.get(ogrn=val[13])
-            insp.organization = org
-        # если это гражданин
-        else:
-            # ищем или создаем по названию
+            # если это гражданин
+            else:
+                # ищем или создаем по названию
+                try:
+                    org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
+                    if created:
+                        org.name = val[12]
+                        org.inn = val[12]
+                        org.ogrn = val[12]
+                        org.org_type_id = 1
+                        org.save()
+                    insp.organization = org
+                except MultipleObjectsReturned:
+                    print("Несколько организаций с именем " + val[12])
+
             try:
-                org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
-                if created:
-                    org.name = val[12]
-                    org.inn = val[12]
-                    org.ogrn = val[12]
-                    org.org_type_id = 1
-                    org.save()
-                insp.organization = org
-            except MultipleObjectsReturned:
-                print("Несколько организаций с именем " + val[12])
+                if val[16] != '':
+                    insp.legal_basis, created = inspections.models.LegalBasis.objects.get_or_create(text=val[16])
+            except: print("Не удалость сохранить основание для №" + str(val[0]))
 
-        try:
-            if val[16] != '':
-                insp.legal_basis, created = inspections.models.LegalBasis.objects.get_or_create(text=val[16])
-        except: print("Не удалость сохранить основание для №" + str(val[0]))
-
-        if val[17] != '':
-            insp.date_begin = datetime.strptime(val[17], '%d.%m.%Y').date()
-        if val[18] != '':
-            insp.date_end = datetime.strptime(val[18], '%d.%m.%Y').date()
-        if val[28] != '':
-            insp.act_date = datetime.strptime(val[17], '%d.%m.%Y').date()
-            if insp.inspection_result is None:
-                insp.inspection_result_id = 1
-        insp.save()
+            if val[17] != '':
+                insp.date_begin = datetime.strptime(val[17], '%d.%m.%Y').date()
+            if val[18] != '':
+                insp.date_end = datetime.strptime(val[18], '%d.%m.%Y').date()
+            if val[28] != '':
+                insp.act_date = datetime.strptime(val[17], '%d.%m.%Y').date()
+                if insp.inspection_result is None:
+                    insp.inspection_result_id = 1
+            insp.save()
         row = row + 1
 
 
