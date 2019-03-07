@@ -84,8 +84,8 @@
             {field: 'houses__number', title: 'Дом', width: 200, sortable: true},
             {field: 'children__doc_number', title: 'Номер предписания', width: 100, sortable: true},
             {field: 'children__doc_date', title: 'Дата предписания', width: 60, sortable: true},
-            {field: 'children__precept_begin_date', title: 'Дата начала исполнения', width: 60, sortable: true},
-            {field: 'children__precept_end_date', title: 'Дата окончания исполнения', width: 60, sortable: true},
+            {field: 'children__precept__precept_begin_date', title: 'Дата начала исполнения', width: 60, sortable: true},
+            {field: 'children__precept__precept_end_date', title: 'Дата окончания исполнения', width: 60, sortable: true},
             {
                 field: 'children__precept__precept_result__id',
                 title: 'Результат предписания',
@@ -297,15 +297,15 @@
                 }
             }
         }, {
-            field: 'children__precept_begin_date',
+            field: 'children__precept__precept_begin_date',
             type: 'daterangebox',
             options: {
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'children__precept_begin_date');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'children__precept__precept_begin_date');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'children__precept_begin_date',
+                            field: 'children__precept__precept_begin_date',
                             op: 'between',
                             value: value
                         });
@@ -314,15 +314,15 @@
                 }
             }
         }, {
-            field: 'children__precept_end_date',
+            field: 'children__precept__precept_end_date',
             type: 'daterangebox',
             options: {
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'children__precept_end_date');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'children__precept__precept_end_date');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'children__precept_end_date',
+                            field: 'children__precept__precept_end_date',
                             op: 'between',
                             value: value
                         });
