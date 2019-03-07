@@ -26,7 +26,7 @@ def import_insp_from_gis_gkh(file):
             print("Пропущена запись №" + str(val[0]))
             row = row + 1
             continue
-        number = val[4].replace('Распоряжение № ', '')
+        number = val[4].replace('Распоряжение № ', '').lower().replace(' ', '')
         insp, created = inspections.models.Inspection.objects.get_or_create(doc_number=number, doc_date=datetime.strptime(val[5], '%d.%m.%Y').date())
         insp.gis_gkh_number = val[1]
         insp.erp_number = val[3]
@@ -157,7 +157,8 @@ def import_order_from_gis_gkh(file):
         val = sheet.row_values(row)
         try:
             insp = inspections.models.Inspection.objects.get(gis_gkh_number=val[1])
-            precept, created = inspections.models.Precept.objects.get_or_create(parent=insp, doc_number=val[2], doc_date=datetime.strptime(val[3], '%d.%m.%Y').date())
+            number = val[2].lower().replace(' ', '')
+            precept, created = inspections.models.Precept.objects.get_or_create(parent=insp, doc_number=number, doc_date=datetime.strptime(val[3], '%d.%m.%Y').date())
             if created:
                 precept.doc_type = 'предписание'
                 precept.organization = insp.organization
