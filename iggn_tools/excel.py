@@ -159,14 +159,10 @@ def import_order_from_gis_gkh(file):
     row = 2
     while row < sheet.nrows and sheet.row_values(row)[0] != '':
         val = sheet.row_values(row)
-        try:
-            insp = inspections.models.Inspection.objects.get(gis_gkh_number=val[1])
-            number = val[2].lower().replace(' ', '')
-            precept, created = inspections.models.Precept.objects.get_or_create(parent=insp, doc_number__iexact=number, doc_date=datetime.strptime(val[3], '%d.%m.%Y').date())
-            if created:
-                precept.doc_type = 'предписание'
-                precept.organization = insp.organization
-                precept.houses.set(precept.parent.inspection.houses.all())
+        number = val[2].lower().replace(' ', '')
+        year = datetime.strptime(val[3], '%d.%m.%Y').year
+        precept = inspections.models.Precept.objects.filter(doc_date__year=year, doc_number__iexact=number).last()
+        if precept is not None:
             if precept.precept_begin_date is None:
                 precept.precept_begin_date = precept.doc_date
             if val[6] != '' and precept.precept_end_date is None:
@@ -174,10 +170,6 @@ def import_order_from_gis_gkh(file):
             if val[7] != '' and (precept.precept_result_id == 1 or precept.precept_result is None):
                 precept.precept_result_id = 2
             precept.save()
-        except inspections.models.Inspection.DoesNotExist:
-            print("Not found inspection: " + val[1])
-        except MultipleObjectsReturned:
-            pass
         row = row + 1
 
 
