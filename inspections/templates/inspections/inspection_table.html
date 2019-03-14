@@ -123,7 +123,8 @@
         }, {
             field: 'doc_number',
             type: 'textbox',
-            op: ['equal', 'contains']
+            op: ['equal', 'contains'],
+            defaultFilterOperator: 'equal'
         }, {
             field: 'violations_quantity',
             type: 'numberbox',
@@ -333,7 +334,8 @@
         }, {
             field: 'children__doc_number',
             type: 'textbox',
-            op: ['equal', 'contains']
+            op: ['equal', 'contains'],
+            defaultFilterOperator: 'equal'
         }, {
             field: 'children__precept__precept_result__id',
             type: 'combobox',
