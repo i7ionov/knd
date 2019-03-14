@@ -408,7 +408,19 @@
 			isMatch: function(source, value){
 				return source >= value;
 			}
-		}
+		},
+		isnone: {
+			text: 'Не равно',
+			isMatch: function(source, value){
+				return true;
+			}
+		},
+		between: {
+			text: 'Не равно',
+			isMatch: function(source, value){
+				return true;
+			}
+		},
 	};
 	$.fn.treegrid.defaults.operators = $.fn.datagrid.defaults.operators;
 	

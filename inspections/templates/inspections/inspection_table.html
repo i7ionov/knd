@@ -33,6 +33,7 @@
         height: height - 60,
         toolbar: "#toolbar{{ uid }}",
         remoteFilter: true,
+        clientPaging: false,
         pagination: true,
         pageSize: 20,
         columnMoving: true,
@@ -204,7 +205,7 @@
             options: {
                 data: [
                     {% for dep in departments %}
-                        {value: '{{ dep.id }}', text: '{{ dep.shortname }}'},
+                        {value: '{{ dep.shortname }}', text: '{{ dep.shortname }}'},
                     {% endfor %}
                 ],
                 onChange: function (value) {
@@ -212,7 +213,7 @@
                         dg{{ uid }}.datagrid('removeFilterRule', 'inspector__department__shortname');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'inspector__department__id',
+                            field: 'inspector__department__shortname',
                             op: 'equal',
                             value: value
                         });
@@ -225,14 +226,14 @@
             type: 'combobox',
             options: {
                 panelHeight: 'auto',
-                data: [{value: '1', text: 'Внеплановая'},
-                    {value: '2', text: 'Плановая'}],
+                data: [{value: 'Внеплановая', text: 'Внеплановая'},
+                    {value: 'Плановая', text: 'Плановая'}],
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'control_plan__id');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'control_plan__text');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'control_plan__id',
+                            field: 'control_plan__text',
                             op: 'equal',
                             value: value
                         });
@@ -249,7 +250,7 @@
                     {value: '2', text: 'Проверка исполнения предписания'}],
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'type');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'parent');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
                             field: 'parent',
@@ -265,14 +266,14 @@
             type: 'combobox',
             options: {
                 data: [{% for ir in inspection_results %}
-                    {value: '{{ ir.id }}', text: '{{ ir.text }}'},
+                    {value: '{{ ir.text }}', text: '{{ ir.text }}'},
                 {% endfor %}],
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'inspection_result__id');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'inspection_result__text');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'inspection_result__id',
+                            field: 'inspection_result__text',
                             op: 'equal',
                             value: value
                         });
