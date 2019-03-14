@@ -9,6 +9,7 @@ from simple_history import register
 
 class Department(models.Model):
     name = models.CharField(max_length=200, verbose_name='отдел')
+    shortname = models.CharField(max_length=200, verbose_name='отдел (коротко)')
     name_rp = models.CharField(max_length=200)
 
     def __str__(self):
