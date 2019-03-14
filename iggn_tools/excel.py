@@ -31,69 +31,73 @@ def import_insp_from_gis_gkh(file):
         number = val[4].replace('Распоряжение № ', '').replace(' ', '')
         year = datetime.strptime(val[5], '%d.%m.%Y').year
         insp = inspections.models.Inspection.objects.filter(doc_date__year=year, doc_number__iexact=number).last()
-        if insp is not None:
-            insp.gis_gkh_number = val[1]
-            insp.erp_number = val[3]
-            insp.doc_type = "проверка"
-            insp.control_form = inspections.models.ControlForm.objects.get(text=val[8])
-            insp.control_plan = inspections.models.ControlPlan.objects.get(text=val[6])
-            if val[7] == "Государственный и муниципальный жилищный надзор (контроль)":
-                insp.control_kind = inspections.models.ControlKind.objects.get(pk=1)
-            elif val[7] == "Лицензионный контроль":
-                insp.control_kind = inspections.models.ControlKind.objects.get(pk=2)
-            # если не введен ОГРН, то это, скорее всего гражданин
-            # или если ОГРН введен, но у нас такого нет
-            if val[13] != "" and dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 0:
-                # ищем или создаем по названию
-                try:
-                    org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
-                    if created:
-                        org.name = val[12]
-                        org.inn = "ОГРН: " + val[13]
-                        org.ogrn = val[13]
-                        org.kpp = val[14]
-                        if val[11] == 'Организация':
-                            org.org_type_id = 2
-                        else:
-                            org.org_type_id = 3
-                        org.save()
-                    insp.organization = org
-                except MultipleObjectsReturned:
-                    print("Несколько организаций с именем " + val[12])
-            # если у нас эта организация уже есть
-            elif dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 1 and val[11] != 'Гражданин':
-                # находим ее по огрн
-                org = dictionaries.models.Organization.objects.get(ogrn=val[13])
-                insp.organization = org
-            # если это гражданин
-            else:
-                # ищем или создаем по названию
-                try:
-                    org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
-                    if created:
-                        org.name = val[12]
-                        org.inn = val[12]
-                        org.ogrn = val[12]
-                        org.org_type_id = 1
-                        org.save()
-                    insp.organization = org
-                except MultipleObjectsReturned:
-                    print("Несколько организаций с именем " + val[12])
-
+        if insp is None:
+            insp = inspections.models.Inspection()
+            insp.doc_type = 'проверка'
+            insp.doc_number = number
+            insp.doc_date = datetime.strptime(val[5], '%d.%m.%Y').date()
+        insp.gis_gkh_number = val[1]
+        insp.erp_number = val[3]
+        insp.doc_type = "проверка"
+        insp.control_form = inspections.models.ControlForm.objects.get(text=val[8])
+        insp.control_plan = inspections.models.ControlPlan.objects.get(text=val[6])
+        if val[7] == "Государственный и муниципальный жилищный надзор (контроль)":
+            insp.control_kind = inspections.models.ControlKind.objects.get(pk=1)
+        elif val[7] == "Лицензионный контроль":
+            insp.control_kind = inspections.models.ControlKind.objects.get(pk=2)
+        # если не введен ОГРН, то это, скорее всего гражданин
+        # или если ОГРН введен, но у нас такого нет
+        if val[13] != "" and dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 0:
+            # ищем или создаем по названию
             try:
-                if val[16] != '':
-                    insp.legal_basis, created = inspections.models.LegalBasis.objects.get_or_create(text=val[16])
-            except: print("Не удалость сохранить основание для №" + str(val[0]))
+                org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
+                if created:
+                    org.name = val[12]
+                    org.inn = "ОГРН: " + val[13]
+                    org.ogrn = val[13]
+                    org.kpp = val[14]
+                    if val[11] == 'Организация':
+                        org.org_type_id = 2
+                    else:
+                        org.org_type_id = 3
+                    org.save()
+                insp.organization = org
+            except MultipleObjectsReturned:
+                print("Несколько организаций с именем " + val[12])
+        # если у нас эта организация уже есть
+        elif dictionaries.models.Organization.objects.filter(ogrn=val[13]).count() == 1 and val[11] != 'Гражданин':
+            # находим ее по огрн
+            org = dictionaries.models.Organization.objects.get(ogrn=val[13])
+            insp.organization = org
+        # если это гражданин
+        else:
+            # ищем или создаем по названию
+            try:
+                org, created = dictionaries.models.Organization.objects.get_or_create(name=val[12])
+                if created:
+                    org.name = val[12]
+                    org.inn = val[12]
+                    org.ogrn = val[12]
+                    org.org_type_id = 1
+                    org.save()
+                insp.organization = org
+            except MultipleObjectsReturned:
+                print("Несколько организаций с именем " + val[12])
 
-            if val[17] != '':
-                insp.date_begin = datetime.strptime(val[17], '%d.%m.%Y').date()
-            if val[18] != '':
-                insp.date_end = datetime.strptime(val[18], '%d.%m.%Y').date()
-            if val[28] != '':
-                insp.act_date = datetime.strptime(val[17], '%d.%m.%Y').date()
-                if insp.inspection_result is None:
-                    insp.inspection_result_id = 1
-            insp.save()
+        try:
+            if val[16] != '':
+                insp.legal_basis, created = inspections.models.LegalBasis.objects.get_or_create(text=val[16])
+        except: print("Не удалость сохранить основание для №" + str(val[0]))
+
+        if val[17] != '':
+            insp.date_begin = datetime.strptime(val[17], '%d.%m.%Y').date()
+        if val[18] != '':
+            insp.date_end = datetime.strptime(val[18], '%d.%m.%Y').date()
+        if val[28] != '':
+            insp.act_date = datetime.strptime(val[17], '%d.%m.%Y').date()
+            if insp.inspection_result is None:
+                insp.inspection_result_id = 1
+        insp.save()
         row = row + 1
 
 
@@ -159,10 +163,19 @@ def import_order_from_gis_gkh(file):
     row = 2
     while row < sheet.nrows and sheet.row_values(row)[0] != '':
         val = sheet.row_values(row)
-        number = val[2].lower().replace(' ', '')
-        year = datetime.strptime(val[3], '%d.%m.%Y').year
-        precept = inspections.models.Precept.objects.filter(doc_date__year=year, doc_number__iexact=number).last()
-        if precept is not None:
+        try:
+            number = val[2].lower().replace(' ', '')
+            year = datetime.strptime(val[3], '%d.%m.%Y').year
+            precept = inspections.models.Precept.objects.filter(doc_date__year=year, doc_number__iexact=number).last()
+            if precept is None:
+                precept = inspections.models.Precept()
+                precept.doc_type = 'предписание'
+                precept.doc_number = number
+                precept.doc_date = datetime.strptime(val[3], '%d.%m.%Y').date()
+                insp = inspections.models.Inspection.objects.get(gis_gkh_number=val[1])
+                precept.organization = insp.organization
+                precept.houses.set(precept.parent.inspection.houses.all())
+                precept.parent = insp
             if precept.precept_begin_date is None:
                 precept.precept_begin_date = precept.doc_date
             if val[6] != '' and precept.precept_end_date is None:
@@ -170,6 +183,10 @@ def import_order_from_gis_gkh(file):
             if val[7] != '' and (precept.precept_result_id == 1 or precept.precept_result is None):
                 precept.precept_result_id = 2
             precept.save()
+        except inspections.models.Inspection.DoesNotExist:
+            print("Not found inspection: " + val[1])
+        except MultipleObjectsReturned:
+            pass
         row = row + 1
 
 
