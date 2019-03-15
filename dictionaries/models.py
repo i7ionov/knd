@@ -22,6 +22,7 @@ class Department(models.Model):
 class User(models.Model):
     django_user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, verbose_name='ФИО')
+    shortname = models.CharField(max_length=200, verbose_name='ФИО (коротко)')
     name_rp = models.CharField(max_length=200)
     position = models.CharField(max_length=200)
     position_rp = models.CharField(max_length=200)

@@ -21,8 +21,9 @@ from django.utils import timezone
 def import_insp_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(0)
-    row = 2
+    row = 1
     while row < sheet.nrows and sheet.row_values(row)[0] != '':
+        row = row + 1
         val = sheet.row_values(row)
         if val[4] == '':
             print("Пропущена запись №" + str(val[0]))
@@ -32,6 +33,7 @@ def import_insp_from_gis_gkh(file):
         year = datetime.strptime(val[5], '%d.%m.%Y').year
         insp = inspections.models.Inspection.objects.filter(doc_date__year=year, doc_number__iexact=number).last()
         if insp is None:
+            continue
             insp = inspections.models.Inspection()
             insp.doc_type = 'проверка'
             insp.doc_number = number
@@ -98,7 +100,7 @@ def import_insp_from_gis_gkh(file):
             if insp.inspection_result is None:
                 insp.inspection_result_id = 1
         insp.save()
-        row = row + 1
+
 
 
 def import_addr_from_gis_gkh(file):
@@ -160,22 +162,26 @@ def import_addr_from_gis_gkh(file):
 def import_order_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(2)
-    row = 2
+    row = 1
     while row < sheet.nrows and sheet.row_values(row)[0] != '':
+        row = row + 1
         val = sheet.row_values(row)
         try:
             number = val[2].lower().replace(' ', '')
             year = datetime.strptime(val[3], '%d.%m.%Y').year
             precept = inspections.models.Precept.objects.filter(doc_date__year=year, doc_number__iexact=number).last()
             if precept is None:
+                continue
                 precept = inspections.models.Precept()
                 precept.doc_type = 'предписание'
                 precept.doc_number = number
                 precept.doc_date = datetime.strptime(val[3], '%d.%m.%Y').date()
                 insp = inspections.models.Inspection.objects.get(gis_gkh_number=val[1])
                 precept.organization = insp.organization
-                precept.houses.set(precept.parent.inspection.houses.all())
                 precept.parent = insp
+                precept.save()
+                precept.houses.set(precept.parent.inspection.houses.all())
+
             if precept.precept_begin_date is None:
                 precept.precept_begin_date = precept.doc_date
             if val[6] != '' and precept.precept_end_date is None:
@@ -187,7 +193,7 @@ def import_order_from_gis_gkh(file):
             print("Not found inspection: " + val[1])
         except MultipleObjectsReturned:
             pass
-        row = row + 1
+
 
 
 def export_excel(query_set, user_id, get_http_response=False):
@@ -271,4 +277,33 @@ def import_houses_from_licensing(file):
         house.exclusion_date = datetime(*xlrd.xldate_as_tuple(val[28], rb.datemode)) if val[28] else None
         house.exclusion_legal_basis = val[29] if val[29] else None
         house.save()
+
+
+def import_inspector_from_reestr_rasp(file):
+    file = 'C:\\1.xlsx'
+    rb = xlrd.open_workbook(file)
+    sheet = rb.sheet_by_name('Лист1')
+    row = 0
+    while row < sheet.nrows and sheet.row_values(row)[0] != '':
+        try:
+            row = row + 1
+            val = sheet.row_values(row)
+            doc_number = str(val[1])
+            doc_date = datetime(*xlrd.xldate_as_tuple(val[2], rb.datemode))
+            name = val[6].strip()
+            if name[-1] != '.':
+                name = name + '.'
+            print(f'{doc_number} {doc_date} {name}')
+            try:
+                insp = inspections.models.Inspection.objects.get(doc_number=doc_number, doc_date__year=doc_date.year)
+            except inspections.models.Inspection.DoesNotExist:
+                insp = inspections.models.Inspection(doc_number=doc_number, doc_date=doc_date)
+                print('created')
+            user = dictionaries.models.User.objects.get(shortname=name)
+            insp.inspector = user
+            insp.save()
+            print(user.name)
+        except (ValueError, TypeError):
+            continue
+
 
