@@ -22,7 +22,7 @@ def import_insp_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(0)
     row = 1
-    while row < sheet.nrows and sheet.row_values(row)[0] != '':
+    while row < sheet.nrows - 1and sheet.row_values(row)[0] != '':
         row = row + 1
         val = sheet.row_values(row)
         if val[4] == '':
@@ -163,7 +163,7 @@ def import_order_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(2)
     row = 1
-    while row < sheet.nrows and sheet.row_values(row)[0] != '':
+    while row < sheet.nrows - 1 and sheet.row_values(row)[0] != '':
         row = row + 1
         val = sheet.row_values(row)
         try:
@@ -307,3 +307,29 @@ def import_inspector_from_reestr_rasp(file):
             continue
 
 
+def import_ad_from_penalty(file):
+    file = 'C:\\1.xlsx'
+    rb = xlrd.open_workbook(file)
+    sheet = rb.sheet_by_name('Лист1')
+    row = 0
+    while row < sheet.nrows and sheet.row_values(row)[0] != '':
+        try:
+            row = row + 1
+            val = sheet.row_values(row)
+            doc_number = str(val[1])
+            doc_date = datetime(*xlrd.xldate_as_tuple(val[2], rb.datemode))
+            name = val[6].strip()
+            if name[-1] != '.':
+                name = name + '.'
+            print(f'{doc_number} {doc_date} {name}')
+            try:
+                insp = inspections.models.Inspection.objects.get(doc_number=doc_number, doc_date__year=doc_date.year)
+            except inspections.models.Inspection.DoesNotExist:
+                insp = inspections.models.Inspection(doc_number=doc_number, doc_date=doc_date)
+                print('created')
+            user = dictionaries.models.User.objects.get(shortname=name)
+            insp.inspector = user
+            insp.save()
+            print(user.name)
+        except (ValueError, TypeError):
+            continue
