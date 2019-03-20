@@ -67,10 +67,12 @@ class Execution(Document):
     payment_amount = models.IntegerField(default=0, verbose_name='Сумма оплаты')
     referring_to_instance_date = models.DateField(null=True, verbose_name='Дата направления в инстанцию')
     fssp = models.ForeignKey(FSSP, on_delete=models.SET_NULL, null=True, verbose_name='ФССП')
-    execution_number = models.CharField(max_length=500, default="", null=True, verbose_name='Номер исполнительного производства')
+    execution_number = models.CharField(max_length=500, default="", null=True,
+                                        verbose_name='Номер исполнительного производства')
     execution_date = models.DateField(null=True, verbose_name='Дата исполнительного производства')
     execution_stop_date = models.DateField(null=True, verbose_name='Дата окончания исполнительного производства')
-    execution_result = models.ForeignKey(ExecutionResult, on_delete=models.SET_NULL, null=True, verbose_name='Результат')
+    execution_result = models.ForeignKey(ExecutionResult, on_delete=models.SET_NULL, null=True,
+                                         verbose_name='Результат')
     comment = models.TextField(default='', verbose_name='Комментарий')
     history = HistoricalRecords()
 
@@ -97,24 +99,31 @@ class ADStage(AbstractListItem):
 # запись об административном делопроизводстве
 class ADRecord(Document):
     ad_type = models.IntegerField(default=0)  # информация, где проходит расмотрение (0-м/c, 1-инспекция, 2-обжалование)
-    ad_stage = models.ForeignKey(ADStage, on_delete=models.SET_NULL, null=True,  blank=True, verbose_name='Стадия рассмотрения административного дела')
+    ad_stage = models.ForeignKey(ADStage, on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name='Стадия рассмотрения административного дела')
     article = models.ForeignKey(Article, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Статья')
     protocol_date = models.DateField(null=True, blank=True, verbose_name='Дата протокола')
     referring_to_instance_date = models.DateField(null=True, blank=True, verbose_name='Дата направления в инстанцию')
     court = models.ForeignKey(Court, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Инстанция')
-    adjudication = models.ForeignKey(Adjudication, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Решение')
+    datetime_of_trial = models.DateTimeField(null=True, blank=True, verbose_name='Дата и время рассмотрения')
+    adjudication = models.ForeignKey(Adjudication, on_delete=models.SET_NULL, null=True, blank=True,
+                                     verbose_name='Решение')
     adjudication_amount_of_fine = models.IntegerField(default=0, blank=True, verbose_name='Размер штрафа')
     adjudication_date = models.DateField(null=True, blank=True, verbose_name='Дата вынесения решения')
     adjudication_start_date = models.DateField(null=True, blank=True, verbose_name='Дата вступления в силу')
-    date_of_receipt_unlegal = models.DateField(null=True, blank=True, verbose_name='Дата поступления постан не вступившего в законную силу')
-    date_of_receipt_legal = models.DateField(null=True, blank=True, verbose_name='Дата поступления постан вступившего в законную силу')
+    date_of_receipt_unlegal = models.DateField(null=True, blank=True,
+                                               verbose_name='Дата поступления постан не вступившего в законную силу')
+    date_of_receipt_legal = models.DateField(null=True, blank=True,
+                                             verbose_name='Дата поступления постан вступившего в законную силу')
     publish_gisgkh_date = models.DateField(null=True, blank=True, verbose_name='Дата публикации в ГИС ЖКХ')
     publish_erp_date = models.DateField(null=True, blank=True, verbose_name='Дата публикации в ЕРП')
-    box_number = models.CharField(max_length=500, blank=True, default="", null=True, verbose_name='Номер коробки в архиве')
+    box_number = models.CharField(max_length=500, blank=True, default="", null=True,
+                                  verbose_name='Номер коробки в архиве')
     uin = models.CharField(max_length=50, blank=True, default="", null=True,
-                             verbose_name='ОКТМО')
+                           verbose_name='УИН')
     inspector = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='инспектор')
-    officer = models.ForeignKey(Officer, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='должностное лицо')
+    officer = models.ForeignKey(Officer, on_delete=models.SET_NULL, blank=True, null=True,
+                                verbose_name='должностное лицо')
     comment = models.TextField(default='', blank=True, verbose_name='Комментарий')
     has_appeal = models.BooleanField(default=False, blank=True, verbose_name='Имеет обжалование')
     history = HistoricalRecords()

@@ -10,8 +10,8 @@ from iggn_tools.widgets.none_widget import NoneWidget
 class ADRecordForm(forms.ModelForm):
     class Meta:
         model = ADRecord
-        fields = ['article', 'organization', 'protocol_date', 'referring_to_instance_date',
-                  'court', 'adjudication', 'adjudication_amount_of_fine', 'adjudication_date', 'adjudication_start_date',
+        fields = ['inspector', 'article', 'organization', 'protocol_date', 'datetime_of_trial', 'referring_to_instance_date',
+                  'court', 'adjudication', 'uin', 'adjudication_amount_of_fine', 'adjudication_date', 'adjudication_start_date',
                   'date_of_receipt_unlegal', 'date_of_receipt_legal', 'publish_gisgkh_date',
                   'publish_erp_date', 'box_number', 'comment', 'houses']
         widgets = {
