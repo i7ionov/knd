@@ -195,6 +195,24 @@ def get_model_columns(field_list, model, prefix='', parent_verbose_name=''):
     return field_list
 
 
+def get_model_foreign_fields(model):
+    result = []
+    for field in model._meta._get_fields():
+        if field.__class__ == models.fields.reverse_related.ManyToOneRel or field.__class__ == fields.related.ManyToManyField or field.__class__ == fields.reverse_related.ManyToManyRel:
+            result.append({'field': field, 'verbose_name': field.related_model._meta.verbose_name,
+                                    'app': field.related_model._meta.app_label, 'meta': field.related_model._meta})
+    return result
+
+
+def get_field_by_model(object, model):
+    """Возвращает имя поля со связью у объекта по модели"""
+    for field in get_model_foreign_fields(object._meta.model):
+        if field['field'].related_model == model:
+            return field['field'].name
+
+    return None
+
+
 def add_filter(field_str, model, q, request_post):
     """
     :param field_str: имя поля для фильтрации, в формате object__field

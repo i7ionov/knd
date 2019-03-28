@@ -42,6 +42,7 @@
                     <option value="inspections.precept">Предписания</option>
                 </select>
                 <div id="filter_form{{ uid }}"></div>
+                <div id="count_form{{ uid }}"></div>
             </div>
 
 
@@ -68,23 +69,29 @@
                 current_table = rec.value;
                 let model = current_table.split('.')[1];
                 let app = current_table.split('.')[0];
-                let url = '{% url 'filter_form' %}?uid={{ uid }}&app=' + app + '&model=' + model;
-                $.get(url,
+                let url_params = '?uid={{ uid }}&app=' + app + '&model=' + model;
+                $.get('{% url 'filter_form' %}' + url_params,
                     function (data) {
                         const ff = $('#filter_form{{ uid }}');
                         ff.empty();
                         ff.html(data);
                         $('#apply_btn{{ uid }}').linkbutton({
                             onClick: function () {
-                                save('#fm{{ uid }}', url, null);
+                                save('#fm{{ uid }}', '{% url 'start_export_to_excel' %}' + url_params, null);
                                 $('#excel_export_dlg{{ uid }}').dialog('close')
                             }
                         });
                         $('#count_btn{{ uid }}').linkbutton({
                             onClick: function () {
-                                save('#fm{{ uid }}', url + '&get_count=true', null);
+                                save('#fm{{ uid }}', '{% url 'start_export_to_excel' %}' + url_params + '&get_count=true', null);
                             }
                         });
+                    });
+                $.get('{% url 'count_form' %}' + url_params,
+                    function (data) {
+                        const ff = $('#count_form{{ uid }}');
+                        ff.empty();
+                        ff.html(data);
                     });
             }
         }

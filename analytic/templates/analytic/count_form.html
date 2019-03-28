@@ -1,0 +1,47 @@
+<div class="easyui-panel">
+    <select id="field_count_select{{ uid }}" class="easyui-combobox" name="field_count_select" label="Поля для подсчета"
+            labelPosition="top" style="width:300px">
+        {% for field in fields_to_count %}
+            <option value="{{ field.meta }}">{{ field.verbose_name }}</option>
+        {% endfor %}
+    </select>
+    <a id="add_field_count_btn{{ uid }}" href="javascript:void(0)" class="easyui-linkbutton c6"
+       style="width:150px;">Добавить</a>
+</div>
+<div id="count_fields{{ uid }}" title="Поля для подсчета" style="width:95%;">
+
+</div>
+<script>
+    $('#count_fields{{ uid }}').accordion({
+        multiple: true,
+    });
+
+    $('#field_count_select{{ uid }}').combobox({});
+    $('#add_field_count_btn{{ uid }}').linkbutton({
+        onClick: function () {
+            var current_table = $('#field_count_select{{ uid }}').combobox('getValue');
+            let model = current_table.split('.')[1];
+            let app = current_table.split('.')[0];
+            let url = '{% url 'filter_form' %}?uid={{ uid }}&app=' + app + '&model=' + model + '&action=count';
+            var field_verbose_name = $('#field_count_select{{ uid }}').combobox('getText');
+            $.get(url, {'uid': '{{ uid }}'},
+                function (data) {
+                    $('#count_fields{{ uid }}').accordion('add', {
+                        title: field_verbose_name,
+                        tools: [{
+                            iconCls: 'icon-cancel',
+                            handler: function () {
+                                var pp = $('#count_fields{{ uid }}').accordion('getPanel', field_verbose_name);
+                                if (pp) {
+                                    var index = $('#count_fields{{ uid }}').accordion('getPanelIndex', pp);
+                                    $('#count_fields{{ uid }}').accordion('remove', index);
+                                }
+                            }
+                        }],
+                        content: data
+                    });
+                });
+        }
+    });
+
+</script>

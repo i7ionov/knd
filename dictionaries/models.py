@@ -110,6 +110,9 @@ class Officer(models.Model):
     name = models.CharField(max_length=100, blank=True, verbose_name='ФИО')
     organizations = models.ManyToManyField(Organization, blank=True, verbose_name='Организации')
 
+    class Meta:
+        verbose_name = "Должностное лицо"
+
 
 class House(models.Model):
     verbose_name = "Дом"

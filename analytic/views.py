@@ -70,8 +70,9 @@ def new_general_report(request):
 
 @csrf_exempt
 @login_required
-def filter_form(request):
-    if request.GET['app'] and request.GET['model']:
+@require_POST
+def start_export_to_excel(request):
+    if 'app' in request.GET and 'model' in request.GET:
         app_str = request.GET['app']
         model_str = request.GET['model']
     else:
@@ -80,35 +81,67 @@ def filter_form(request):
         get_count = True
     else:
         get_count = False
-    if request.method == 'POST':
-        request_post = convert_request(request)
-        if get_count:
-            return tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, True)
-        else:
-            tasks.export_to_excel.delay(request_post, app_str, model_str, request.user.pk, False)
-            return messages.return_success()
+    request_post = convert_request(request)
+    if get_count:
+        return tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, True)
     else:
-        if request.GET['uid']:
-            uid = request.GET['uid']
+        tasks.export_to_excel.delay(request_post, app_str, model_str, request.user.pk, False)
+        return messages.return_success()
+
+
+@csrf_exempt
+@login_required
+def filter_form(request):
+    if 'app' in request.GET and 'model' in request.GET:
+        app_str = request.GET['app']
+        model_str = request.GET['model']
+        if 'action' in request.GET:
+            action = request.GET['action']
         else:
-            uid = uuid.uuid1().hex
+            action = 'filter'
+        uid = uuid.uuid1().hex
         context = {
             'uid': uid,
             'app': app_str,
             'model': model_str,
-            'fields': iggn_tools.filter.get_model_columns([], apps.get_model(app_str, model_str))
+            'action': action,
+            'fields': iggn_tools.filter.get_model_columns([], apps.get_model(app_str, model_str)),
         }
         return render(request, 'analytic/filter_form.html', context)
+    else:
+        return messages.return_error('Ошибка запроса')
+
+
+@csrf_exempt
+@login_required
+def count_form(request):
+    if 'app' in request.GET and 'model' in request.GET:
+        app_str = request.GET['app']
+        model_str = request.GET['model']
+        uid = uuid.uuid1().hex
+        context = {
+            'uid': uid,
+            'app': app_str,
+            'model': model_str,
+            'fields_to_count': iggn_tools.filter.get_model_foreign_fields(apps.get_model(app_str, model_str))
+        }
+        return render(request, 'analytic/count_form.html', context)
+    else:
+        return messages.return_error('Ошибка запроса')
 
 
 @login_required
 @csrf_exempt
 def field_filter_form(request):
-    if request.GET['app'] and request.GET['model']:
+    if 'app' in request.GET and 'model' in request.GET:
         app_str = request.GET['app']
         model_str = request.GET['model']
     else:
         return messages.return_error('Ошибка запроса')
+    if 'action' in request.GET:
+        action = request.GET['action']
+    else:
+        action = 'filter'
     model = apps.get_model(app_str, model_str)
     fields = str(request.POST['field']).split('.')
     if fields[0] != 'none':
@@ -124,7 +157,7 @@ def field_filter_form(request):
         field_name = model_str
         field = model
     context = {'field': field, 'uid': uuid.uuid1().hex, 'field_class': str(field.__class__), 'field_name': field_name,
-               'app': app_str, 'model': model_str}
+               'app': app_str, 'model': model_str, 'action': action}
     return render(request, 'analytic/field_filter_form.html', context)
 
 
@@ -150,7 +183,8 @@ def generic_json_list(request):
             q = request.GET["q"]
         except KeyError:
             q = ''
-        for elem in model.objects.filter(Q(**{field_str+"__icontains": q})).order_by(field_str).distinct(field_str)[:10]:
+        for elem in model.objects.filter(Q(**{field_str + "__icontains": q})).order_by(field_str).distinct(field_str)[
+                    :10]:
             f = elem
             for p in field_str.split('__'):
                 if f is None:

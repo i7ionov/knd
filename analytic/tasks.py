@@ -48,7 +48,9 @@ def export_to_excel(request_post, app_str, model_str, user_id, get_count=False):
     """
     Формирует запрос по указанной модели и применяет к нему фильтрацию.
     От get_count зависит будет ли возвращено количество
-    :param request_post: Пример: {'disposal': {'houses': {'contains': ['1;1']}, 'doc_number': {'exact': ['1']}}}
+    :param request_post: Пример: {'filter': {'inspection': {'houses': {'contains': ['1;1']}, 'doc_number': {'exact': ['1']}}},
+    'count': {'document': {'doc_type': {'exact': ['проверка']}}},
+    'fields_to_count': ['document', 'house']}
     :param app_str: имя приложения
     :param model_str: имя модели
     :param user_id: id пользователя
@@ -58,13 +60,10 @@ def export_to_excel(request_post, app_str, model_str, user_id, get_count=False):
     """
     model = apps.get_model(app_str, model_str)
     q = model.objects.all()
-    # по request_post из примера будет две итераци по добавлению фильтра
-    # key = 'houses'
-    # key = 'doc_number'
-    if model_str in request_post:
-        for key in request_post[model_str].keys():
-            q = filter.add_filter(key, model, q, request_post)
+    if 'filter' in request_post and model_str in request_post['filter']:
+        for key in request_post['filter'][model_str].keys():
+            q = filter.add_filter(key, model, q, request_post['filter'])
     if get_count:
         return HttpResponse(json.dumps([{'count': str(q.count())}]), content_type='application/json')
     else:
-        excel.export_excel(q, user_id)
+        excel.export_excel(q, user_id, request_post)

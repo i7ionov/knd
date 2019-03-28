@@ -170,6 +170,9 @@ class ViolationInInspection(models.Model):
 
     count_has_precept = property(_get_count_has_precept)
 
+    class Meta:
+        verbose_name = "Выявленные нарушения"
+
 
 class ViolationInPrecept(models.Model):
     violation_type = models.ForeignKey(ViolationType, on_delete=models.SET_NULL, null=True,
@@ -184,3 +187,6 @@ class ViolationInPrecept(models.Model):
         return result
 
     count_in_inspection = property(_get_count_in_inspection)
+
+    class Meta:
+        verbose_name = "Нарушения в предписании"

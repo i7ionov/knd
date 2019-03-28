@@ -9,6 +9,9 @@ class ExportResult(models.Model):
     file = models.FileField(upload_to='exports/', null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
+    class Meta:
+        verbose_name = "Экспорт в Excel"
+
 
 class GeneralReport(models.Model):
     report_status = models.TextField(null=True, blank=True, verbose_name='Статус формирования отчета')
@@ -79,6 +82,9 @@ class GeneralReport(models.Model):
                                   default=0)
     executed_precept = models.IntegerField(verbose_name='Количество исполненных предписаний',
                                   default=0)
+
+    class Meta:
+        verbose_name = "Ежемесячный отчет"
 
 
 class ViolationInGeneralReport(models.Model):

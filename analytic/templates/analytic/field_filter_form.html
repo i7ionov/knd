@@ -15,7 +15,7 @@
                     var s = '';
                     for (var i = 0; i < nodes.length; i++) {
                         if (s !== '') s += ',';
-                        $('#violations{{ uid }}').append('<input type="hidden" name="disposal:violations:contains" value="' + nodes[i].id + '"/>')
+                        $('#violations{{ uid }}').append('<input type="hidden" name="{{ action }}:inspection:violations:contains" value="' + nodes[i].id + '"/>')
                     }
 
                 }
@@ -26,7 +26,7 @@
     {% if field.name == 'houses' %}
         <div style="margin-bottom:20px" id="addreses{{ uid }}">
             <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-add"
-               onclick="openAddressDialog('{{ uid }}', '{{ model }}:houses:contains')"
+               onclick="openAddressDialog('{{ uid }}', '{{ action }}:{{ model }}:houses:contains')"
                style="width:90px">Добавить</a>
             <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-remove"
                onclick="removeAddress('{{ uid }}')"
@@ -46,10 +46,10 @@
 
     {% if field_class == "<class 'django.db.models.fields.DateField'>" %}
         <input id="date_begin{{ field_name }}{{ uid }}" label="Период от:"
-               name="{{ model }}:{{ field_name }}:begin"
+               name="{{ action }}:{{ model }}:{{ field_name }}:begin"
                labelPosition="top" style="width:300px;" value="">
         <input id="date_end{{ field_name }}{{ uid }}" label="до:"
-               name="{{ model }}:{{ field_name }}:end"
+               name="{{ action }}:{{ model }}:{{ field_name }}:end"
                labelPosition="top" style="width:300px;" value="">
         <script>
             $('#date_begin{{ field_name }}{{ uid }}').datebox({});
@@ -62,15 +62,15 @@
             <option value="icontains">Содержит</option>
         </select>
         <input id="field{{ field_name }}{{ uid }}" class="easyui-combobox"
-               name="{{ model }}:{{ field_name }}:exact" labelPosition="top"
+               name="{{ action }}:{{ model }}:{{ field_name }}:exact" labelPosition="top"
                style="width:100%;" value="">
 
         <script>
             $('#lookuptype{{ field_name }}{{ uid }}').combobox({
                 onChange: function (newValue, oldValue) {
-                    $("#field{{ field_name }}{{ uid }}+span>input+input").attr("name", '{{ model }}:{{ field_name }}:' + newValue)
+                    $("#field{{ field_name }}{{ uid }}+span>input+input").attr("name", '{{ action }}:{{ model }}:{{ field_name }}:' + newValue)
                 }
-            })
+            });
             $('#field{{ field_name }}{{ uid }}').combobox({
                 queryParams: {'app': '{{ app }}', 'model': '{{ model }}', 'field': '{{ field_name }}',},
                 method: 'get',
@@ -85,10 +85,10 @@
 
     {% if field_class == "<class 'django.db.models.fields.IntegerField'>" %}
         <input id="begin{{ field_name }}{{ uid }}" label="Интервал от:"
-               name="{{ model }}:{{ field_name }}:begin"
+               name="{{ action }}:{{ model }}:{{ field_name }}:begin"
                labelPosition="top" style="width:300px;" value="">
         <input id="end{{ field_name }}{{ uid }}" label="до:"
-               name="{{ model }}:{{ field_name }}:end"
+               name="{{ action }}:{{ model }}:{{ field_name }}:end"
                labelPosition="top" style="width:300px;" value="">
         <script>
             $('#begin{{ field_name }}{{ uid }}').numberbox({});
@@ -100,7 +100,7 @@
         <div id="panel_{{ field_name }}{{ uid }}"/>
         <script>
             $('#panel_{{ field_name }}{{ uid }}').panel({
-                href: '{% url 'filter_form' %}?uid={{ uid }}&app={{ app }}&model={{ field_name }}'
+                href: '{% url 'filter_form' %}?uid={{ uid }}&app={{ app }}&model={{ field_name }}&action={{ action }}'
             });
         </script>
     {% endif %}
@@ -108,7 +108,7 @@
         <div id="panel_{{ field_name }}{{ uid }}"/>
         <script>
             $('#panel_{{ field_name }}{{ uid }}').panel({
-                href: '{% url 'filter_form' %}?uid={{ uid }}&app={{ app }}&model={{ field_name }}'
+                href: '{% url 'filter_form' %}?uid={{ uid }}&app={{ app }}&model={{ field_name }}&action={{ action }}'
             });
         </script>
     {% endif %}

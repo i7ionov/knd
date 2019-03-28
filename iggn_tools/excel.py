@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
 
+from django.apps import apps
 from django.db.models import Q
 
 from dictionaries.tools import normalize_house_number
@@ -17,12 +18,14 @@ from django.core.exceptions import MultipleObjectsReturned
 from datetime import datetime
 from django.utils import timezone
 
+from iggn_tools.filter import get_value
+
 
 def import_insp_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(0)
     row = 1
-    while row < sheet.nrows - 1and sheet.row_values(row)[0] != '':
+    while row < sheet.nrows - 1 and sheet.row_values(row)[0] != '':
         row = row + 1
         val = sheet.row_values(row)
         if val[4] == '':
@@ -89,7 +92,8 @@ def import_insp_from_gis_gkh(file):
         try:
             if val[16] != '':
                 insp.legal_basis, created = inspections.models.LegalBasis.objects.get_or_create(text=val[16])
-        except: print("Не удалость сохранить основание для №" + str(val[0]))
+        except:
+            print("Не удалость сохранить основание для №" + str(val[0]))
 
         if val[17] != '':
             insp.date_begin = datetime.strptime(val[17], '%d.%m.%Y').date()
@@ -102,7 +106,6 @@ def import_insp_from_gis_gkh(file):
         insp.save()
 
 
-
 def import_addr_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(1)
@@ -113,9 +116,9 @@ def import_addr_from_gis_gkh(file):
             print("Пропущена запись №" + str(val[0]))
             row = row + 1
             continue
-        street = val[7].replace('пр-кт.', 'пр-кт')\
-            .replace('б-р.', 'б-р')\
-            .replace('проезд.', 'проезд')\
+        street = val[7].replace('пр-кт.', 'пр-кт') \
+            .replace('б-р.', 'б-р') \
+            .replace('проезд.', 'проезд') \
             .replace('тракт.', 'тракт') \
             .replace('ул. Барамзиной', 'ул. Барамзиной Татьяны') \
             .replace('ул. Алексея Кирьянова', 'ул. Кирьянова') \
@@ -139,9 +142,9 @@ def import_addr_from_gis_gkh(file):
                 print("Несколько адресов " + val[5] + val[7])
         else:
             try:
-                city = val[6].replace('п. ', '')\
-                    .replace('пгт. Сарс', 'р.п. Сарс')\
-                    .replace('пгт. ', '')\
+                city = val[6].replace('п. ', '') \
+                    .replace('пгт. Сарс', 'р.п. Сарс') \
+                    .replace('пгт. ', '') \
                     .replace('рп.', '')
                 area = val[4].replace('р-н. ', '')
                 addr = dictionaries.models.Address.objects.get(area__contains=area, city__contains=city, street=street)
@@ -195,8 +198,7 @@ def import_order_from_gis_gkh(file):
             pass
 
 
-
-def export_excel(query_set, user_id, get_http_response=False):
+def export_excel(query_set, user_id, request_post):
     result = analytic.models.ExportResult()
     result.user = dictionaries.models.User.objects.get(django_user__pk=user_id)
     count = query_set.count()
@@ -204,14 +206,42 @@ def export_excel(query_set, user_id, get_http_response=False):
     ws = wb.worksheets[0]
     ws.title = "iggndb"
     fields = filter.get_model_columns([], query_set.model)
+    for field in request_post['fields_to_count']:
+        fields.append(
+            {'verbose_name': apps.get_model(field.split('.')[0], field.split('.')[1])._meta.verbose_name,
+             'name': field.split('.')[1], 'prefix': '', 'field': 'count',
+             'model': apps.get_model(field.split('.')[0], field.split('.')[1])})
+    # TODO: убрать костыль
+    if query_set.model == inspections.models.Inspection:
+        fields.append(
+            {'verbose_name': 'номер предписания', 'name': 'doc_number', 'prefix': 'children.', 'field': 'custom'})
+
     # заголовок
     for col, field in enumerate(fields):
         ws.cell(1, col + 1).value = field['verbose_name']
+
     # данные
     for row, item in enumerate(query_set):
         for col, field in enumerate(fields):
-            pass
-            if field['field'].__class__ == django.db.models.fields.related.ManyToManyField:
+            if field['field'] == 'custom':
+                try:
+                    val = ''
+                    for c in item.children.all():
+                        val = val + '; ' + c.doc_number
+                    ws.cell(row + 2, col + 1).value = val
+                except:
+                    pass
+            elif field['field'] == 'count':
+                try:
+                    temp_set = item.__getattribute__(field['name'] + '_set').all()
+                except AttributeError:
+                    temp_set = item.__getattribute__(filter.get_field_by_model(item, field['model'])).all()
+                if 'count' in request_post and field['name'] in request_post['count']:
+                    for field_key in request_post['count'][field['name']]:
+                        temp_set = filter.add_filter(field_key, field['model'], temp_set,
+                                                     request_post['count'])
+                ws.cell(row + 2, col + 1).value = str(temp_set.count())
+            elif field['field'].__class__ == django.db.models.fields.related.ManyToManyField:
                 # для полей типа ManyToMany просто перечисляем через запятую все найденные значения
                 # это значит, что во второй модели должна быть прописана функция __str__
                 val = ''
@@ -238,7 +268,7 @@ def export_excel(query_set, user_id, get_http_response=False):
         result.save()
     result.text = 'Выгрузка таблицы "' + query_set.model._meta.verbose_name + '" с фильтрацией'
     result.datetime = timezone.now()
-    result.file.save(uuid.uuid1().hex+'.xlsx', ContentFile(save_virtual_workbook(wb)))
+    result.file.save(uuid.uuid1().hex + '.xlsx', ContentFile(save_virtual_workbook(wb)))
     result.save()
 
 
@@ -256,7 +286,8 @@ def import_houses_from_licensing(file):
         street = val[5].strip()
         number = val[6] if type(val[6]) is str else int(val[6])
         number = normalize_house_number(number)
-        addr, created = dictionaries.models.Address.objects.get_or_create(area=area, place=place, city=city, street=street)
+        addr, created = dictionaries.models.Address.objects.get_or_create(area=area, place=place, city=city,
+                                                                          street=street)
         house, created = dictionaries.models.House.objects.get_or_create(address=addr, number=number)
         try:
             org = dictionaries.models.Organization.objects.get(inn=int(val[16]))
