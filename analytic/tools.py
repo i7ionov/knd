@@ -21,8 +21,8 @@ def convert_request(request):
         if ':' in param:
             param_split = param.split(':')
             if param_split[0] in request_post:
-                if param_split[1] in request_post:
-                    if param_split[2] in request_post[param_split[1]]:
+                if param_split[1] in request_post[param_split[0]]:
+                    if param_split[2] in request_post[param_split[0]][param_split[1]]:
                         request_post[param_split[0]][param_split[1]][param_split[2]][param_split[3]] = request.POST.getlist(param)
                     else:
                         request_post[param_split[0]][param_split[1]][param_split[2]] = {param_split[3]: request.POST.getlist(param)}
