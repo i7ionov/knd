@@ -206,11 +206,12 @@ def export_excel(query_set, user_id, request_post):
     ws = wb.worksheets[0]
     ws.title = "iggndb"
     fields = filter.get_model_columns([], query_set.model)
-    for field in request_post['fields_to_count']:
-        fields.append(
-            {'verbose_name': apps.get_model(field.split('.')[0], field.split('.')[1])._meta.verbose_name,
-             'name': field.split('.')[1], 'prefix': '', 'field': 'count',
-             'model': apps.get_model(field.split('.')[0], field.split('.')[1])})
+    if 'fields_to_count' in request_post:
+        for field in request_post['fields_to_count']:
+            fields.append(
+                {'verbose_name': apps.get_model(field.split('.')[0], field.split('.')[1])._meta.verbose_name,
+                 'name': field.split('.')[1], 'prefix': '', 'field': 'count',
+                 'model': apps.get_model(field.split('.')[0], field.split('.')[1])})
     # TODO: убрать костыль
     if query_set.model == inspections.models.Inspection:
         fields.append(
