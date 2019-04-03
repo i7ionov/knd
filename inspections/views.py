@@ -279,6 +279,7 @@ def save_violations_in_inspection(violations, inspection):
         v_id = str(v).split(';')[0]
         v_count = str(v).split(';')[1]
         if str(v_count) == 'undefined' or str(v_count) == '':
+            inspection.violationininspection_set.filter(violation_type_id=v_id).delete()
             continue
         if int(v_count) > 0:
             try:
