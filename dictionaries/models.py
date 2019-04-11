@@ -100,7 +100,7 @@ class Organization(models.Model):
         self.changed_by = value
 
     def __str__(self):
-        return self.name + ', ИНН:' + self.inn
+        return str(self.name) + ', ИНН:' + str(self.inn)
 
     class Meta:
         verbose_name = "Организация"
