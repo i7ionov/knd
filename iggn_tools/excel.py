@@ -208,7 +208,6 @@ def import_order_from_gis_gkh(file):
 
 
 def export_excel(query_set, user_id, request_post):
-    print(query_set)
     result = analytic.models.ExportResult()
     result.user = dictionaries.models.User.objects.get(django_user__pk=user_id)
     count = query_set.count()

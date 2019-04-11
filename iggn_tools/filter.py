@@ -257,10 +257,6 @@ def add_filter(field_str, model, q, request_post, model_name=None):
     elif model._meta.get_field(field).__class__ == fields.CharField \
             or model._meta.get_field(field).__class__ == fields.TextField \
             or model._meta.get_field(field).__class__ == fields.related.ForeignKey:
-        print(request_post)
-        print(model_name)
-        print(request_post[model_name])
-        print(field)
         mode = list(request_post[model_name][field_key].keys())[0]
         q = q.filter(Q(**{field_str + '__' + mode: request_post[model_name][field_key][mode][0]}))
     elif model._meta.get_field(field).__class__ == fields.IntegerField:
