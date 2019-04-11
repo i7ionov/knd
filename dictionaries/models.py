@@ -194,6 +194,13 @@ class Document(MPTTModel):
     def _history_user(self, value):
         self.changed_by = value
 
+    def get_one_to_one_rel(self):
+        result = []
+        for f in self._meta.get_fields():
+            if f.one_to_one:
+                result.append(f)
+        return result
+
     class Meta:
         verbose_name = "Документ"
 

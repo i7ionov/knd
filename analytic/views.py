@@ -85,7 +85,10 @@ def start_export_to_excel(request):
     if get_count:
         return tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, True)
     else:
-        tasks.export_to_excel.delay(request_post, app_str, model_str, request.user.pk, False)
+        if settings.DEBUG:
+            tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, False)
+        else:
+            tasks.export_to_excel.delay(request_post, app_str, model_str, request.user.pk, False)
         return messages.return_success()
 
 

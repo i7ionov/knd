@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.db import models
 from django.http import HttpResponse
 
-from dictionaries.models import Address, House
+from dictionaries.models import Address, House, Document
 
 
 def filtered_table_json_response(request, model, func=None, filtering_rules=None):
@@ -115,13 +115,13 @@ def add_filter_from_easyui(query, rule):
         except (ValueError, KeyError):
             date_end = datetime.now()
         criteria = (date_begin, date_end)
-        field = field+'__range'
+        field = field + '__range'
     elif rule['op'] == 'contains':
-        field = field+'__icontains'
+        field = field + '__icontains'
     elif rule['op'] == 'less':
-        field = field+'__lt'
+        field = field + '__lt'
     elif rule['op'] == 'greater':
-        field = field+'__gt'
+        field = field + '__gt'
     elif rule['op'] == 'isnone':
         if criteria == '1':
             field = field
@@ -183,13 +183,15 @@ def get_model_columns(field_list, model, prefix='', parent_verbose_name=''):
                     continue
                 if field.__class__ == fields.related.ForeignKey or \
                         field.__class__ == fields.related.ManyToManyRel:
-                    field_list = get_model_columns(field_list, field.related_model, prefix + field.name + '.', field.verbose_name)
+                    field_list = get_model_columns(field_list, field.related_model, prefix + field.name + '.',
+                                                   field.verbose_name)
                 else:
                     if field.name == 'text':
                         field_verbose_name = parent_verbose_name
                     else:
                         field_verbose_name = field.verbose_name
-                    field_list.append({'verbose_name': field_verbose_name, 'name': field.name, 'prefix': prefix, 'field': field})
+                    field_list.append(
+                        {'verbose_name': field_verbose_name, 'name': field.name, 'prefix': prefix, 'field': field})
             except AttributeError:
                 pass
     return field_list
@@ -199,8 +201,18 @@ def get_model_foreign_fields(model):
     result = []
     for field in model._meta._get_fields():
         if field.__class__ == models.fields.reverse_related.ManyToOneRel or field.__class__ == fields.related.ManyToManyField or field.__class__ == fields.reverse_related.ManyToManyRel:
+            if hasattr(field, 'attname'):
+                related_name = field.attname
+            elif hasattr(field, 'related_name') and field.related_name:
+                related_name = field.related_name
+            else:
+                related_name = field.name + '_set'
             result.append({'field': field, 'verbose_name': field.related_model._meta.verbose_name,
-                                    'app': field.related_model._meta.app_label, 'meta': field.related_model._meta})
+                           'app': field.related_model._meta.app_label, 'meta': field.related_model._meta, 'related_name': related_name})
+            if field.name == 'children' or field.name == 'document':
+                for f in Document.get_one_to_one_rel(Document):
+                    result.append({'field': f, 'verbose_name': f.related_model._meta.verbose_name,
+                                   'app': f.related_model._meta.app_label, 'meta': f.related_model._meta, 'related_name': related_name})
     return result
 
 
@@ -208,12 +220,13 @@ def get_field_by_model(object, model):
     """Возвращает имя поля со связью у объекта по модели"""
     for field in get_model_foreign_fields(object._meta.model):
         if field['field'].related_model == model:
-            return field['field'].name
+
+            return field['related_name']
 
     return None
 
 
-def add_filter(field_str, model, q, request_post):
+def add_filter(field_str, model, q, request_post, model_name=None):
     """
     :param field_str: имя поля для фильтрации, в формате object__field
     :param model: модель
@@ -221,7 +234,11 @@ def add_filter(field_str, model, q, request_post):
     :param request_post: Пример: {'disposal': {'houses': {'contains': ['1;1']}, 'doc_number': {'exact': ['1']}}}
     :return:
     """
-    model_name = model._meta.model_name
+    field_key = field_str
+    if model_name is None:
+        model_name = model._meta.model_name
+    else:
+        field_key = field_key.replace(model_name+'__', '')
     for f in field_str.split('__'):
         fld = model._meta.get_field(f)
         if fld.related_model and fld.__class__ != fields.related.ManyToManyField:
@@ -229,32 +246,36 @@ def add_filter(field_str, model, q, request_post):
         field = fld.name
     if model._meta.get_field(field).__class__ == fields.DateField:
         try:
-            date_begin = datetime.strptime(request_post[model_name][field_str]['begin'][0], '%d.%m.%Y')
+            date_begin = datetime.strptime(request_post[model_name][field_key]['begin'][0], '%d.%m.%Y')
         except (ValueError, KeyError):
             date_begin = datetime.strptime('01.01.2015', '%d.%m.%Y')
         try:
-            date_end = datetime.strptime(request_post[model_name][field_str]['end'][0], '%d.%m.%Y')
+            date_end = datetime.strptime(request_post[model_name][field_key]['end'][0], '%d.%m.%Y')
         except (ValueError, KeyError):
             date_end = datetime.now()
         q = q.filter(Q(**{field_str + '__range': (date_begin, date_end)}))
     elif model._meta.get_field(field).__class__ == fields.CharField \
             or model._meta.get_field(field).__class__ == fields.TextField \
             or model._meta.get_field(field).__class__ == fields.related.ForeignKey:
-        mode = list(request_post[model_name][field_str].keys())[0]
-        q = q.filter(Q(**{field_str + '__' + mode: request_post[model_name][field_str][mode][0]}))
+        print(request_post)
+        print(model_name)
+        print(request_post[model_name])
+        print(field)
+        mode = list(request_post[model_name][field_key].keys())[0]
+        q = q.filter(Q(**{field_str + '__' + mode: request_post[model_name][field_key][mode][0]}))
     elif model._meta.get_field(field).__class__ == fields.IntegerField:
         try:
-            begin = int(request_post[model_name][field_str]['begin'][0])
+            begin = int(request_post[model_name][field_key]['begin'][0])
         except (ValueError, KeyError):
             begin = 0
         try:
-            end = int(request_post[model_name][field_str]['end'][0])
+            end = int(request_post[model_name][field_key]['end'][0])
         except (ValueError, KeyError):
             end = 99
         q = q.filter(Q(**{field_str + '__range': (begin, end)}))
     elif model._meta.get_field(field).__class__ == fields.related.ManyToManyField:
         if field == 'houses':
-            for i in request_post[model_name][field_str]['contains']:
+            for i in request_post[model_name][field_key]['contains']:
                 addr = i.split(';')
                 try:
                     address = Address.objects.get(id=addr[0])
@@ -264,7 +285,7 @@ def add_filter(field_str, model, q, request_post):
                     pass
         else:
             try:
-                for i in request_post[model_name][field_str]['contains']:
+                for i in request_post[model_name][field_key]['contains']:
                     q = q.filter(Q(**{field_str: i}))
             except KeyError:
                 print('Error')

@@ -25,7 +25,7 @@ def import_insp_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(0)
     row = 1
-    while row < sheet.nrows - 1 and sheet.row_values(row)[0] != '':
+    while row + 1 < sheet.nrows - 1 and sheet.row_values(row + 1)[0] != '':
         row = row + 1
         val = sheet.row_values(row)
         if val[4] == '':
@@ -34,7 +34,16 @@ def import_insp_from_gis_gkh(file):
             continue
         number = val[4].replace('Распоряжение № ', '').replace(' ', '')
         year = datetime.strptime(val[5], '%d.%m.%Y').year
-        insp = inspections.models.Inspection.objects.filter(doc_date__year=year, doc_number__iexact=number).last()
+        insp = inspections.models.Inspection.objects.filter(doc_date__year=year, doc_number__iexact=number)
+        try:
+            insp = insp.get(gis_gkh_number=val[1])
+        except inspections.models.Inspection.DoesNotExist:
+            insp2 = insp.filter(organization__name=val[12]).last()
+            if insp2:
+                insp = insp2
+            else:
+                insp = insp.filter(organization=None).last()
+
         if insp is None:
             continue
             insp = inspections.models.Inspection()
@@ -166,7 +175,7 @@ def import_order_from_gis_gkh(file):
     rb = xlrd.open_workbook(file)
     sheet = rb.sheet_by_index(2)
     row = 1
-    while row < sheet.nrows - 1 and sheet.row_values(row)[0] != '':
+    while row + 1 < sheet.nrows - 1 and sheet.row_values(row + 1)[0] != '':
         row = row + 1
         val = sheet.row_values(row)
         try:
@@ -199,6 +208,7 @@ def import_order_from_gis_gkh(file):
 
 
 def export_excel(query_set, user_id, request_post):
+    print(query_set)
     result = analytic.models.ExportResult()
     result.user = dictionaries.models.User.objects.get(django_user__pk=user_id)
     count = query_set.count()
@@ -206,17 +216,19 @@ def export_excel(query_set, user_id, request_post):
     ws = wb.worksheets[0]
     ws.title = "iggndb"
     fields = filter.get_model_columns([], query_set.model)
-    if 'fields_to_count' in request_post:
-        for field in request_post['fields_to_count']:
-            fields.append(
-                {'verbose_name': apps.get_model(field.split('.')[0], field.split('.')[1])._meta.verbose_name,
-                 'name': field.split('.')[1], 'prefix': '', 'field': 'count',
-                 'model': apps.get_model(field.split('.')[0], field.split('.')[1])})
     # TODO: убрать костыль
     if query_set.model == inspections.models.Inspection:
         fields.append(
             {'verbose_name': 'номер предписания', 'name': 'doc_number', 'prefix': 'children.', 'field': 'custom'})
-
+    if 'fields_to_count' in request_post:
+        for field in request_post['fields_to_count']:
+            model = apps.get_model(field.split('.')[0], field.split('.')[1])
+            query_set_name = filter.get_field_by_model(query_set.model, model)
+            fields.append(
+                {'verbose_name': model._meta.verbose_name,
+                 'name': field.split('.')[1], 'prefix': '', 'field': 'count',
+                 'model': model,
+                 'query_set_name': query_set_name})
     # заголовок
     for col, field in enumerate(fields):
         ws.cell(1, col + 1).value = field['verbose_name']
@@ -233,14 +245,34 @@ def export_excel(query_set, user_id, request_post):
                 except:
                     pass
             elif field['field'] == 'count':
-                try:
-                    temp_set = item.__getattribute__(field['name'] + '_set').all()
-                except AttributeError:
-                    temp_set = item.__getattribute__(filter.get_field_by_model(item, field['model'])).all()
+                prefix = ''
+                model_name = None
+                field_model = field['model']
+                temp_set = item.__getattribute__(field['query_set_name']).all()
+                if getattr(item._meta.model, field['query_set_name']).field.model != field['model']:
+                    field_model = getattr(item._meta.model, field['query_set_name']).field.model
+                    model_name = field['name']
+                    prefix = field['name'] + '__'
+                    temp_set = item.__getattribute__(field['query_set_name']).filter(
+                        doc_type=field['verbose_name'].lower())
+                """elif hasattr(item, 'document_set'):
+                    field['model'] = dictionaries.models.Document
+                    model_name = field['name']
+                    prefix = field['name'] + '__'
+                    temp_set = item.document_set.filter(doc_type=field['verbose_name'].lower())
+                    print('3')
+                elif hasattr(item, 'children'):
+                    field['model'] = dictionaries.models.Document
+                    model_name = field['name']
+                    prefix = field['name'] + '__'
+                    temp_set = item.children.filter(doc_type=field['verbose_name'].lower())
+                    print('4')
+                else:
+                    continue"""
                 if 'count' in request_post and field['name'] in request_post['count']:
                     for field_key in request_post['count'][field['name']]:
-                        temp_set = filter.add_filter(field_key, field['model'], temp_set,
-                                                     request_post['count'])
+                        temp_set = filter.add_filter(prefix + field_key, field_model, temp_set,
+                                                     request_post['count'], model_name)
                 ws.cell(row + 2, col + 1).value = str(temp_set.count())
             elif field['field'].__class__ == django.db.models.fields.related.ManyToManyField:
                 # для полей типа ManyToMany просто перечисляем через запятую все найденные значения
