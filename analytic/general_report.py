@@ -96,18 +96,24 @@ def iterate_inspections(inspections, report):
                 report.violation_count += v.count
                 violation.save()
         # статистика по исправленным нарушениям
+        if hasattr(insp, 'parent') and hasattr(insp.parent, 'precept'):
+            update_report_for_violation_in_precept(insp.parent.precept, report)
         for p in insp.children.all():
             if p.doc_type == 'предписание':
-                for v in p.precept.violationinprecept_set.all():
-                    if v.violation_type.children.count == 0:
-                        violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.violation_type.id,
-                                                                                        report=report)
-                        violation.count_to_remove += v.count_to_remove
-                        violation.count_of_removed += v.count_of_removed
-                        report.violation_count_to_remove += v.count_to_remove
-                        report.violation_count_of_removed += v.count_of_removed
-                        violation.save()
+                update_report_for_violation_in_precept(p, report)
 
     report.report_status = 'Завершен'
     report.save()
     return report
+
+
+def update_report_for_violation_in_precept(p, report):
+    for v in p.precept.violationinprecept_set.all():
+        if v.violation_type.children.count() == 0:
+            violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.violation_type.id,
+                                                                                report=report)
+            violation.count_to_remove += v.count_to_remove
+            violation.count_of_removed += v.count_of_removed
+            report.violation_count_to_remove += v.count_to_remove
+            report.violation_count_of_removed += v.count_of_removed
+            violation.save()
