@@ -148,13 +148,16 @@ class Precept(Document):
     history = HistoricalRecords()
 
     def update_days_to_start_new_inspection(self):
-        if self.prolongation_date:
-            days = self.prolongation_date - datetime.now().date()
-        elif self.precept_end_date:
-            days = self.precept_end_date - datetime.now().date()
+        if self.children.filter(doc_type='проверка').count() > 0:
+            self.days_to_start_new_inspection = None
         else:
-            return
-        self.days_to_start_new_inspection = int(days.days)
+            if self.prolongation_date:
+                days = self.prolongation_date - datetime.now().date()
+            elif self.precept_end_date:
+                days = self.precept_end_date - datetime.now().date()
+            else:
+                return
+            self.days_to_start_new_inspection = int(days.days)
         self.save()
 
     @property

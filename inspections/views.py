@@ -72,6 +72,7 @@ def new_inspection_form(request, control_kind=None, id=None):
             insp.inspector = User.objects.get(django_user=request.user)
             insp.save()
             insp.houses.set(precept.houses.all())
+            precept.update_days_to_start_new_inspection()
         except (KeyError, models.Precept.DoesNotExist):
             return messages.return_error(f'Не найдено предписание с id={id}')
     elif control_kind:

@@ -8,6 +8,6 @@ from inspections.models import Inspection, Precept
 
 @app.task
 def update_precept_days():
-    query = Precept.objects.all().exclude(children__doc_type='проверка')
+    query = Precept.objects.all()
     for p in query:
         p.update_days_to_start_new_inspection()
