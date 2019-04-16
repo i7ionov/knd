@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from dictionaries.models import Organization, House, User, Article, File, Document
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
@@ -140,8 +142,20 @@ class Precept(Document):
                                        verbose_name='результат предписания')
     prolongation_date = models.DateField(null=True, blank=True,
                                          verbose_name='дата окончания исполнения предписания с продлением')
+    days_to_start_new_inspection = models.IntegerField(null=True, blank=True,
+                                         verbose_name='Дней до запуска проверки')
     comment = models.TextField(default="", blank=True)  # комментарий
     history = HistoricalRecords()
+
+    def update_days_to_start_new_inspection(self):
+        if self.prolongation_date:
+            days = self.prolongation_date - datetime.now().date()
+        elif self.precept_end_date:
+            days = self.precept_end_date - datetime.now().date()
+        else:
+            return
+        self.days_to_start_new_inspection = int(days.days)
+        self.save()
 
     @property
     def _history_user(self):

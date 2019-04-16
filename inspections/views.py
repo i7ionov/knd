@@ -160,6 +160,7 @@ def precept_form_save(request):
 
     if form.is_valid():
         form.save()
+        precept.update_days_to_start_new_inspection()
         save_violations_in_precept(request.POST.getlist('violations'), precept)
         return messages.return_success()
     else:
@@ -268,6 +269,7 @@ def additional_fields_for_inspection(object, item):
         object['children__precept__precept_end_date'] = precept.precept_end_date
         if precept.precept_result:
             object['children__precept__precept_result__id'] = precept.precept_result.text
+        object['children__precept__days_to_start_new_inspection'] = precept.days_to_start_new_inspection
     return object
 
 

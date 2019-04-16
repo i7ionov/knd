@@ -44,7 +44,7 @@
             $(this).datagrid('enableFilter');
             $(this).datagrid('doFilter');
         },
-        singleSelect: "true",
+        singleSelect: true,
 
         columns: [[
             {field: 'id', title: 'id', width: 60, sortable: true},
@@ -93,6 +93,7 @@
                 width: 200,
                 sortable: true
             },
+            {field: 'children__precept__days_to_start_new_inspection', title: 'Дней до запуска проверки', width: 100, sortable: true},
         ]],
         view: detailview,
         detailFormatter: function (rowIndex, rowData) {
@@ -110,7 +111,12 @@
         },
         onDblClickRow: function (index, row) {
             addTab('#tt', 'Проверка № ' + row['doc_number'], '/insp/inspection_form/' + row['id'] + '/');
-        }
+        },
+        rowStyler: function(index,row){
+		if (row.children__precept__days_to_start_new_inspection<0){
+			return 'background-color:#FFA07A;';
+		}
+	}
 
     });
 
@@ -361,8 +367,13 @@
                     dg{{ uid }}.datagrid('doFilter');
                 }
             }
-        }]);
-        // enable filter
+        },
+        {
+            field: 'children__precept__days_to_start_new_inspection',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+        },]);
         dg{{ uid }}.datagrid('columnMoving');
     });
 
@@ -370,7 +381,7 @@
         method: 'GET',
         queryParams: {uid: '{{ uid }}', model: 'inspection', app: 'inspections'},
         href: '{% url 'filter_form' %}'
-    })
+    });
 
     function applyFilter() {
         console.log('Applying');

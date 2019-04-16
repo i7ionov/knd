@@ -254,20 +254,6 @@ def export_excel(query_set, user_id, request_post):
                     prefix = field['name'] + '__'
                     temp_set = item.__getattribute__(field['query_set_name']).filter(
                         doc_type=field['verbose_name'].lower())
-                """elif hasattr(item, 'document_set'):
-                    field['model'] = dictionaries.models.Document
-                    model_name = field['name']
-                    prefix = field['name'] + '__'
-                    temp_set = item.document_set.filter(doc_type=field['verbose_name'].lower())
-                    print('3')
-                elif hasattr(item, 'children'):
-                    field['model'] = dictionaries.models.Document
-                    model_name = field['name']
-                    prefix = field['name'] + '__'
-                    temp_set = item.children.filter(doc_type=field['verbose_name'].lower())
-                    print('4')
-                else:
-                    continue"""
                 if 'count' in request_post and field['name'] in request_post['count']:
                     for field_key in request_post['count'][field['name']]:
                         temp_set = filter.add_filter(prefix + field_key, field_model, temp_set,
