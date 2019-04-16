@@ -85,15 +85,30 @@
             {field: 'houses__number', title: 'Дом', width: 200, sortable: true},
             {field: 'children__doc_number', title: 'Номер предписания', width: 100, sortable: true},
             {field: 'children__doc_date', title: 'Дата предписания', width: 60, sortable: true},
-            {field: 'children__precept__precept_begin_date', title: 'Дата начала исполнения', width: 60, sortable: true},
-            {field: 'children__precept__precept_end_date', title: 'Дата окончания исполнения', width: 60, sortable: true},
+            {
+                field: 'children__precept__precept_begin_date',
+                title: 'Дата начала исполнения',
+                width: 60,
+                sortable: true
+            },
+            {
+                field: 'children__precept__precept_end_date',
+                title: 'Дата окончания исполнения',
+                width: 60,
+                sortable: true
+            },
             {
                 field: 'children__precept__precept_result__id',
                 title: 'Результат предписания',
                 width: 200,
                 sortable: true
             },
-            {field: 'children__precept__days_to_start_new_inspection', title: 'Дней до запуска проверки', width: 100, sortable: true},
+            {
+                field: 'children__precept__days_to_start_new_inspection',
+                title: 'Дней до запуска проверки',
+                width: 100,
+                sortable: true
+            },
         ]],
         view: detailview,
         detailFormatter: function (rowIndex, rowData) {
@@ -112,11 +127,11 @@
         onDblClickRow: function (index, row) {
             addTab('#tt', 'Проверка № ' + row['doc_number'], '/insp/inspection_form/' + row['id'] + '/');
         },
-        rowStyler: function(index,row){
-		if (row.children__precept__days_to_start_new_inspection<0){
-			return 'background-color:#FFA07A;';
-		}
-	}
+        rowStyler: function (index, row) {
+            if (row.children__precept__days_to_start_new_inspection < 0) {
+                return 'background-color:#FFA07A;';
+            }
+        }
 
     });
 
@@ -368,12 +383,12 @@
                 }
             }
         },
-        {
-            field: 'children__precept__days_to_start_new_inspection',
-            type: 'numberbox',
-            options: {precision: 0},
-            op: ['equal', 'less', 'greater']
-        },]);
+            {
+                field: 'children__precept__days_to_start_new_inspection',
+                type: 'numberbox',
+                options: {precision: 0},
+                op: ['equal', 'less', 'greater']
+            },]);
         dg{{ uid }}.datagrid('columnMoving');
     });
 
