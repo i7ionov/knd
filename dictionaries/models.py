@@ -215,3 +215,10 @@ class WorkingDays(models.Model):
 class Recipient(models.Model):
     email = models.CharField(max_length=500, verbose_name='емейл')
     group = models.CharField(max_length=500, verbose_name='группа')
+
+
+class Preference(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    target = models.CharField(max_length=500)
+    variable = models.CharField(max_length=500)
+    value = models.CharField(max_length=500)
