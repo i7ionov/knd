@@ -382,3 +382,18 @@ def import_ad_from_penalty(file):
             print(user.name)
         except (ValueError, TypeError):
             continue
+
+
+def import_from_reestr_tsj():
+    rb = xlrd.open_workbook('C:/Users/ivsemionov/Desktop/tsj.xlsx')
+    sheet = rb.sheet_by_index(0)
+    row = 3
+    while row < sheet.nrows and sheet.row_values(row)[11] != '':
+        print(str(row) + " " + sheet.row_values(row)[11])
+        try:
+            org, created = dictionaries.models.Organization.objects.get_or_create(inn=int(sheet.row_values(row)[15]))
+            org.name = sheet.row_values(row)[11]
+            org.ogrn = int(sheet.row_values(row)[14])
+            org.save()
+        except: pass
+        row = row + 1
