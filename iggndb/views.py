@@ -16,9 +16,14 @@ from ad.forms import ADRecordForm
 from dictionaries.forms import OrganizationForm
 
 
+
 @login_required
 def index(request):
-    context = {}
+    if settings.DEBUG:
+        title = "Учет КНД ИГЖН (тест)"
+    else:
+        title = "Учет КНД ИГЖН"
+    context = {'title':  title}
     return render(request, 'index.html', context)
 
 
