@@ -15,9 +15,10 @@ class ExportResult(models.Model):
 
 class GeneralReport(models.Model):
     report_status = models.TextField(null=True, blank=True, verbose_name='Статус формирования отчета')
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник, запросивший отчет')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник, запросивший отчет', related_name='owner')
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True,
                                    verbose_name='Отдел, по которому составляется отчет')
+    inspector = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник, по которому составляется отчет', related_name='inspector')
     date = models.DateField(null=True, blank=True, verbose_name='Дата составления отчета')
     # Если составление отчета инициируется вручную, но заполняются date_begin и date_end
     date_begin = models.DateField(null=True, blank=True, verbose_name='Начало отчетного периода')

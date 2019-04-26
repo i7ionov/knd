@@ -31,6 +31,14 @@
                 {% endfor %}
             </select>
         </div>
+        <div style="margin-bottom:10px">
+            <select class="easyui-combobox" name="inspector" label="Сотрудники" style="width:100%;">
+                <option selected value="0">-</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
     </form>
 </div>

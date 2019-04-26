@@ -29,7 +29,7 @@ from django.db.models import Q
 @login_required
 @csrf_exempt
 def general_report_table_json(request):
-    rules = [{'field': 'user__django_user__id', 'op': 'equals', 'value': request.user.id}]
+    rules = [{'field': 'owner__django_user__id', 'op': 'equals', 'value': request.user.id}]
     return filter.filtered_table_json_response(request, GeneralReport, filtering_rules=rules)
 
 
@@ -38,7 +38,8 @@ def general_report_table_json(request):
 def general_report_table(request):
     context = {'uid': uuid.uuid1().hex,
                'control_kinds': ControlKind.objects.all(),
-               'departments': Department.objects.all()}
+               'departments': Department.objects.all(),
+               'users': User.objects.all()}
     return render(request, 'analytic/general_report_table.html', context)
 
 
@@ -59,12 +60,13 @@ def general_report_form(request, id):
 @require_POST
 @csrf_exempt
 def new_general_report(request):
-    user = User.objects.get(pk=request.user.pk)
+    owner = User.objects.get(pk=request.user.pk)
     date_begin = datetime.strptime(request.POST['date_begin'], '%d.%m.%Y').strftime('%Y-%m-%d')
     date_end = datetime.strptime(request.POST['date_end'], '%d.%m.%Y').strftime('%Y-%m-%d')
     control_kind = request.POST['control_kind'] if request.POST['control_kind'] != '0' else None
     department = request.POST['department'] if request.POST['department'] != '0' else None
-    tasks.generate_general_report_period(user.pk, date_begin, date_end, control_kind, department)
+    inspector = request.POST['inspector'] if request.POST['inspector'] != '0' else None
+    tasks.generate_general_report_period(owner.pk, date_begin, date_end, control_kind, department, inspector)
     return messages.return_success()
 
 
