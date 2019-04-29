@@ -19,20 +19,21 @@ def filtered_table_json_response(request, model, func=None, filtering_rules=None
     :param filtering_rules: дополнительные правила фильтрафии
     """
     objects = []
-    # пагинация
-    page = 1
-    rows = 10
-    if "page" in request.POST:
-        page = int(request.POST['page'])
-    if "rows" in request.POST:
-        rows = int(request.POST['rows'])
-    start = rows * (page - 1)
-    end = start + rows
     # получаем отфильтрованый QuerySet
     query = get_filtered_query_set(model, request, filtering_rules)
+    # пагинация
+    if "rows" in request.POST:
+        page = 1
+        rows = int(request.POST['rows'])
+        if "page" in request.POST:
+            page = int(request.POST['page'])
+
+        start = rows * (page - 1)
+        end = start + rows
+        query = query[start:end]
     # получаем список полей модели для отображения
     fields = get_model_columns([], model)
-    for item in query[start:end]:
+    for item in query:
         object = {'id': item.pk}
         for field in fields:
             object[field['prefix'].replace('.', '__') + field['name']] = get_value(item, field['prefix'] + field[
