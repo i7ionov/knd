@@ -5,7 +5,7 @@ from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import uuid
-from dictionaries.models import Document, Organization, File
+from dictionaries.models import Document, Organization, File, Preference, User
 from iggndb import settings
 from iggndb.model_settings import Object
 from inspections.models import Inspection, Precept
@@ -14,7 +14,7 @@ from iggn_tools import messages
 from inspections.forms import InspectionForm, PreceptForm
 from ad.forms import ADRecordForm
 from dictionaries.forms import OrganizationForm
-
+from dictionaries.models import Preference
 
 
 @login_required
@@ -143,4 +143,14 @@ def file_add(request):
     file.save()
     o.object.files.add(file)
     o.object.save()
+    return messages.return_success()
+
+
+@csrf_exempt
+@login_required
+@require_POST
+def save_preference(request):
+    pref, created = Preference.objects.get_or_create(user=request.user, target=request.POST['target'], variable=request.POST['variable'])
+    pref.value = request.POST['value']
+    pref.save()
     return messages.return_success()

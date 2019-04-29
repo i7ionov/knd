@@ -43,6 +43,14 @@
         onDropColumn: function () {
             $(this).datagrid('enableFilter');
             $(this).datagrid('doFilter');
+            let columns = $('#dg{{ uid }}').datagrid('options').columns[0].map(function (column) {
+                return column.field;
+            });
+            $.post("{% url 'save_preference' %}", {
+                'target': 'inspections_table',
+                'variable': 'columns_order',
+                'value': columns + ""
+            });
         },
         singleSelect: true,
 
@@ -388,7 +396,11 @@
                 options: {precision: 0},
                 op: ['equal', 'less', 'greater']
             },]);
+        {% if column_order %}
+            dg{{ uid }}.datagrid('reorderColumns', [{% for column in column_order %} '{{ column }}', {% endfor %}]);
+        {% endif %}
         dg{{ uid }}.datagrid('columnMoving');
+
     });
 
     $('#filter_dlg{{ uid }}').dialog({

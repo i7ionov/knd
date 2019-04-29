@@ -33,4 +33,5 @@ urlpatterns = [
     path('files_list/', views.files_list, name='files_list'),
     path('file_select/', views.file_select, name='file_select'),
     path('file_add/', views.file_add, name='file_add'),
+    path('save_preference/', views.save_preference, name='save_preference'),
 ]

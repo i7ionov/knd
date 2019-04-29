@@ -6,9 +6,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
 
 from iggndb.model_settings import Object
-from inspections.models import ControlKind, InspectionTask,InspectionResult
+from inspections.models import ControlKind, InspectionTask, InspectionResult
 from . import models
-from dictionaries.models import Address, Organization, House, User, Document, Department
+from dictionaries.models import Address, Organization, House, User, Document, Department, Preference
 import uuid
 from datetime import datetime
 from sequences import get_next_value
@@ -21,9 +21,17 @@ from iggndb import tasks
 @login_required
 @permission_required('inspections.view_inspection', raise_exception=True)
 def inspection_table(request):
+    try:
+        column_order = Preference.objects.get(user=request.user, target='inspections_table',
+                                              variable='columns_order').value.split(',')
+        print(column_order)
+    except Preference.DoesNotExist:
+        column_order = None
+
     context = {'departments': Department.objects.all(),
                'inspection_results': InspectionResult.objects.all(),
-        'user_has_perm_to_add': request.user.has_perm('inspections.add_inspection'), 'uid': uuid.uuid1().hex}
+               'user_has_perm_to_add': request.user.has_perm('inspections.add_inspection'), 'uid': uuid.uuid1().hex,
+               'column_order': column_order}
     return render(request, 'inspections/inspection_table.html', context)
 
 
@@ -329,4 +337,3 @@ def save_violations_in_precept(violations, precept):
 
         else:
             precept.violationinprecept_set.filter(violation_type_id=v_id).delete()
-

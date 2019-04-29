@@ -218,7 +218,7 @@ class Recipient(models.Model):
 
 
 class Preference(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(DjangoUser, on_delete=models.SET_NULL, null=True)
     target = models.CharField(max_length=500)
     variable = models.CharField(max_length=500)
-    value = models.CharField(max_length=500)
+    value = models.TextField()
