@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+import os
 import uuid
-
+from django.conf import settings
 from django.apps import apps
 from django.db.models import Q
 
 from dictionaries.tools import normalize_house_number
 from iggn_tools import filter
 import xlrd, openpyxl
+from openpyxl.styles import Alignment
 import django
 from django.core.files.base import ContentFile
 from openpyxl.writer.excel import save_virtual_workbook
@@ -211,7 +213,10 @@ def export_excel(query_set, user_id, request_post):
     result = analytic.models.ExportResult()
     result.user = dictionaries.models.User.objects.get(django_user__pk=user_id)
     count = query_set.count()
-    wb = openpyxl.Workbook()
+    if query_set.model == inspections.models.Inspection:
+        wb = openpyxl.load_workbook(os.path.join(settings.MEDIA_ROOT, 'templates', 'inspections.xlsx'))
+    else:
+        wb = openpyxl.Workbook()
     ws = wb.worksheets[0]
     ws.title = "iggndb"
     fields = filter.get_model_columns([], query_set.model)
@@ -230,6 +235,7 @@ def export_excel(query_set, user_id, request_post):
                  'query_set_name': query_set_name})
     # заголовок
     for col, field in enumerate(fields):
+        ws.cell(1, col + 1).alignment = Alignment(wrap_text=True)
         ws.cell(1, col + 1).value = field['verbose_name']
 
     # данные
