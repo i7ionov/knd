@@ -8,6 +8,8 @@ urlpatterns = [
     path('new_general_report/', views.new_general_report, name='new_general_report'),
 
     path('excel_export_table/', views.excel_export_table, name='excel_export_table'),
+    path('excel_export_table_json/', views.excel_export_table_json, name='excel_export_table_json'),
+    path('remove_excel_export_result/', views.remove_excel_export_result, name='remove_excel_export_result'),
     path('start_export_to_excel/', views.start_export_to_excel, name='start_export_to_excel'),
     path('filter_form/', views.filter_form, name='filter_form'),
     path('count_form/', views.count_form, name='count_form'),

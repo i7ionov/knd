@@ -1,24 +1,5 @@
 <div class="container" style="margin-top: 5px">
-    <table id="excel_export_dg{{ uid }}" style="height:600px">
-        <thead>
-        <tr>
-            <th data-options="field:'id'">ID</th>
-            <th data-options="field:'Дата'">Дата</th>
-            <th data-options="field:'Результат'">Результат</th>
-            <th data-options="field:'Файл'">Файл</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for result in results %}
-            <tr>
-                <td>{{ result.id }}</td>
-                <td>{{ result.datetime|date:"d.m.Y" }}</td>
-                <td>{{ result.text }}</td>
-                <td>{% if result.file %}<a href="{{ result.file.url }}">{{ result.file.name }}</a> {% endif %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <table id="excel_export_dg{{ uid }}"></table>
     <div id="excel_export_toolbar{{ uid }}">
         <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
            onclick="$('#excel_export_dlg{{ uid }}').dialog('open').dialog('center')">Новая выгрузка</a>
@@ -59,8 +40,37 @@
        onclick="$('#excel_export_dlg{{ uid }}').dialog('close')" style="width:100px">Отменить</a>
 </div>
 <script type="text/javascript">
+    function formatURL(val, row) {
+        let result = ''
+        if (val) {
+            result = result + '<a href="' + val + '">Скачать</a>, ';
+        }
+        result = result + '<a href="javascript:deleteResult(' + row['id'] + ')">Удалить</a>';
+        return result
+    }
+
+
+    function deleteResult(id) {
+        $.post("{% url 'remove_excel_export_result' %}", {
+            'id': id
+        });
+        setTimeout(function () {
+            $('#excel_export_dg{{ uid }}').datagrid('reload');
+        }, 300);
+
+    }
+
     $('#excel_export_dg{{ uid }}').datagrid({
+        method: 'post',
+        url: '{% url 'excel_export_table_json' %}',
         toolbar: "#excel_export_toolbar{{ uid }}",
+        pagination: true,
+        pageSize: 20,
+        columns: [[
+            {field: 'id', title: 'id', width: 60, sortable: true},
+            {field: 'datetime', title: 'Дата', width: 100, sortable: true},
+            {field: 'text', title: 'Результат', width: 400, sortable: true},
+            {field: 'file', title: 'Файл', width: 200, sortable: true, formatter: formatURL}]]
     });
     let current_table = '';
     $('#table_select{{ uid }}').combobox({

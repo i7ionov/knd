@@ -207,3 +207,20 @@ def excel_export_table(request):
     context = {'uid': uuid.uuid1().hex,
                'results': ExportResult.objects.filter(user=request.user.pk).order_by('-id')}
     return render(request, 'analytic/excel_export_table.html', context)
+
+
+@login_required
+@csrf_exempt
+def excel_export_table_json(request):
+    rules = [{'field': 'user__django_user__id', 'op': 'equals', 'value': request.user.id}]
+    return filter.filtered_table_json_response(request, ExportResult, filtering_rules=rules)
+
+
+@login_required
+@csrf_exempt
+def remove_excel_export_result(request):
+    id = request.POST['id']
+    result = ExportResult.objects.get(id=id)
+    result.file.delete()
+    result.delete()
+    return messages.return_success()
