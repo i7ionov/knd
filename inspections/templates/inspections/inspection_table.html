@@ -9,10 +9,9 @@
     {% if False %}
         <a href="#" id="filter_button" class="easyui-linkbutton" iconCls="icon-filter" plain="true"
            onclick="$('#filter_dlg{{ uid }}').dialog('open').dialog('center')">Фильтры</a>
-        <a href="#" id="export_to_excel{{ uid }}" class="easyui-linkbutton" iconCls="icon-add" plain="true"
-           onclick="exportToExcel()">в Excel</a>
     {% endif %}
-
+    <a href="#" id="export_to_excel{{ uid }}" class="easyui-linkbutton" iconCls="icon-excel" plain="true"
+       onclick="exportToExcel()">в Excel</a>
 </div>
 <div id="filter_dlg{{ uid }}" class="easyui-dialog" title="Фильтры"
      data-options="iconCls:'icon-filter',closed:true,modal:true,bprecept:'thin',buttons:'#filter_dlg_buttons{{ uid }}'"
@@ -425,7 +424,8 @@
     }
 
     function exportToExcel() {
-        $('#dg{{ uid }}').datagrid({pagination: false});
-        $('#dg{{ uid }}').datagrid('toExcel', 'inspections.xls');
+        $('#dg{{ uid }}').datagrid('reload', {'excel': true});
+        alert('Полученый файл можно скачать в разделе Аналитика->Выгрузка в Excel');
+        $('#dg{{ uid }}').datagrid('options').queryParams = [];
     }
 </script>

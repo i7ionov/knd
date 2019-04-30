@@ -10,7 +10,9 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required, permission_required
 import simplejson as json
 from django.http import HttpResponse
+
 import iggn_tools
+import iggn_tools.tasks
 from analytic import general_report, tasks
 from analytic.tools import convert_request
 from dictionaries.forms import OrganizationForm
@@ -85,12 +87,12 @@ def start_export_to_excel(request):
         get_count = False
     request_post = convert_request(request)
     if get_count:
-        return tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, True)
+        return iggn_tools.tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, get_count)
     else:
         if settings.DEBUG:
-            tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, False)
+            iggn_tools.tasks.export_to_excel(request_post, app_str, model_str, request.user.pk, False)
         else:
-            tasks.export_to_excel.delay(request_post, app_str, model_str, request.user.pk, False)
+            iggn_tools.tasks.export_to_excel.delay(request_post, app_str, model_str, request.user.pk, False)
         return messages.return_success()
 
 

@@ -5,6 +5,7 @@ from django.conf import settings
 from django.apps import apps
 from django.db.models import Q
 
+import iggn_tools.tools
 from dictionaries.tools import normalize_house_number
 from iggn_tools import filter
 import xlrd, openpyxl
@@ -19,8 +20,6 @@ import analytic.models
 from django.core.exceptions import MultipleObjectsReturned
 from datetime import datetime
 from django.utils import timezone
-
-from iggn_tools.filter import get_value
 
 
 def import_insp_from_gis_gkh(file):
@@ -209,7 +208,7 @@ def import_order_from_gis_gkh(file):
             pass
 
 
-def export_excel(query_set, user_id, request_post):
+def export_excel(query_set, user_id, request_post=None):
     result = analytic.models.ExportResult()
     result.user = dictionaries.models.User.objects.get(django_user__pk=user_id)
     count = query_set.count()
@@ -224,7 +223,7 @@ def export_excel(query_set, user_id, request_post):
     if query_set.model == inspections.models.Inspection:
         fields.append(
             {'verbose_name': 'номер предписания', 'name': 'doc_number', 'prefix': 'children.', 'field': 'custom'})
-    if 'fields_to_count' in request_post:
+    if request_post and 'fields_to_count' in request_post:
         for field in request_post['fields_to_count']:
             model = apps.get_model(field.split('.')[0], field.split('.')[1])
             query_set_name = filter.get_field_by_model(query_set.model, model)
@@ -260,7 +259,7 @@ def export_excel(query_set, user_id, request_post):
                     prefix = field['name'] + '__'
                     temp_set = item.__getattribute__(field['query_set_name']).filter(
                         doc_type=field['verbose_name'].lower())
-                if 'count' in request_post and field['name'] in request_post['count']:
+                if request_post and 'count' in request_post and field['name'] in request_post['count']:
                     for field_key in request_post['count'][field['name']]:
                         temp_set = filter.add_filter(prefix + field_key, field_model, temp_set,
                                                      request_post['count'], model_name)
@@ -287,7 +286,7 @@ def export_excel(query_set, user_id, request_post):
                 # например field['prefix'] может быть равен 'organization.org_type.'
                 # а field['name'] равен 'text'
                 # в таком случае наша задача получить значение поля item.organization.org_type.text
-                ws.cell(row + 2, col + 1).value = filter.get_value(item, field['prefix'] + field['name'])
+                ws.cell(row + 2, col + 1).value = iggn_tools.tools.get_value(item, field['prefix'] + field['name'])
         result.text = "Сделано %s из %s" % (row, count)
         result.save()
     result.text = 'Выгрузка таблицы "' + query_set.model._meta.verbose_name + '" с фильтрацией'

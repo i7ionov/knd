@@ -1,15 +1,18 @@
 """Модуль содержит методы для формирования QuerySet'ов"""
-from functools import reduce
 
 import simplejson as json
-import django
-from datetime import date, datetime
+from datetime import datetime
 from django.db.models import fields
 from django.db.models import Q
 from django.db import models
 from django.http import HttpResponse
 
 from dictionaries.models import Address, House, Document
+from iggn_tools.tools import get_value, datetime_handler
+from iggndb import settings
+from iggn_tools import messages
+from iggndb.celery import app
+from iggn_tools.excel import export_excel
 
 
 def filtered_table_json_response(request, model, func=None, filtering_rules=None):
@@ -20,14 +23,14 @@ def filtered_table_json_response(request, model, func=None, filtering_rules=None
     """
     objects = []
     # получаем отфильтрованый QuerySet
-    query = get_filtered_query_set(model, request, filtering_rules)
+    query = get_filtered_query_set(model, request.POST, filtering_rules)
+    count = query.count()
     # пагинация
     if "rows" in request.POST:
         page = 1
         rows = int(request.POST['rows'])
         if "page" in request.POST:
             page = int(request.POST['page'])
-
         start = rows * (page - 1)
         end = start + rows
         query = query[start:end]
@@ -41,11 +44,11 @@ def filtered_table_json_response(request, model, func=None, filtering_rules=None
         if func:
             object = func(object, item)
         objects.append(object)
-    data = {"total": query.count(), "rows": objects}
+    data = {"total": count, "rows": objects}
     return HttpResponse(json.dumps(data, default=datetime_handler), content_type='application/json')
 
 
-def get_filtered_query_set(model, request, filtering_rules=None):
+def get_filtered_query_set(model, request_post, filtering_rules=None):
     """
     Метод создает QuerySet по указанной модели, применяет к ней фильтрации, сортировки по переданным правилам
     :param model: Модель, по которой создается QuerySet
@@ -54,9 +57,9 @@ def get_filtered_query_set(model, request, filtering_rules=None):
     :return: QuerySet
     """
     # фильтрация
-    if 'filterRules' in request.POST:
+    if 'filterRules' in request_post:
         # [{"field":"name","op":"contains","value":"org"}]
-        rules = json.loads(request.POST['filterRules'])
+        rules = json.loads(request_post['filterRules'])
     else:
         rules = []
     if filtering_rules:
@@ -64,9 +67,9 @@ def get_filtered_query_set(model, request, filtering_rules=None):
     if filtering_rules:
         rules.extend(filtering_rules)
     # сортировка
-    if "sort" in request.POST:
-        sort = request.POST['sort']
-        order = request.POST['order']
+    if "sort" in request_post:
+        sort = request_post['sort']
+        order = request_post['order']
         if order == 'desc':
             sort = '-' + sort
     else:
@@ -132,32 +135,6 @@ def add_filter_from_easyui(query, rule):
             criteria = 0
     query = query.filter(Q(**{field: criteria}))
     return query
-
-
-def datetime_handler(obj):
-    """Приводит дату в формат %d.%m.%Y"""
-    if isinstance(obj, (datetime, date)):
-        return obj.strftime('%d.%m.%Y')
-    else:
-        return str(obj)
-
-
-def get_value(item, field):
-    """
-    Метод позволяет получить строковое значение у объекта item, хранящееся в поле field.
-    :param item: Объект
-    :param field: Название поля, может быть в виде "nested_object.field" с любым уровнем вложения
-    :return: Строковое значение поля
-    """
-    val = item
-    for p in str(field).split('.'):
-        if val is None:
-            continue
-        # print("От %s берем %s" % (val, p))
-        val = val.__getattribute__(p)
-    if val is None:
-        return None
-    return datetime_handler(val)
 
 
 def get_model_columns(field_list, model, prefix='', parent_verbose_name=''):

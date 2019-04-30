@@ -5,6 +5,7 @@ from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt
 
+from iggn_tools.tasks import export_to_excel_from_easyui
 from iggndb.model_settings import Object
 from inspections.models import ControlKind, InspectionTask, InspectionResult
 from . import models
@@ -15,7 +16,7 @@ from sequences import get_next_value
 from inspections.forms import InspectionForm, PreceptForm
 from django.views.decorators.http import require_POST
 from iggn_tools import filter, messages, tools
-from iggndb import tasks
+from iggndb import tasks, settings
 
 
 @login_required
@@ -245,6 +246,12 @@ def violation_in_precept_json_list(request, id=0, parent_id=0):
 @permission_required('inspections.view_inspection', raise_exception=True)
 @csrf_exempt
 def inspection_json_table(request):
+    # сразу смотрим, если это задача экспорта в Excel, то передаем ее в соответствующую функцию
+    if 'excel' in request.POST and request.POST['excel']:
+        if settings.DEBUG:
+            export_to_excel_from_easyui(request.POST, 'inspections', 'Inspection', request.user.id, get_count=False)
+        else:
+            export_to_excel_from_easyui.delay(request.POST, 'inspections', 'Inspection', request.user.id, get_count=False)
     return filter.filtered_table_json_response(request, models.Inspection, additional_fields_for_inspection)
 
 
