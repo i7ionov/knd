@@ -17,7 +17,7 @@ class SerialField(object):
 
 
 class AbstractListItem(models.Model):
-    text = models.CharField(max_length=500, default="", null=True)
+    text = models.TextField(default="", null=True)
 
     def __str__(self):
         return self.text
