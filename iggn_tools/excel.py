@@ -36,14 +36,22 @@ def import_insp_from_gis_gkh(file):
         number = val[4].replace('Распоряжение № ', '').replace(' ', '')
         year = datetime.strptime(val[5], '%d.%m.%Y').year
         insp = inspections.models.Inspection.objects.filter(doc_date__year=year, doc_number__iexact=number)
+        # здесь мы пытаемся найти именно ту проверку, которую нужно обновить, т.к. этот фильтр может возвратить
+        # несколько проверок
+        # самый гарантированный способ - номер ГИС ЖКХ, но если он еще не обновлен - пытаемся сопоставить по организации
+        # сначала ищем по огрн, если не находим, то по наименованию, если не находим то последнюю без организации
         try:
             insp = insp.get(gis_gkh_number=val[1])
         except inspections.models.Inspection.DoesNotExist:
-            insp2 = insp.filter(organization__name=val[12]).last()
+            insp2 = insp.filter(organization__ogrn=val[13]).last()
             if insp2:
                 insp = insp2
             else:
-                insp = insp.filter(organization=None).last()
+                insp2 = insp.filter(organization__name__icontains=val[12]).last()
+                if insp2:
+                    insp = insp2
+                else:
+                    insp = insp.filter(organization=None).last()
 
         if insp is None:
             continue

@@ -9,10 +9,6 @@ from django.http import HttpResponse
 
 from dictionaries.models import Address, House, Document
 from iggn_tools.tools import get_value, datetime_handler
-from iggndb import settings
-from iggn_tools import messages
-from iggndb.celery import app
-from iggn_tools.excel import export_excel
 
 
 def filtered_table_json_response(request, model, func=None, filtering_rules=None):
