@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from iggn_tools.tasks import export_to_excel_from_easyui
 from iggndb.model_settings import Object
-from inspections.models import ControlKind, InspectionTask, InspectionResult
+from inspections.models import ControlKind, InspectionTask, InspectionResult, LegalBasis
 from . import models
 from dictionaries.models import Address, Organization, House, User, Document, Department, Preference
 import uuid
@@ -73,13 +73,14 @@ def new_inspection_form(request, control_kind=None, id=None):
             precept = models.Precept.objects.get(pk=id)
             insp.parent = precept
             insp.doc_number = tools.increment_doc_number(precept.doc_number)
-            insp.legal_basis = precept.parent.inspection.legal_basis
+            insp.legal_basis = LegalBasis.objects.get(id=4)
             insp.control_kind = precept.parent.inspection.control_kind
             insp.control_form = precept.parent.inspection.control_form
             insp.control_plan = precept.parent.inspection.control_plan
             insp.organization = precept.organization
             insp.inspector = User.objects.get(django_user=request.user)
             insp.save()
+            insp.inspection_tasks.add(InspectionTask.objects.get(id=26))
             insp.houses.set(precept.houses.all())
             precept.update_days_to_start_new_inspection()
         except (KeyError, models.Precept.DoesNotExist):
