@@ -29,5 +29,6 @@ urlpatterns = [
     path('house_form/<slug:id>/', views.edit_house_form, name='edit_house_form'),
 
     path('delete_document/', views.delete_document, name='delete_document'),
+    path('set_document_parent/', views.set_document_parent, name='set_document_parent'),
 
 ]

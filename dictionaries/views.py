@@ -306,3 +306,15 @@ def delete_document(request):
     LogEntry.objects.log_action(request.user.pk, ct.pk, id, str(d), 3)
     d.delete()
     return messages.return_success()
+
+
+@login_required
+@permission_required('dictionaries.delete_document', raise_exception=True)
+def set_document_parent(request):
+    if 'document_id' in request.GET and 'parent_id' in request.GET:
+        document = Document.objects.get(id=request.GET['document_id'])
+        parent = Document.objects.get(id=request.GET['parent_id'])
+        document.parent = parent
+        document.save()
+        return messages.return_success()
+    return messages.return_error('Не все ключи')
