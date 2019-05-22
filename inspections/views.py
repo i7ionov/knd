@@ -105,11 +105,11 @@ def new_inspection_form(request, control_kind=None, id=None):
 def inspection_form_save(request):
     inspection = models.Inspection.objects.get(pk=request.POST['pk'])
     form = InspectionForm(request.POST, instance=inspection)
-
     if request.POST['control_form'] == '' or int(request.POST['control_form']) < 4:
         if request.POST['inspection_result'] != '12':
-            if len(request.POST.getlist('houses')) == 0:
-                return messages.return_error('Необходимо заполнить адреса домов')
+            if '12' not in request.POST.getlist('inspection_tasks'):  # 12 - порядок размещения инфы в ГИС ЖКХ, дома не нужны
+                if len(request.POST.getlist('houses')) == 0:
+                    return messages.return_error('Необходимо заполнить адреса домов')
     if form.is_valid():
         save_violations_in_inspection(request.POST.getlist('violations'), inspection)
         inspection.violations_quantity = 0
