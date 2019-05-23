@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import uuid
+import datetime
+
 from django.conf import settings
 from django.apps import apps
 from django.db.models import Q
@@ -9,7 +11,7 @@ import iggn_tools.tools
 from dictionaries.tools import normalize_house_number
 from iggn_tools import filter
 import xlrd, openpyxl
-from openpyxl.styles import Alignment
+from openpyxl.styles import Alignment, NamedStyle
 import django
 from django.core.files.base import ContentFile
 from openpyxl.writer.excel import save_virtual_workbook
@@ -289,12 +291,20 @@ def export_excel(query_set, user_id, request_post=None):
                     else:
                         val = val + ',' + str(i)
                 ws.cell(row + 2, col + 1).value = val
+            elif field['field'].__class__ == django.db.models.fields.DateField:
+                val = iggn_tools.tools.get_value(item, field['prefix'] + field['name'])
+                if val:
+                    val = datetime.strptime(iggn_tools.tools.get_value(item, field['prefix'] + field['name']), '%d.%m.%Y')
+                    ws.cell(row + 2, col + 1).value = val
+                    ws.cell(row + 2, col + 1).number_format = 'dd.mm.YYYY'
             else:
                 # с этого момента начинаем брать каскадом значения полей
                 # например field['prefix'] может быть равен 'organization.org_type.'
                 # а field['name'] равен 'text'
                 # в таком случае наша задача получить значение поля item.organization.org_type.text
-                ws.cell(row + 2, col + 1).value = iggn_tools.tools.get_value(item, field['prefix'] + field['name'])
+                val = iggn_tools.tools.get_value(item, field['prefix'] + field['name'])
+                ws.cell(row + 2, col + 1).value = val
+
         result.text = "Сделано %s из %s" % (row, count)
         result.save()
     result.text = 'Выгрузка таблицы "' + query_set.model._meta.verbose_name + '" с фильтрацией'
