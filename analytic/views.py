@@ -226,5 +226,6 @@ def remove_excel_export_result(request):
 
 
 def additional_fields_for_excel_export(object, item):
-    object['file__url'] = item.file.url
+    if item.file:
+        object['file__url'] = item.file.url
     return object
