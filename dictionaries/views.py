@@ -316,5 +316,7 @@ def set_document_parent(request):
         parent = Document.objects.get(id=request.GET['parent_id'])
         document.parent = parent
         document.save()
+        if document.doc_type == 'проверка':
+            document.inspection.update_inspection_type()
         return messages.return_success()
     return messages.return_error('Не все ключи')

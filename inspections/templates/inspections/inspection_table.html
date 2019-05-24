@@ -72,7 +72,7 @@
                 sortable: true
             },
             {field: 'control_plan__text', title: 'План проверки', width: 130, sortable: true},
-            {field: 'type', title: 'Тип проверки', width: 130, sortable: true},
+            {field: 'inspection_type__text', title: 'Тип проверки', width: 130, sortable: true},
             {field: 'inspection_tasks__text', title: 'Задачи проверки', width: 130, sortable: true},
             {field: 'organization__org_type__text', title: 'Тип субъекта проверки', width: 150, sortable: true},
             {field: 'organization__inn', title: 'ИНН', width: 100, align: 'right', sortable: true},
@@ -275,19 +275,19 @@
                 }
             }
         }, {
-            field: 'type',
+            field: 'inspection_type__text',
             type: 'combobox',
             options: {
                 panelHeight: 'auto',
-                data: [{value: '1', text: 'Основная'},
-                    {value: '2', text: 'Проверка исполнения предписания'}],
+                data: [{value: 'Первичная', text: 'Первичная'},
+                    {value: 'Проверка исполнения предписания', text: 'Проверка исполнения предписания'}],
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'parent');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'inspection_type__text');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'parent',
-                            op: 'isnone',
+                            field: 'inspection_type__text',
+                            op: 'equal',
                             value: value
                         });
                     }

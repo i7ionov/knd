@@ -79,6 +79,7 @@ def new_inspection_form(request, control_kind=None, id=None):
             insp.control_plan = precept.parent.inspection.control_plan
             insp.organization = precept.organization
             insp.inspector = User.objects.get(django_user=request.user)
+            insp.update_inspection_type()
             insp.save()
             insp.inspection_tasks.add(InspectionTask.objects.get(id=26))
             insp.houses.set(precept.houses.all())
@@ -91,6 +92,7 @@ def new_inspection_form(request, control_kind=None, id=None):
         if control_kind == 2:
             insp.doc_number = str(insp.doc_number) + 'л'
         insp.inspector = User.objects.get(django_user=request.user)
+        insp.update_inspection_type()
         insp.save()
     form = InspectionForm(instance=insp)
     context = {'form': form, 'load_static': load_static, 'uid': uid,
@@ -268,9 +270,6 @@ def additional_fields_for_inspection(object, item):
     task = InspectionTask.objects.filter(inspection__id=item.id).first()
     if task is not None:
         object['inspection_tasks__text'] = task.text
-    # Вычисляем тип проверки
-    type = 'Проверка исполнения предписания' if item.parent else 'Основная'
-    object['type'] = type
     # Адрес
     house = House.objects.filter(document__id=item.id).first()
     if house is not None:

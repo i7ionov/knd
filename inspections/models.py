@@ -76,6 +76,11 @@ class PreceptResult(AbstractListItem):
     pass
 
 
+# результат исполнения предписания
+class InspectionType(AbstractListItem):
+    pass
+
+
 # нарушения
 class ViolationType(MPTTModel):
     text = models.CharField(max_length=200, verbose_name='Текст нарушения')
@@ -98,6 +103,8 @@ class ViolationType(MPTTModel):
 
 # 
 class Inspection(Document):
+    inspection_type = models.ForeignKey(InspectionType, on_delete=models.SET_NULL, null=True, blank=True,
+                                     verbose_name='тип проверки')  # первичная, проверка исполнения предписания
     legal_basis = models.ForeignKey(LegalBasis, on_delete=models.SET_NULL, null=True, blank=True,
                                     verbose_name='основание для проверки')
     control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True, blank=True,
@@ -129,6 +136,11 @@ class Inspection(Document):
     @_history_user.setter
     def _history_user(self, value):
         self.changed_by = value
+
+    def update_inspection_type(self):
+        type = 'Проверка исполнения предписания' if self.parent else 'Первичная'
+        self.inspection_type = InspectionType.objects.get(text=type)
+        self.save()
 
     class Meta:
         permissions = (("can_change_others_inspections", "Сan change others inspections"),)
