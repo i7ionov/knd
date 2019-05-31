@@ -79,6 +79,7 @@ def new_inspection_form(request, control_kind=None, id=None):
             insp.control_plan = precept.parent.inspection.control_plan
             insp.organization = precept.organization
             insp.inspector = User.objects.get(django_user=request.user)
+            insp.department = insp.inspector.department
             insp.update_inspection_type()
             insp.save()
             insp.inspection_tasks.add(InspectionTask.objects.get(id=26))
@@ -92,6 +93,7 @@ def new_inspection_form(request, control_kind=None, id=None):
         if control_kind == 2:
             insp.doc_number = str(insp.doc_number) + 'л'
         insp.inspector = User.objects.get(django_user=request.user)
+        insp.department = insp.inspector.department
         insp.update_inspection_type()
         insp.save()
     form = InspectionForm(instance=insp)
@@ -118,8 +120,8 @@ def inspection_form_save(request):
         for v in inspection.violationininspection_set.all():
             if v.violation_type.children.count() == 0:
                 inspection.violations_quantity += v.count
+        form.instance.department = form.instance.inspector.department
         form.save()
-
         return messages.return_success()
     else:
         return messages.return_form_error(form)

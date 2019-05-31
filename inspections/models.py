@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from dictionaries.models import Organization, House, User, Article, File, Document
+from dictionaries.models import Organization, House, User, Article, File, Document, Department
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from simple_history.models import HistoricalRecords
@@ -116,6 +116,7 @@ class Inspection(Document):
     inspection_subjects = models.ManyToManyField(InspectionSubject, verbose_name='предмет проверки', blank=True)
     inspection_tasks = models.ManyToManyField(InspectionTask, verbose_name='задачи проверки', blank=True)
     inspector = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='инспектор')
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='отдел')
     date_begin = models.DateField(null=True, blank=True, verbose_name='начало проведения проверки')
     date_end = models.DateField(null=True, blank=True, verbose_name='окончание проведения проверки')
     comment = models.TextField(default="", blank=True, verbose_name='комментарий')

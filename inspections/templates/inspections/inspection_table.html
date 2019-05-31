@@ -78,7 +78,7 @@
             {field: 'organization__inn', title: 'ИНН', width: 100, align: 'right', sortable: true},
             {field: 'organization__name', title: 'Организация', width: 200, sortable: true},
             {field: 'inspector__name', title: 'ФИО Инспектора', width: 200, align: 'right', sortable: true},
-            {field: 'inspector__department__shortname', title: 'Отдел', width: 420, sortable: true},
+            {field: 'department__shortname', title: 'Отдел', width: 420, sortable: true},
             {field: 'inspection_result__text', title: 'Результат', width: 200, sortable: true},
             {field: 'gis_gkh_number', title: 'Номер ГИС ЖКХ', width: 120, sortable: true},
             {field: 'erp_number', title: 'Номер ЕРП', width: 120, sortable: true},
@@ -233,7 +233,7 @@
                 }
             }
         }, {
-            field: 'inspector__department__shortname',
+            field: 'department__shortname',
             type: 'combobox',
             options: {
                 data: [
@@ -243,10 +243,10 @@
                 ],
                 onChange: function (value) {
                     if (value === '') {
-                        dg{{ uid }}.datagrid('removeFilterRule', 'inspector__department__shortname');
+                        dg{{ uid }}.datagrid('removeFilterRule', 'department__shortname');
                     } else {
                         dg{{ uid }}.datagrid('addFilterRule', {
-                            field: 'inspector__department__shortname',
+                            field: 'department__shortname',
                             op: 'equal',
                             value: value
                         });
