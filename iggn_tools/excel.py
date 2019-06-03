@@ -232,7 +232,21 @@ def export_excel(query_set, user_id, request_post=None):
     # TODO: убрать костыль
     if query_set.model == inspections.models.Inspection:
         fields.append(
-            {'verbose_name': 'номер предписания', 'name': 'doc_number', 'prefix': 'children.', 'field': 'custom'})
+            {'verbose_name': 'номер предписания', 'name': 'doc_number', 'prefix': 'children.', 'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'дата предписания', 'name': 'doc_date', 'prefix': 'children.',
+             'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'дата начала исполнения', 'name': 'precept_begin_date', 'prefix': 'children.',
+             'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'дата окончания исполнения', 'name': 'precept_end_date', 'prefix': 'children.',
+             'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'результат предписания', 'name': 'precept_result', 'prefix': 'children.',
+             'field': 'precept'})
+
+
     if request_post and 'fields_to_count' in request_post:
         for field in request_post['fields_to_count']:
             model = apps.get_model(field.split('.')[0], field.split('.')[1])
@@ -250,14 +264,12 @@ def export_excel(query_set, user_id, request_post=None):
     # данные
     for row, item in enumerate(query_set):
         for col, field in enumerate(fields):
-            if field['field'] == 'custom':
-                try:
-                    val = ''
-                    for c in item.children.all():
-                        val = val + '; ' + c.doc_number
-                    ws.cell(row + 2, col + 1).value = val
-                except:
-                    pass
+            if field['field'] == 'precept':
+                val = ''
+                for c in item.children.all():
+                    val = val + '; ' + str(c.precept.__getattribute__(field["name"]))
+                ws.cell(row + 2, col + 1).value = val
+
             elif field['field'] == 'count':
                 prefix = ''
                 model_name = None
@@ -294,7 +306,8 @@ def export_excel(query_set, user_id, request_post=None):
             elif field['field'].__class__ == django.db.models.fields.DateField:
                 val = iggn_tools.tools.get_value(item, field['prefix'] + field['name'])
                 if val:
-                    val = datetime.strptime(iggn_tools.tools.get_value(item, field['prefix'] + field['name']), '%d.%m.%Y')
+                    val = datetime.strptime(iggn_tools.tools.get_value(item, field['prefix'] + field['name']),
+                                            '%d.%m.%Y')
                     ws.cell(row + 2, col + 1).value = val
                     ws.cell(row + 2, col + 1).number_format = 'dd.mm.YYYY'
             else:
@@ -418,5 +431,6 @@ def import_from_reestr_tsj():
             org.name = sheet.row_values(row)[11]
             org.ogrn = int(sheet.row_values(row)[14])
             org.save()
-        except: pass
+        except:
+            pass
         row = row + 1
