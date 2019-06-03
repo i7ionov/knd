@@ -267,7 +267,8 @@ def export_excel(query_set, user_id, request_post=None):
             if field['field'] == 'precept':
                 val = ''
                 for c in item.children.all():
-                    val = val + '; ' + str(c.precept.__getattribute__(field["name"]))
+                    if c.precept:
+                        val = val + '; ' + str(c.precept.__getattribute__(field["name"]))
                 ws.cell(row + 2, col + 1).value = val
 
             elif field['field'] == 'count':
