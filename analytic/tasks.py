@@ -23,7 +23,7 @@ def generate_general_report_period(owner_id, date_begin, date_end, control_kind_
         inspections = inspections.filter(inspector_id=inspector_id)
         report.inspector_id = inspector_id
     elif department_id:
-        inspections = inspections.filter(inspector__department_id=department_id)
+        inspections = inspections.filter(department_id=department_id)
         report.department_id = department_id
     iterate_inspections(inspections, report)
     return report
