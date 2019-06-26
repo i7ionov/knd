@@ -68,7 +68,10 @@ def new_general_report(request):
     control_kind = request.POST['control_kind'] if request.POST['control_kind'] != '0' else None
     department = request.POST['department'] if request.POST['department'] != '0' else None
     inspector = request.POST['inspector'] if request.POST['inspector'] != '0' else None
-    tasks.generate_general_report_period(owner.pk, date_begin, date_end, control_kind, department, inspector)
+    if settings.DEBUG:
+        tasks.generate_general_report_period(owner.pk, date_begin, date_end, control_kind, department, inspector)
+    else:
+        tasks.generate_general_report_period.delay(owner.pk, date_begin, date_end, control_kind, department, inspector)
     return messages.return_success()
 
 
