@@ -203,6 +203,9 @@ class ViolationInInspection(models.Model):
     class Meta:
         verbose_name = "Выявленные нарушения"
 
+    def __str__(self):
+        return self.violation_type.text
+
 
 class ViolationInPrecept(models.Model):
     violation_type = models.ForeignKey(ViolationType, on_delete=models.SET_NULL, null=True,

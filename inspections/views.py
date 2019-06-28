@@ -278,6 +278,15 @@ def additional_fields_for_inspection(object, item):
         object['houses__address__city'] = house.address.city
         object['houses__address__street'] = house.address.street
         object['houses__number'] = house.number
+    # Нарушения
+    violations = ''
+    for v in item.violationininspection_set.all():
+        if v.violation_type.children.count() == 0:
+            if v.violation_type.parent:
+                violations = f'{violations} {v.violation_type.parent.text} {v.violation_type.text};'
+            else:
+                violations = f'{violations} {v.violation_type.text};'
+    object['violationininspection__violation_type__text'] = violations
     # Предписание
     precept = models.Precept.objects.filter(parent_id=item.id).first()
     if precept is not None:

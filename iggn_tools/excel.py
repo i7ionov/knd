@@ -232,6 +232,8 @@ def export_excel(query_set, user_id, request_post=None):
     # TODO: убрать костыль
     if query_set.model == inspections.models.Inspection:
         fields.append(
+            {'verbose_name': 'нарушения', 'name': 'text', 'prefix': 'violationininspection', 'field': 'violations'})
+        fields.append(
             {'verbose_name': 'номер предписания', 'name': 'doc_number', 'prefix': 'children.', 'field': 'precept'})
         fields.append(
             {'verbose_name': 'дата предписания', 'name': 'doc_date', 'prefix': 'children.',
@@ -264,7 +266,16 @@ def export_excel(query_set, user_id, request_post=None):
     # данные
     for row, item in enumerate(query_set):
         for col, field in enumerate(fields):
-            if field['field'] == 'precept':
+            if field['field'] == 'violations':
+                violations = ''
+                for v in item.violationininspection_set.all():
+                    if v.violation_type.children.count() == 0:
+                        if v.violation_type.parent:
+                            violations = f'{violations} {v.violation_type.parent.text} {v.violation_type.text};'
+                        else:
+                            violations = f'{violations} {v.violation_type.text};'
+                ws.cell(row + 2, col + 1).value = violations
+            elif field['field'] == 'precept':
                 val = ''
                 for c in item.children.all():
                     if c.doc_type == 'предписание':
