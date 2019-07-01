@@ -35,7 +35,7 @@ DATABASES = {
         'NAME': 'iggndb',
         'USER': 'postgres',
         'PASSWORD': 'b3io8y',
-        'HOST': '10.147.79.11',
+        'HOST': '10.147.79.2',
         'PORT': '5432',
     }
 }
