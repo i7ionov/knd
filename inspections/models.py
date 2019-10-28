@@ -128,6 +128,8 @@ class Inspection(Document):
     cancellation = models.ForeignKey(Cancellation, on_delete=models.SET_NULL, null=True, blank=True,
                                      verbose_name='Информация об отмене результатов проверки')
     violations_quantity = models.IntegerField(default=0, blank=True, verbose_name='количество нарушений')
+    no_preception_needed = models.BooleanField(default=False, verbose_name='Предписание не требуется')
+    RPN_notification = models.CharField(max_length=100, null=True, blank=True, verbose_name='информация о направлении в Роспотребнадзор')
     history = HistoricalRecords()
 
     @property
@@ -161,7 +163,7 @@ class Precept(Document):
     history = HistoricalRecords()
 
     def update_days_to_start_new_inspection(self):
-        if self.children.filter(doc_type='проверка').count() > 0:
+        if self.children.filter(doc_type='проверка').count() > 0 or self.precept_result:
             self.days_to_start_new_inspection = None
         else:
             if self.prolongation_date:
