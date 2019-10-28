@@ -66,10 +66,11 @@ def iterate_inspections(inspections, report):
         # если дата акта больше дата окончания проверки
         if insp.date_end and insp.act_date and insp.date_end < insp.act_date:
             report.overdue += 1
-            if 'выездная' in insp.control_form.text.lower():
-                report.overdue_out += 1
-            if 'документарная' in insp.control_form.text.lower():
-                report.overdue_doc += 1
+            if insp.control_form:
+                if 'выездная' in insp.control_form.text.lower():
+                    report.overdue_out += 1
+                if 'документарная' in insp.control_form.text.lower():
+                    report.overdue_doc += 1
         if insp.act_date:
             report.act += 1
             report.exec_doc += 1
@@ -77,8 +78,6 @@ def iterate_inspections(inspections, report):
             if c.doc_type == 'предписание':
                 report.precept += 1
                 report.exec_doc += 1
-                if c.precept.precept_result_id == 2:
-                    report.executed_precept += 1
         report.save()
         if insp.inspection_result:
             insp_result, created = AbstractItemCountInReport.objects.get_or_create(model_name='inspection_result',
@@ -97,6 +96,8 @@ def iterate_inspections(inspections, report):
                 violation.save()
         # статистика по исправленным нарушениям
         if hasattr(insp, 'parent') and hasattr(insp.parent, 'precept'):
+            if insp.parent.precept.precept_result_id == 2:
+                report.executed_precept += 1
             update_report_for_violation_in_precept(insp.parent.precept, report)
         for p in insp.children.all():
             if p.doc_type == 'предписание':

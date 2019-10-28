@@ -248,6 +248,31 @@ def export_excel(query_set, user_id, request_post=None):
             {'verbose_name': 'результат предписания', 'name': 'precept_result', 'prefix': 'children.',
              'field': 'precept'})
 
+        fields.append(
+            {'verbose_name': 'номер предыдущего предписания', 'name': 'doc_number', 'prefix': 'parent.',
+             'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'дата предыдущегопредписания', 'name': 'doc_date', 'prefix': 'parent.',
+             'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'дата начала предыдущего исполнения', 'name': 'precept_begin_date', 'prefix': 'parent.',
+             'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'дата окончания предыдущего исполнения', 'name': 'precept_end_date', 'prefix': 'parent.',
+             'field': 'precept'})
+        fields.append(
+            {'verbose_name': 'результат предыдущего предписания', 'name': 'precept_result', 'prefix': 'parent.',
+             'field': 'precept'})
+
+        fields.append(
+            {'verbose_name': 'дата административного дела', 'name': 'protocol_date', 'prefix': 'children.',
+             'field': 'adrecord'})
+        fields.append(
+            {'verbose_name': 'дата административного дела', 'name': 'referring_to_instance_date', 'prefix': 'children.',
+             'field': 'adrecord'})
+        fields.append(
+            {'verbose_name': 'Инстанция', 'name': 'court', 'prefix': 'children.',
+             'field': 'adrecord'})
 
     if request_post and 'fields_to_count' in request_post:
         for field in request_post['fields_to_count']:
@@ -275,13 +300,24 @@ def export_excel(query_set, user_id, request_post=None):
                         else:
                             violations = f'{violations} {v.violation_type.text};'
                 ws.cell(row + 2, col + 1).value = violations
-            elif field['field'] == 'precept':
+            elif field['field'] == 'precept' and field['prefix'] == 'children.':
                 val = ''
                 for c in item.children.all():
                     if c.doc_type == 'предписание':
                         val = val + '; ' + str(c.precept.__getattribute__(field["name"]))
                 ws.cell(row + 2, col + 1).value = val
-
+            elif field['field'] == 'precept' and field['prefix'] == 'parent.':
+                val = ''
+                c = item.parent
+                if c and c.doc_type == 'предписание':
+                    val = val + '; ' + str(c.precept.__getattribute__(field["name"]))
+                ws.cell(row + 2, col + 1).value = val
+            elif field['field'] == 'adrecord':
+                val = ''
+                for c in item.children.all():
+                    if c and c.doc_type == 'административное дело':
+                        val = val + '; ' + str(c.adrecord.__getattribute__(field["name"]))
+                ws.cell(row + 2, col + 1).value = val
             elif field['field'] == 'count':
                 prefix = ''
                 model_name = None
@@ -446,3 +482,54 @@ def import_from_reestr_tsj():
         except:
             pass
         row = row + 1
+
+
+def adp_report():
+    wb = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/Форма Исх  данные для рейтинга УК 3 квартал 2019 г.xlsx')
+    sheet = wb.worksheets[0]
+
+    wb2 = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/rating.xlsx')
+    sheet1 = wb2.worksheets[0]
+    sheet2 = wb2.worksheets[1]
+
+    row = 6
+    while sheet.cell(row, 4).value is not None:
+        inn = sheet.cell(row, 4).value
+        ogrn = None
+        try:
+            ogrn = dictionaries.models.Organization.objects.filter(inn=inn).first().ogrn
+        except AttributeError:
+            pass
+        insp_count = inspections.models.Inspection.objects.filter(organization__inn=inn, act_date__gt='2019-07-01',
+                                                                  inspection_type_id=1).count()
+
+        predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
+                                                                parent__inspection__act_date__gt='2019-07-01').count()
+
+        checked_predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
+                                                                        children__inspection__act_date__gt='2019-07-01').count()
+
+        unexecuted_predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
+                                                                           children__inspection__act_date__gt='2019-07-01',
+                                                                           precept_result_id=1).count()
+        sheet.cell(row, 7).value = insp_count
+        sheet.cell(row, 10).value = predp_count
+        sheet.cell(row, 13).value = unexecuted_predp_count
+        sheet.cell(row, 14).value = checked_predp_count
+
+        sheet.cell(row, 17).value = search_in_sheet(sheet1, ogrn)
+        sheet.cell(row, 20).value = search_in_sheet(sheet2, ogrn)
+
+        row = row + 1
+    wb.save('C:/Users/ivsemionov/Desktop/Форма Исх  данные для рейтинга УК 3 квартал 2019 г.xlsx')
+
+
+def search_in_sheet(sheet, value):
+    if value is None:
+        return 0
+    row = 1
+    while sheet.cell(row, 1).value is not None:
+        if sheet.cell(row, 2).value == value:
+            return sheet.cell(row, 3).value
+        row = row + 1
+    return 0
