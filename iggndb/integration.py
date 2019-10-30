@@ -77,8 +77,7 @@ def get_file_url(full=False):
     # нажимаем кнопку войти
     but = driver.find_element_by_class_name("button-big")
     but.click()
-    driver.get_cookies()
-    time.sleep(10)  # секунды
+    time.sleep(30)  # секунды
     org = driver.find_element_by_id("org0")
     org.click()
     # на этом этапе должно выйти дилоговое окно согласия продолжить работу без использования ГОСТ Р 34.10-2001

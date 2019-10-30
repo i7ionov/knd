@@ -83,6 +83,7 @@
             {field: 'gis_gkh_number', title: 'Номер ГИС ЖКХ', width: 120, sortable: true},
             {field: 'erp_number', title: 'Номер ЕРП', width: 120, sortable: true},
             {field: 'act_date', title: 'Дата акта', width: 80, sortable: true},
+            {field: 'RPN_notification', title: 'Роспотребнадзор', width: 80, sortable: true},
             {
                 field: 'violations_quantity',
                 title: 'Количество нарушений',
@@ -161,6 +162,11 @@
             op: ['equal', 'contains'],
             defaultFilterOperator: 'equal'
         }, {
+            field: 'RPN_notification',
+            type: 'textbox',
+            op: ['equal', 'contains', 'isnone'],
+            defaultFilterOperator: 'equal'
+        },{
             field: 'violations_quantity',
             type: 'numberbox',
             options: {precision: 0},
