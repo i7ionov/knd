@@ -102,6 +102,8 @@ def iterate_inspections(inspections, report):
         for p in insp.children.all():
             if p.doc_type == 'предписание':
                 update_report_for_violation_in_precept(p, report)
+                # перерасчет
+                report.recalculation_total += p.precept.recalculation
 
     report.report_status = 'Завершен'
     report.save()
@@ -115,6 +117,7 @@ def update_report_for_violation_in_precept(p, report):
                                                                                 report=report)
             violation.count_to_remove += v.count_to_remove
             violation.count_of_removed += v.count_of_removed
+            violation.recalculation_total += p.precept.recalculation
             report.violation_count_to_remove += v.count_to_remove
             report.violation_count_of_removed += v.count_of_removed
             violation.save()

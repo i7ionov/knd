@@ -155,6 +155,8 @@ class Precept(Document):
     precept_end_date = models.DateField(null=True, blank=True, verbose_name='дата окончания исполнения предписания')
     precept_result = models.ForeignKey(PreceptResult, on_delete=models.SET_NULL, null=True, blank=True,
                                        verbose_name='результат предписания')
+    recalculation = models.IntegerField(null=True, blank=True,
+                                         verbose_name='сумма перерасчета')
     prolongation_date = models.DateField(null=True, blank=True,
                                          verbose_name='дата окончания исполнения предписания с продлением')
     days_to_start_new_inspection = models.IntegerField(null=True, blank=True,

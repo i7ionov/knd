@@ -32,7 +32,7 @@ class InspectionForm(forms.ModelForm):
 class PreceptForm(forms.ModelForm):
     class Meta:
         model = Precept
-        fields = ['doc_number', 'doc_date', 'precept_begin_date', 'precept_end_date', 'precept_result',
+        fields = ['doc_number', 'doc_date', 'precept_begin_date', 'precept_end_date', 'precept_result', 'recalculation',
                   'prolongation_date', 'organization', 'houses',
                   'comment']
         widgets = {

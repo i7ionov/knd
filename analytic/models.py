@@ -74,6 +74,7 @@ class GeneralReport(models.Model):
     violation_count = models.IntegerField(verbose_name='Количество выявленных нарушений', default=0)
     violation_count_to_remove = models.IntegerField(verbose_name='Количество нарушений к устранению', default=0)
     violation_count_of_removed = models.IntegerField(verbose_name='Количество устраненных нарушений', default=0)
+    recalculation_total = models.IntegerField(verbose_name='Общая сумма перерасчета', default=0)
     # Раздел 3 - результаты деятельности
     exec_doc = models.IntegerField(verbose_name='Количество составленных исполнительных документов',
                                    default=0)
@@ -94,6 +95,7 @@ class ViolationInGeneralReport(models.Model):
     count = models.IntegerField(default=0, verbose_name='количество нарушений выявлено')
     count_to_remove = models.IntegerField(default=0, verbose_name='количество нарушений к устранению')
     count_of_removed = models.IntegerField(default=0, verbose_name='количество нарушений по факту устранено')
+    recalculation_total = models.IntegerField(verbose_name='Общая сумма перерасчета', default=0)
     report = models.ForeignKey(GeneralReport, on_delete=models.SET_NULL, null=True, verbose_name='Отчет')
 
 

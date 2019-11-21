@@ -337,6 +337,7 @@ def save_violations_in_precept(violations, precept):
         v_count_of_removed = str(v).split(';')[2]
         # если не указано количество нарушений к устранению, то вообще пропускаем это нарушение
         if str(v_count_to_remove) == 'undefined' or str(v_count_to_remove) == '':
+            precept.violationinprecept_set.filter(violation_type_id=v_id).delete()
             continue
         if int(v_count_to_remove) > 0:
             try:

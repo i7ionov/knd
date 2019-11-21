@@ -220,6 +220,7 @@
             <th>Выявлено</th>
             <th>Устранить</th>
             <th>Устранено</th>
+            <th>Перерасчет</th>
         </tr>
         </thead>
         <tbody>
@@ -229,6 +230,7 @@
             <td>{{ report.violation_count }}</td>
             <td>{{ report.violation_count_to_remove }}</td>
             <td>{{ report.violation_count_of_removed }}</td>
+            <td>{{ report.recalculation_total }}</td>
         </tr>
         {% for v in violations %}
             <tr>
@@ -237,6 +239,7 @@
                 <td>{{ v.count }}</td>
                 <td>{{ v.count_to_remove }}</td>
                 <td>{{ v.count_of_removed }}</td>
+                <td>{{ v.recalculation_total }}</td>
             </tr>
         {% endfor %}
         </tbody>
