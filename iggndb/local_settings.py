@@ -34,7 +34,7 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testiggndb',
+        'NAME': 'iggndb',
         'USER': 'postgres',
         'PASSWORD': 'b3io8y',
         'HOST': '10.147.79.2',
