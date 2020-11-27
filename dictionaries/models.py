@@ -77,7 +77,7 @@ class File(models.Model):
 
 
 class Organization(models.Model):
-    name = models.CharField(max_length=100, blank=True, verbose_name='Наименование организации')
+    name = models.CharField(max_length=200, blank=True, verbose_name='Наименование организации')
     inn = models.CharField(max_length=100, blank=True, null=True, verbose_name='ИНН')
     ogrn = models.CharField(max_length=100, blank=True, null=True, verbose_name='ОГРН')
     is_bankrupt = models.BooleanField(default=False, blank=True, verbose_name='Банкрот')

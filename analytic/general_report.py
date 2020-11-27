@@ -112,6 +112,7 @@ def iterate_inspections(inspections, report):
 
 
 def update_report_for_violation_in_precept(p, report):
+    print(f'Предписание id={p.id} №{p.doc_number} от {p.doc_date}. Дата окончания устранения {p.precept.precept_end_date}')
     for v in p.precept.violationinprecept_set.all():
         if v.violation_type.children.count() == 0:
             violation, created = ViolationInGeneralReport.objects.get_or_create(violation_type_id=v.violation_type.id,

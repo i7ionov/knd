@@ -273,6 +273,9 @@ def export_excel(query_set, user_id, request_post=None):
         fields.append(
             {'verbose_name': 'Инстанция', 'name': 'court', 'prefix': 'children.',
              'field': 'adrecord'})
+        fields.append(
+            {'verbose_name': 'id', 'name': 'id', 'prefix': '',
+             'field': 'id'})
 
     if request_post and 'fields_to_count' in request_post:
         for field in request_post['fields_to_count']:
@@ -349,7 +352,7 @@ def export_excel(query_set, user_id, request_post=None):
                     if val == '':
                         val = str(i)
                     else:
-                        val = val + ',' + str(i)
+                        val = val + ';' + str(i)
                 ws.cell(row + 2, col + 1).value = val
             elif field['field'].__class__ == django.db.models.fields.DateField:
                 val = iggn_tools.tools.get_value(item, field['prefix'] + field['name'])
@@ -485,12 +488,14 @@ def import_from_reestr_tsj():
 
 
 def adp_report():
-    wb = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/Форма Исх  данные для рейтинга УК 3 квартал 2019 г.xlsx')
+    wb = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/рейтинг/Данные для рейтинга.xlsx')
     sheet = wb.worksheets[0]
 
-    wb2 = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/rating.xlsx')
+    wb2 = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/рейтинг/rating.xlsx')
     sheet1 = wb2.worksheets[0]
     sheet2 = wb2.worksheets[1]
+    print(sheet1.title)
+    print(sheet2.title)
 
     row = 6
     while sheet.cell(row, 4).value is not None:
@@ -500,17 +505,22 @@ def adp_report():
             ogrn = dictionaries.models.Organization.objects.filter(inn=inn).first().ogrn
         except AttributeError:
             pass
-        insp_count = inspections.models.Inspection.objects.filter(organization__inn=inn, act_date__gt='2019-07-01',
+        insp_count = inspections.models.Inspection.objects.filter(organization__inn=inn, act_date__gt='2020-04-01',
+                                                                  act_date__lt='2020-06-30',
                                                                   inspection_type_id=1).count()
 
         predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
-                                                                parent__inspection__act_date__gt='2019-07-01').count()
+                                                                parent__inspection__act_date__gt='2020-04-01',
+                                                                parent__inspection__act_date__lt='2020-06-30').count()
 
         checked_predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
-                                                                        children__inspection__act_date__gt='2019-07-01').count()
+                                                                        children__inspection__act_date__gt='2020-04-01',
+                                                                        children__inspection__act_date__lt='2020-06-30',
+                                                                        ).count()
 
         unexecuted_predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
-                                                                           children__inspection__act_date__gt='2019-07-01',
+                                                                           children__inspection__act_date__gt='2020-04-01',
+                                                                           children__inspection__act_date__lt='2020-06-30',
                                                                            precept_result_id=1).count()
         sheet.cell(row, 7).value = insp_count
         sheet.cell(row, 10).value = predp_count
@@ -521,7 +531,7 @@ def adp_report():
         sheet.cell(row, 20).value = search_in_sheet(sheet2, ogrn)
 
         row = row + 1
-    wb.save('C:/Users/ivsemionov/Desktop/Форма Исх  данные для рейтинга УК 3 квартал 2019 г.xlsx')
+    wb.save('C:/Users/ivsemionov/Desktop/рейтинг/Копия Расчет баллов для рейтинга УК 1 квартал 2020 г  (исключены УК без лиценз )1.xlsx')
 
 
 def search_in_sheet(sheet, value):
@@ -529,7 +539,7 @@ def search_in_sheet(sheet, value):
         return 0
     row = 1
     while sheet.cell(row, 1).value is not None:
-        if sheet.cell(row, 2).value == value:
-            return sheet.cell(row, 3).value
+        if value in sheet.cell(row, 1).value:
+            return sheet.cell(row, 3).value.lstrip()
         row = row + 1
     return 0

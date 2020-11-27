@@ -1,7 +1,7 @@
 <ul class="easyui-datalist" lines="true" style="width:100%;height:250px">
     {% for d in precepts %}
         <li value="{{ d.pk }}"><a href="javascript:void(0)" style="color: black" onclick="
-        addTab('#tt', 'Предписание № {{ d.doc_number }}', '{% url 'edit_precept_form' id=d.pk %}');
+        addTab('#tt', 'Предписание id {{ d.pk }}', '{% url 'edit_precept_form' id=d.pk %}');
         ">№{{ d.doc_number }} от {{ d.doc_date|date:"d.m.Y" }}</a></li>
     {% endfor %}
 </ul>

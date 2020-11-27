@@ -50,16 +50,16 @@
         url: "{% url 'document_tree_json' document.id %}",
         onDblClick: function (node) {
             if (node.doc_type === 'проверка') {
-                addTab('#tt', 'Распоряжение № ' + node.doc_number, '/insp/inspection_form/' + node.id + '/');
+                addTab('#tt', 'Распоряжение id ' + node.id, '/insp/inspection_form/' + node.id + '/');
             }
             else if (node.doc_type === 'предписание') {
-                addTab('#tt', 'Предписание № ' + node.doc_number, '/insp/precept_form/' + node.id + '/');
+                addTab('#tt', 'Предписание id ' + node.id, '/insp/precept_form/' + node.id + '/');
             }
             else if (node.doc_type === 'административное дело') {
-                addTab('#tt', 'Административное дело № ' + node.doc_number, '/ad/ad_record_form/' + node.id + '/');
+                addTab('#tt', 'Административное дело id ' + node.id, '/ad/ad_record_form/' + node.id + '/');
             }
             else if (node.doc_type === 'исполнительное дело') {
-                addTab('#tt', 'Исполнительное дело № ' + node.doc_number, '/ad/execution_form/' + node.id + '/');
+                addTab('#tt', 'Исполнительное дело id ' + node.id, '/ad/execution_form/' + node.id + '/');
             }
         }
     });

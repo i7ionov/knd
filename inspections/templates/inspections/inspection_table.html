@@ -136,7 +136,7 @@
 
         },
         onDblClickRow: function (index, row) {
-            addTab('#tt', 'Проверка № ' + row['doc_number'], '/insp/inspection_form/' + row['id'] + '/');
+            addTab('#tt', 'Проверка id ' + row['id'] , '/insp/inspection_form/' + row['id'] + '/');
         },
         rowStyler: function (index, row) {
             if (row.children__precept__days_to_start_new_inspection < 0) {
