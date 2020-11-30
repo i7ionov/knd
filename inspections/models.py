@@ -104,7 +104,7 @@ class ViolationType(MPTTModel):
 # 
 class Inspection(Document):
     inspection_type = models.ForeignKey(InspectionType, on_delete=models.SET_NULL, null=True, blank=True,
-                                     verbose_name='тип проверки')  # первичная, проверка исполнения предписания
+                                        verbose_name='тип проверки')  # первичная, проверка исполнения предписания
     legal_basis = models.ForeignKey(LegalBasis, on_delete=models.SET_NULL, null=True, blank=True,
                                     verbose_name='основание для проверки')
     control_kind = models.ForeignKey(ControlKind, on_delete=models.SET_NULL, null=True, blank=True,
@@ -129,7 +129,8 @@ class Inspection(Document):
                                      verbose_name='Информация об отмене результатов проверки')
     violations_quantity = models.IntegerField(default=0, blank=True, verbose_name='количество нарушений')
     no_preception_needed = models.BooleanField(default=False, verbose_name='Предписание не требуется')
-    RPN_notification = models.CharField(max_length=100, null=True, blank=True, verbose_name='информация о направлении в Роспотребнадзор')
+    RPN_notification = models.CharField(max_length=100, null=True, blank=True,
+                                        verbose_name='информация о направлении в Роспотребнадзор')
     history = HistoricalRecords()
 
     @property
@@ -156,16 +157,17 @@ class Precept(Document):
     precept_result = models.ForeignKey(PreceptResult, on_delete=models.SET_NULL, null=True, blank=True,
                                        verbose_name='результат предписания')
     recalculation = models.IntegerField(null=True, blank=True,
-                                         verbose_name='сумма перерасчета')
+                                        verbose_name='сумма перерасчета')
     prolongation_date = models.DateField(null=True, blank=True,
                                          verbose_name='дата окончания исполнения предписания с продлением')
     days_to_start_new_inspection = models.IntegerField(null=True, blank=True,
-                                         verbose_name='Дней до запуска проверки')
+                                                       verbose_name='Дней до запуска проверки')
     comment = models.TextField(default="", blank=True)  # комментарий
     history = HistoricalRecords()
 
     def update_days_to_start_new_inspection(self):
-        if self.children.filter(doc_type='проверка').count() > 0 or self.precept_result:
+        if self.children.filter(
+                doc_type='проверка').count() > 0 or self.precept_result and self.precept_result.text != 'Продлено':
             self.days_to_start_new_inspection = None
         else:
             if self.prolongation_date:
