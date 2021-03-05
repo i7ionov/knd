@@ -19,7 +19,8 @@ def filtered_table_json_response(request, model, func=None, filtering_rules=None
     """
     objects = []
     # получаем отфильтрованый QuerySet
-    query = get_filtered_query_set(model, request.POST, filtering_rules)
+    query = get_filtered_query_set(model, request.POST, filtering_rules).distinct()
+    print(query)
     count = query.count()
     # пагинация
     if "rows" in request.POST:
