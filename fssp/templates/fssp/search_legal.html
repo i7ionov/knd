@@ -1,0 +1,51 @@
+<div style="padding: 20px">
+    <form action='' id="fm" method='post' role="form" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div style="padding:5px">
+            <input type="text" id="token" style="width: 500px"/>
+        </div>
+        <div style="padding:5px">
+            <input type="text" id="name" style="width: 500px"/>
+        </div>
+
+        <div>
+            <a href="javascript:void(0)" id='submit' class="easyui-linkbutton"
+               style="padding:5px 0px;width:100%;">
+                <span style="font-size:14px;">Отправить</span>
+            </a>
+        </div>
+    </form>
+
+</div>
+<div id="result" style="padding:20px;">
+
+</div>
+<script>
+    var token = $('#token').textbox({
+        label: 'Токен',
+        labelPosition: 'top'
+    });
+    var name = $('#name').textbox({
+        label: 'Фрагмент названия должника - юридического лица',
+        labelPosition: 'top'
+    });
+    var form = $('#fm').form()
+
+    $('#submit').linkbutton({
+        onClick: function submit() {
+            $.post('{% url 'fssp_search_legal' %}', {
+                token: $('#token').textbox('getText'),
+                name: $('#name').textbox('getText')
+            }, function (f) {
+                if (f.code == 401) {
+                    alert('Неверный токен')
+                } else if (f.code == 0) {
+                    alert(`Запрос отправлен. Идентификатор запроса: ${f.response.task}`)
+                }
+            })
+        }
+    })
+
+
+</script>

@@ -1,0 +1,55 @@
+<table id="dg" sortName="id" sortOrder="desc"></table>
+<div id="toolbar">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newRequest()">Новый запрос</a>
+
+</div>
+
+<script type="text/javascript">
+    $('#dg').datagrid({
+        url: '/fssp/request_json_table/',
+        method: 'post',
+        toolbar: "#toolbar",
+        remoteFilter: true,
+        clientPaging: false,
+        pagination: true,
+        pageSize: 20,
+        height: height-60,
+        singleSelect: "true",
+        columns: [[
+            {field: 'id', title: 'id', width: 60, sortable: true},
+            {field: 'task', title: 'Номер запроса', width: 300, sortable: true},
+            {field: 'text', title: 'Описание', width: 500, sortable: true},
+
+        ]],
+
+        columnMoving: true,
+        onBeforeDropColumn: function () {
+            $(this).datagrid('disableFilter');
+        },
+        onDropColumn: function () {
+            $(this).datagrid('enableFilter');
+            $(this).datagrid('doFilter');
+        },
+        onDblClickRow: function (index, row) {
+            addTab('#tt', 'Ответ ФССП ' + row['id'], '/fssp/response/' + row['id'] + '/');
+        }
+    });
+
+    $(function () {
+        let dg = $('#dg').datagrid();
+        dg.datagrid('enableFilter', [{
+            field: 'id',
+            type: 'numberbox',
+            options: {precision: 0},
+            op: ['equal', 'less', 'greater']
+
+        }]);    // enable filter
+        dg.datagrid('columnMoving');
+    });
+
+    function newRequest() {
+        addTab('#tt', 'Новый запрос в ФССП', '{% url 'fssp_query_form'%}');
+    }
+
+
+</script>

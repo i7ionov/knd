@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'inspections',
     'ad',
     'analytic',
+    'fssp',
     'functional_tests',
 ]
 

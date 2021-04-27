@@ -487,15 +487,15 @@ def import_from_reestr_tsj():
         row = row + 1
 
 
-def adp_report():
+def adp_report(date_start, date_end):
+    inspections.models.Inspection.objects.rebuild()
     wb = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/рейтинг/Данные для рейтинга.xlsx')
     sheet = wb.worksheets[0]
 
     wb2 = openpyxl.load_workbook('C:/Users/ivsemionov/Desktop/рейтинг/rating.xlsx')
     sheet1 = wb2.worksheets[0]
     sheet2 = wb2.worksheets[1]
-    print(sheet1.title)
-    print(sheet2.title)
+    
 
     row = 6
     while sheet.cell(row, 4).value is not None:
@@ -505,22 +505,22 @@ def adp_report():
             ogrn = dictionaries.models.Organization.objects.filter(inn=inn).first().ogrn
         except AttributeError:
             pass
-        insp_count = inspections.models.Inspection.objects.filter(organization__inn=inn, act_date__gt='2020-04-01',
-                                                                  act_date__lt='2020-06-30',
+        insp_count = inspections.models.Inspection.objects.filter(organization__inn=inn, act_date__gt=date_start,
+                                                                  act_date__lt=date_end,
                                                                   inspection_type_id=1).count()
 
         predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
-                                                                parent__inspection__act_date__gt='2020-04-01',
-                                                                parent__inspection__act_date__lt='2020-06-30').count()
+                                                                parent__inspection__act_date__gt=date_start,
+                                                                parent__inspection__act_date__lt=date_end).count()
 
         checked_predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
-                                                                        children__inspection__act_date__gt='2020-04-01',
-                                                                        children__inspection__act_date__lt='2020-06-30',
+                                                                        children__inspection__act_date__gt=date_start,
+                                                                        children__inspection__act_date__lt=date_end,
                                                                         ).count()
 
         unexecuted_predp_count = inspections.models.Precept.objects.filter(organization__inn=inn,
-                                                                           children__inspection__act_date__gt='2020-04-01',
-                                                                           children__inspection__act_date__lt='2020-06-30',
+                                                                           children__inspection__act_date__gt=date_start,
+                                                                           children__inspection__act_date__lt=date_end,
                                                                            precept_result_id=1).count()
         sheet.cell(row, 7).value = insp_count
         sheet.cell(row, 10).value = predp_count
@@ -531,7 +531,7 @@ def adp_report():
         sheet.cell(row, 20).value = search_in_sheet(sheet2, ogrn)
 
         row = row + 1
-    wb.save('C:/Users/ivsemionov/Desktop/рейтинг/Копия Расчет баллов для рейтинга УК 1 квартал 2020 г  (исключены УК без лиценз )1.xlsx')
+    wb.save('C:/Users/ivsemionov/Desktop/рейтинг/Расчет баллов для рейтинга УК.xlsx')
 
 
 def search_in_sheet(sheet, value):

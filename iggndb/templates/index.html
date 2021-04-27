@@ -4,34 +4,48 @@
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="inspections_menu">Проверки<b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="inspections_menu">Проверки<b
+                                class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id='inspection_table_menu_item' onclick="addTab('#tt', 'Реестр проверок', '{% url 'inspection_table' %}', false)">Реестр
+                            <li><a href="#" id='inspection_table_menu_item'
+                                   onclick="addTab('#tt', 'Реестр проверок', '{% url 'inspection_table' %}', false)">Реестр
                                 проверок</a></li>
-                            <li><a href="#" onclick="addTab('#tt', 'Реестр административных дел', '{% url 'ad_record_table' %}', false)">Реестр административных дел</a></li>
+                            <li><a href="#"
+                                   onclick="addTab('#tt', 'Реестр административных дел', '{% url 'ad_record_table' %}', false)">Реестр
+                                административных дел</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" onclick="addTab('#tt', 'Организации', '{% url 'org_table' %}')">Организации</a>
+                            <li><a href="#"
+                                   onclick="addTab('#tt', 'Организации', '{% url 'org_table' %}')">Организации</a>
                             <li><a href="#" onclick="addTab('#tt', 'Дома', '{% url 'house_table' %}')">Дома</a>
+                            <li><a href="#" onclick="addTab('#tt', 'ФССП', '{% url 'requests_table' %}')">ФССП</a>
+                            </li>
                             {% if user.is_staff %}
-                            <li><a href="#" onclick="addTab('#tt', 'Календарь', '{% url 'working_day_calendar' %}')">Календарь</a></li>
+                                <li><a href="#"
+                                       onclick="addTab('#tt', 'Календарь', '{% url 'working_day_calendar' %}')">Календарь</a>
+                                </li>
                             {% endif %}
 
                         </ul>
                     </li>
-                <li class="dropdown">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Аналитика<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" onclick="addTab('#tt', 'Ежемесячные отчеты', '{% url 'general_report_table' %}')">Ежемесячные отчеты</a>
-                            <li><a href="#" onclick="addTab('#tt', 'Выгрузка в Excel', '{% url 'excel_export_table' %}')">Выгрузка в Excel</a>
+                            <li><a href="#"
+                                   onclick="addTab('#tt', 'Ежемесячные отчеты', '{% url 'general_report_table' %}')">Ежемесячные
+                                отчеты</a>
+                            <li><a href="#"
+                                   onclick="addTab('#tt', 'Выгрузка в Excel', '{% url 'excel_export_table' %}')">Выгрузка
+                                в Excel</a>
                         </ul>
                     </li>
-                 <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b
+                                class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/admin">Админка</a>
                             <li><a href="http://10.147.79.8:5555">Flower</a>
@@ -52,17 +66,17 @@
 
 
 
-        <div id="tt" class="easyui-tabs" style="padding:10px;width:100%;margin-top:40px">
+    <div id="tt" class="easyui-tabs" style="padding:10px;width:100%;margin-top:40px">
 
-        </div>
+    </div>
 
 
-<script>
-    let height = document.body.clientHeight-40;
-    $('#tt').tabs({
-        height: height
+    <script>
+        let height = document.body.clientHeight - 40;
+        $('#tt').tabs({
+            height: height
 
-    });
+        });
 
-</script>
+    </script>
 {% endblock %}

@@ -1,0 +1,29 @@
+{{ form.media }}
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div data-options="region:'west',split:true" title="Виды запросов" style="width:370px;">
+        <ul>
+            <li>
+                <a href="#">Запрос на поиск сведений о физическом лице</a>
+            </li>
+            <li>
+                <a href="#" onclick="searchLegal()">Запрос на поиск сведений о юридическом лице</a>
+            </li>
+        </ul>
+
+
+    </div>
+    <div data-options="region:'center'">
+        <div id="p" class="easyui-panel">
+
+        </div>
+    </div>
+
+
+</div>
+<script>
+    function searchLegal() {
+        $('#p').panel('refresh', '{%url 'fssp_search_legal'%}');
+    }
+
+
+</script>

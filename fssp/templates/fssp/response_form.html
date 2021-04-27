@@ -1,0 +1,78 @@
+<div style="padding: 20px">
+    <form action='' id="fm" method='post' role="form" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div style="padding:5px">
+            <input type="text" id="token" style="width: 500px" value="{{ token }}"/>
+        </div>
+        <div style="padding:5px">
+            <input type="text" id="task" style="width: 500px" value="{{ task }}"/>
+        </div>
+
+        <div>
+            <a href="javascript:void(0)" id='submit' class="easyui-linkbutton"
+               style="padding:5px 0px;width:100%;">
+                <span style="font-size:14px;">Получить ответ</span>
+            </a>
+        </div>
+    </form>
+
+</div>
+<div id="result" style="padding:20px;">
+    <table id="result_dg"></table>
+</div>
+<script>
+    var token = $('#token').textbox({
+        label: 'Токен',
+        labelPosition: 'top'
+    });
+    var task = $('#task').textbox({
+        label: 'Идентификатор запроса',
+        labelPosition: 'top'
+    });
+    var form = $('#fm').form()
+    var data = [{
+        bailiff: "ЗНАЕШЕВА Е. Р.<br>+73422201159",
+        department: "ОСП по Дзержинскому району г. Перми УФССП России по Пермскому краю 614068, , Пермский край, , г. Пермь, , ул. Петропавловская, 111, , ",
+        details: "Постановление судебного пристава-исполнителя от 31.01.2018 № 59050/18/54322 ОСП ПО ДЗЕРЖИНСКОМУ Р-НУ Г.ПЕРМИ УФССП РОССИИ ПО ПЕРМСКОМУ КРАЮ",
+        exe_production: "15216/18/59050-ИП от 02.02.2018",
+        ip_end: "2018-07-31, 46, 1, 3",
+        name: 'ООО "МОТОРОСТРОИТЕЛЬ-ПЛЮС", 614081,59, ПЕРМЬ Г, ПЛЕХАНОВА УЛ,53, 1',
+        subject: ""
+    }]
+    $('#submit').linkbutton({
+        onClick: function submit() {
+            $.post('{% url 'result' %}', {
+                token: $('#token').textbox('getText'),
+                task: $('#task').textbox('getText')
+            }, function (f) {
+                if (f.code == 401) {
+                    alert('Неверный токен')
+                } else if (f.code == 0) {
+                    console.log(this.data)
+                    this.data = f.response.result[0].result
+                    $('#result_dg').datagrid({
+                        remoteFilter: false,
+                        nowrap: false,
+                        data: this.data,
+                        clientPaging: false,
+                        singleSelect: "true",
+                        columns: [[
+                            {field: 'name', title: 'Название', width: 300, sortable: true},
+                            {field: 'department', title: 'Отделение', width: 300, sortable: true},
+                            {field: 'details', title: 'Детали', width: 300, sortable: true},
+                            {field: 'exe_production', title: 'Исполнительное производство', width: 300, sortable: true},
+                            {field: 'ip_end', title: 'Окончание исп. произв.', width: 300, sortable: true},
+                            {field: 'subject', title: 'Предмет', width: 300, sortable: true},
+                            {field: 'bailiff', title: 'Пристав', width: 300, sortable: true},
+
+                        ]],
+
+                    }).datagrid('enableFilter');
+                }
+            })
+        }
+    })
+
+
+</script>
