@@ -531,6 +531,7 @@ def adp_report(date_start, date_end):
         sheet.cell(row, 20).value = search_in_sheet(sheet2, ogrn)
 
         row = row + 1
+    print('Генерация отчета завершена')
     wb.save('C:/Users/ivsemionov/Desktop/рейтинг/Расчет баллов для рейтинга УК.xlsx')
 
 
