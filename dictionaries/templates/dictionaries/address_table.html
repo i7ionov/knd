@@ -1,10 +1,14 @@
 <table id="addr_dg{{ uid }}"></table>
+<div id="address_toolbar">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newAddress()">Добавить новый адрес</a>
 
+</div>
 <script type="text/javascript">
     $('#addr_dg{{ uid }}').datagrid({
         url: '{% url 'addr_table_json' %}',
         method: 'post',
         remoteFilter: true,
+        toolbar: "#address_toolbar",
         clientPaging: false,
         pagination: true,
         pageSize: 10,
@@ -20,6 +24,9 @@
             let url='/dict/get_houses_numbers/' + row['id'] + '/';
             console.log(url);
             $('#house_number{{ uid }}').combobox('reload', url);
+        },
+        onDblClickRow: function (index, row) {
+            addTab('#tt', row['city'] + ' ' + row['street'], '/dict/addr_form/' + row['id'] + '/');
         }
     });
 
@@ -32,5 +39,8 @@
             op: ['equal', 'less', 'greater']
         }]);    // enable filter
     });
+    function newAddress() {
+        addTab('#tt', 'Новый адрес', '{% url 'new_address_form' %}');
+    }
 
 </script>

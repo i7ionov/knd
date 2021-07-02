@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 import simplejson as json
 from django.http import HttpResponse
 from django.contrib.admin.models import LogEntryManager, LogEntry
-from dictionaries.forms import OrganizationForm, HouseForm
+from dictionaries.forms import OrganizationForm, HouseForm, AddressForm
 from dictionaries.models import House, Address, Document, File, WorkingDays, Organization
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -60,6 +60,58 @@ def addr_table(request):
     except MultiValueDictKeyError:
         context['uid'] = uuid.uuid1().hex
     return render(request, 'dictionaries/address_table.html', context)
+
+
+
+
+
+@login_required
+@permission_required('dictionaries.add_address', raise_exception=True)
+def new_address_form(request):
+    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
+    # а если она подгружается с помощью jQuery, то load_static будет равен False
+    load_static = False if 'HTTP_REFERER' in request.META else True
+    uid = uuid.uuid1().hex
+    addr = Address()
+    addr.save()
+    form = AddressForm()
+    context = {'form': form, 'load_static': load_static, 'uid': uid,
+               'user_has_perm_to_save': request.user.has_perm('dictionaries.change_address'),
+               'document': addr}
+    return render(request, 'dictionaries/address_form.html', context)
+
+
+@login_required
+@permission_required('dictionaries.change_address', raise_exception=True)
+@require_POST
+def address_form_save(request):
+    addr = Address.objects.get(pk=request.POST['pk'])
+    form = AddressForm(request.POST, instance=addr)
+    if form.is_valid():
+        form.save()
+        return messages.return_success()
+    else:
+        return messages.return_form_error(form)
+
+
+@login_required
+@permission_required('dictionaries.view_address', raise_exception=True)
+def edit_address_form(request, id):
+    # если страница открывается самостоятельной вкладкой в браузере, то load_static будет равен True
+    # а если она подгружается с помощью jQuery, то load_static будет равен False
+    load_static = False if 'HTTP_REFERER' in request.META else True
+    uid = uuid.uuid1().hex
+    addr = get_object_or_404(Address, pk=id)
+    form = AddressForm(instance=addr)
+    context = {'form': form, 'load_static': load_static, 'uid': uid,
+               'user_has_perm_to_save': request.user.has_perm('dictionaries.change_address'),
+               'document': addr, 'model_name': 'address'}
+    return render(request, 'dictionaries/address_form.html', context)
+
+
+
+
+
 
 
 @login_required

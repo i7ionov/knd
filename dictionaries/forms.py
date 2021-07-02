@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from dictionaries.widgets.organization import OrganizationWidget
-from .models import Organization, House
+from .models import Organization, House, Address
 from iggn_tools.widgets.none_widget import NoneWidget
 
 
@@ -23,6 +23,19 @@ class OrganizationForm(forms.ModelForm):
         css = {
             'all': ('css/bootstrap.css', 'themes/gray/easyui.css', 'themes/icon.css')
         }
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['area', 'place', 'city', 'street']
+
+    class Media:
+        js = ('jquery.min.js', 'jquery.easyui.min.js', 'my.js')
+        css = {
+            'all': ('css/bootstrap.css', 'themes/gray/easyui.css', 'themes/icon.css')
+        }
+
 
 
 class HouseForm(forms.ModelForm):

@@ -6,6 +6,10 @@ urlpatterns = [
     path('addr_select/', views.addr_select, name='addr_select'),
     path('addr_table_json/', views.addr_table_json, name='addr_table_json'),
     path('addr_table/', views.addr_table, name='addr_table'),
+    path('addr_form/new/', views.new_address_form, name='new_address_form'),
+    path('addr_form/save/', views.address_form_save, name='addr_form_save'),
+    path('addr_form/<slug:id>/', views.edit_address_form, name='edit_address_form'),
+
     path('get_house_id/', views.get_house_id, name='get_house_id'),
     path('get_houses_numbers/<slug:addr_id>/', views.get_houses_numbers, name='get_houses_numbers'),
 
